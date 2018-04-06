@@ -1,0 +1,155 @@
+html, body
+  height: 100%
+  display: table
+  width: 100%
+  min-width: 320px
+  min-height: 540px
+body[orient="portrait"]
+  min-height: 540px
+body[orient="landscape"]
+  min-height: 400px
+// Common Style-.m-b
+td
+  padding-right: 3px !important
+  padding-left: 3px !important
+.m-b
+  margin-bottom: 15px !important
+.table
+  overflow: scroll
+.no-p
+  padding: 0 !important
+.no-p-t
+  padding-top: 0
+.no-p-r
+  padding-right: 0 !important
+.no-p-l
+  padding-left: 0 !important
+.no-m
+  margin: 0 !important
+.no-pm
+  margin: 0 !important
+  padding: 0 !important
+.inline
+  margin-left: 10px
+  display: inline
+[class*='col-']
+  display: inline-block
+.show
+  display: block
+.hide
+  display: none
+.row
+  margin-bottom: 10px
+.top15
+  margin-top: 15px
+a
+  cursor: pointer
+  &:hover
+    text-decoration: none
+.middle
+  vertical-align: middle !important
+  text-align: center
+ul
+  @extend .no-p
+li
+  list-style: none
+  cursor: pointer
+li *
+  display: inline-block
+.txt-nowrap
+  white-space: nowrap
+
+input
+  height: 34px
+tr th
+  text-align: center
+  vertical-align: inherit !important
+.link
+  &:hover
+    background-color: powderblue
+    cursor: pointer
+.txt-l
+  text-align: left !important
+.txt-r
+  text-align: right !important
+.txt-c
+  text-align: center
+.ui-l
+  float: left
+.ui-r
+  float: right
+  margin-right: 0 !important
+.w100
+  width: 100%
+// boostrap fix
+.glyphicon
+  margin-right: 2px
+.form-control
+  height: 30pt
+  font-size: 11.5pt
+.form
+  margin-bottom: 15px
+.test
+  border: solid 1px red !important
+.bc-1
+  border: 1px solid #25AAF2
+.bc-2
+  border: 1px solid #54C059
+.bc-3
+  border: 1px solid #F5A500
+.bc-4
+  border: 1px solid #9361EA
+.bc-5
+  border: 1px solid #EE483B
+.bc-6
+  border: 1px solid #999
+.bg-1
+  background-color: chocolate
+.bg-2
+  background-color: #54C059
+.bg-3
+  background-color: #F5A500
+.bg-4
+  background-color: #9361EA
+.bg-5
+  background-color: #EE483B
+.bg-6
+  background-color: #999
+.tc-1
+  color: cadetblue
+.tc-2
+  color: #54C059
+.tc-3
+  color: #F5A500
+.tc-4
+  color: #9361EA
+.tc-5
+  color: #EE483B
+.tc-6
+  color: #999
+.tc-7
+  color: white
+// Fixed bootstrap
+.alert
+  margin: 0
+  padding: 5px 8px 6px 8px
+  div:not(:last-child)
+    margin-right: 5px
+.font-1
+  font-size: 13pt
+  font-weight: bold
+.font-2
+  font-weight: bold
+// Component general
+.item
+  cursor: pointer
+.action-message
+  padding: 8px
+[class*='btn']:not(:first-child)
+  margin-left: 5px
+.btn-delete:hover
+  @extend .tc-3
+  cursor: pointer
+.dialog
+  position: absolute
+  top: 100px
