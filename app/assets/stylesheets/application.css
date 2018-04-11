@@ -1,4 +1,5 @@
 /*
- *= require_tree .
+ *= require bootstrap.min.css
+ *= require icheck/square/green.css
  *= require_self
  */

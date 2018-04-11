@@ -1,26 +1,65 @@
-<h2>Log in</h2>
-
-<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password %><br />
-    <%= f.password_field :password, autocomplete: "off" %>
-  </div>
-
-  <% if devise_mapping.rememberable? -%>
-    <div class="field">
-      <%= f.check_box :remember_me %>
-      <%= f.label :remember_me %>
+<div class="app-content content ">
+  <div class="content-wrapper">
+    <div class="content-header row">
     </div>
-  <% end -%>
-
-  <div class="actions">
-    <%= f.submit "Log in" %>
+    <div class="content-body">
+      <section class="flexbox-container">
+        <div class="col-12 d-flex align-items-center justify-content-center">
+          <div class="col-md-6 col-lg-4 col-sm-10 col-12 box-shadow-2 p-0">
+            <div class="card border-grey border-lighten-3 m-0">
+              <div class="card-header border-0">
+                <h4 class="card-subtitle line-on-side text-muted text-center font-small-3 pt-2">
+                  <span>ĐĂNG NHẬP VÀO TRANG QUẢN LÝ</span>
+                </h4>
+              </div>
+              <div class="card-content">
+                <div class="card-body">
+                  <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: "form-horizontal form-simple" }) do |f|  %>
+                    <fieldset class="form-group">
+                      <%= f.text_field :login, autofocus: true, placeholder: 'Phone Number or Email',  class: 'form-control form-control-lg input-lg' %>
+                    </fieldset>
+                    <fieldset class="form-group ">
+                      <%= f.password_field :password, autocomplete: "on", placeholder: 'Password',  class: 'form-control form-control-lg input-lg' %>
+                    </fieldset>
+                    <div class="form-group row">
+                      <div class="col-sm-6 col-12 text-center text-md-left">
+                        <fieldset>
+                          <% if devise_mapping.rememberable? %>
+                              <%= f.check_box :remember_me, id: "remember-me"  %>
+                              <label for="remember-me"> Remember Me</label>
+                          <% end %>
+                        </fieldset>
+                      </div>
+                      <div class="col-sm-6 col-12 text-center text-md-right">
+                        <%= link_to "Forgot Password?", new_password_path(resource_name), class: "card-link" %>
+                      </div>
+                    </div>
+                    <%= f.submit "Sign in", class: 'btn btn-info btn-lg btn-block' %>
+                  <% end %>
+                </div>
+              </div>
+              <div class="card-footer">
+                <div class="">
+                  <p class="float-sm-right text-center m-0">
+                    Tạo mới tài khoản?
+                    <%= link_to "Sign Up", new_user_registration_path, class: "card-link" %>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
   </div>
-<% end %>
-
+</div>
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('input').iCheck({
+      checkboxClass: 'icheckbox_square-green',
+      radioClass: 'iradio_square',
+      increaseArea: '20%' // optional
+    });
+  });
+</script>
 <%= render "users/shared/links" %>

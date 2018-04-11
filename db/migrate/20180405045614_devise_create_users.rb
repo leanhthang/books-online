@@ -8,7 +8,7 @@ class DeviseCreateUsers < ActiveRecord::Migration[5.1]
     create_table :users, id: :uuid do |t|
       ## Database authenticatable
       t.citext :email,              null: false, default: ""
-      t.string :phone,              null: false, default: "000000000", :minimum => 9, :maximum => 12
+      t.string :phone,              null: false, default: "", :minimum => 9, :maximum => 12
 
       t.string :encrypted_password, null: false, default: ""
 
@@ -37,6 +37,10 @@ class DeviseCreateUsers < ActiveRecord::Migration[5.1]
       # t.string   :unlock_token # Only if unlock strategy is :email or :both
       # t.datetime :locked_at
 
+      t.string   :birthday, null: false
+      # t.attachment :avatar
+      t.integer  :sex, default: 0, limit: 1
+
       t.citext    :full_name
       # admin, editor, user
       t.string    :role, limit: 10, default: 'user'
@@ -45,9 +49,19 @@ class DeviseCreateUsers < ActiveRecord::Migration[5.1]
       t.string    :avatar
       t.jsonb     :setting, null: false, default: {}
 
+      t.jsonb     :detail, null: false, default: {}
+
+      # User address
+      t.citext   :country
+      t.citext   :province
+      t.citext   :district
+      t.citext   :detail_address
+      # t.string  :permission, default: '00000', limit: 1
+      t.integer  :status, default: 0, limit: 1
+
       t.string    :oauth_token
       t.datetime  :oauth_expires_at
-
+      t.string    :app_token, limit: 32
 
       t.timestamps null: false
     end

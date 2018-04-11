@@ -1,0 +1,25 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  origin_rs: MyString
+  author: MyString
+  description: MyString
+  public: false
+  images: MyString
+  amount_chapter: MyString
+  status: MyString
+  categories: MyString
+  chapter: one
+
+two:
+  name: MyString
+  origin_rs: MyString
+  author: MyString
+  description: MyString
+  public: false
+  images: MyString
+  amount_chapter: MyString
+  status: MyString
+  categories: MyString
+  chapter: two

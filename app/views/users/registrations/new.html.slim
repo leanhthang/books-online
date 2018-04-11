@@ -1,0 +1,27 @@
+#sign-up
+  .row
+    = form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
+      .md-os-3.md-5
+        .form-group
+          = f.email_field :email, placeholder: 'Email', class: 'form-control'
+        .form-group
+          = f.text_field :phone, placeholder: 'Số Điện Thoại', class: 'form-control'
+        .form-group
+          = f.password_field :password, autocomplete: "off", placeholder: 'Password', class: 'form-control'
+        .form-group
+          = f.password_field :password_confirmation, autocomplete: "off", placeholder: 'Password confirm', class: 'form-control'
+        .form-group
+          = f.date_field :birthday, placeholder: 'Ngày Sinh', class: 'form-control'
+        .form-group
+          - t('registrations.sex').each_with_index do |sex, index|
+              label
+                = f.radio_button :sex, index, class: 'form-control'
+                | &nbsp;
+                = sex
+        .actions
+          = f.submit "Sign up", class: 'btn primary ui-r sm-8'
+      .ui-clearfix.md-os-3.md-10
+        .alert.alert-danger.ui-top-15
+          a.close.ui-r data-dismiss="alert" aria-label="close" href="#"
+            | &times;
+          = devise_error_messages!

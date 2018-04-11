@@ -1,0 +1,23 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  origin_detail: MyString
+  cstm_detail: MyString
+  public: false
+  image: MyString
+  like: MyString
+  rating: MyString
+  visited: MyString
+  origin_link: MyString
+
+two:
+  name: MyString
+  origin_detail: MyString
+  cstm_detail: MyString
+  public: false
+  image: MyString
+  like: MyString
+  rating: MyString
+  visited: MyString
+  origin_link: MyString
