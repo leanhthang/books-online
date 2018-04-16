@@ -1,5 +1,13 @@
-.btn.btn-primary
+.btn
   = "#{@cat.name}: "
+  .badge.badge-light
+    = @cat.post_count
+.btn.btn-success
+  | Đã Public:
+  .badge.badge-light
+    = @cat.post_count
+.btn.btn-warning
+  | Chưa Public
   .badge.badge-light
     = @cat.post_count
 table.table
@@ -11,9 +19,7 @@ table.table
     - @posts.each do |post|
       tr
         td
-          = link_to post.title, post_show_path(post)
+          = link_to post.title, admin_post_show_path(post)
         td.text-success = post.public ? "&#10003;".html_safe : ""
 = will_paginate @posts
-
-
 

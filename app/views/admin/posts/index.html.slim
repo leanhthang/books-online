@@ -21,7 +21,7 @@
           td.text-success = post.public ? "&#10003;".html_safe : ""
           td = post.assign_to
           td
-            = link_to "Details", post_show_path(post)
+            = link_to "Details", admin_post_show_path(post)
             .btn.btn-primary Change Assign
             .btn.btn-primary Change Assign
   = will_paginate @posts

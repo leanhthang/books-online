@@ -1,5 +1,5 @@
-class PostsController < ApplicationController
-  before_action :set_post, only: [:show, :edit, :destroy, :sync_post, :update_public_chapters]
+class Admin::PostsController < AdminController
+  before_action :set_post, only: [:show, :edit, :destroy, :update, :sync_post, :update_public_chapters]
   PAGINATE = 20
   def index
     if params[:key_word]
@@ -22,7 +22,7 @@ class PostsController < ApplicationController
   def update
     respond_to do |f|
       if @post.update(post_params)
-        f.html { redirect_to post_show_path(@post), notice: 'Post was successfully updated.' }
+        f.html { redirect_to admin_post_show_path(@post), notice: 'Post was successfully updated.' }
       else
         f.html { render :edit }
       end
@@ -35,7 +35,7 @@ class PostsController < ApplicationController
   def sync_post
     _module = @post.origin_rs.constantize
     _module.new.chapters(@post)
-    redirect_to post_show_path
+    redirect_to admin_post_show_path
   end
 
   def update_public_chapters

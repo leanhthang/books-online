@@ -1,9 +1,8 @@
 class Chapter < ApplicationRecord
-  belongs_to :post
-
   after_create :aft_create_chapter
   after_destroy :aft_destroy_chapter
 
+  belongs_to :post
   validates :title, presence: true, uniqueness: true
 
   def self.add_chapter(params, post)

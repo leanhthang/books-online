@@ -13,6 +13,8 @@ class Post < ApplicationRecord
 
   has_many :chapters, dependent: :delete_all
 
+  has_many :activities, as: :model_name
+
   belongs_to :author
 
   belongs_to :assign_user, -> { where role: 'agent' }, class_name: "User", optional: true

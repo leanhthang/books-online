@@ -1,4 +1,4 @@
-class ChaptersController < ApplicationController
+class Admin::ChaptersController < AdminController
   before_action :set_chapter, only: [:show, :edit]
   def index
   end

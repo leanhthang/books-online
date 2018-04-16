@@ -10,13 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180414035730) do
+ActiveRecord::Schema.define(version: 20180416065030) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "uuid-ossp"
   enable_extension "pgcrypto"
   enable_extension "citext"
+
+  create_table "activities", force: :cascade do |t|
+    t.string "user_id"
+    t.integer "model_id"
+    t.string "action"
+    t.string "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "authors", force: :cascade do |t|
     t.citext "name"

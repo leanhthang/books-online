@@ -44,6 +44,7 @@ class DeviseCreateUsers < ActiveRecord::Migration[5.1]
       t.citext    :full_name
       # admin, editor, user
       t.string    :role, limit: 10, default: 'user'
+      t.boolean   :enable, default: false
       t.string    :birthday
       t.string    :provider
       t.string    :avatar

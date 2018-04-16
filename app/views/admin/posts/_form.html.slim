@@ -1,0 +1,20 @@
+= form_for @post, url: admin_post_update_path(@post),method: @method do |f|
+  .form-group
+    = f.label :title, "Tiêu đề", class: "align-middle"
+    = f.text_field :title, class: "form-control"
+  - if current_user.is_admin?
+    .form-group
+      = f.label :public, "Public"
+      .form_control
+        label.switch
+          = f.check_box  :public, {checked: @post.public, disable: true}
+          span.slider
+  .form-group
+    = f.label :description, "Mô Tả"
+    = f.text_area :description, rows: 15, class: "form-control tinymce"
+  .form-group
+    = link_to "Back to Posts", admin_post_show_path, class: "btn btn-warning"
+    = f.submit "Save", class: "btn btn-primary"
+
+= javascript_include_tag "tinymce-jquery"
+= tinymce

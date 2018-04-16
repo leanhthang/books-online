@@ -1,4 +1,4 @@
-class TestsController < ApplicationController
+class Admin::TestsController < ApplicationController
   before_action :set_test, only: [:show, :edit, :update, :destroy]
 
   # GET /tests
