@@ -1,0 +1,31 @@
+.row
+  div.card.col.no-p
+    img.card-img-top src="#{@post.origin_img}"  alt="Card image cap"
+    div.card-body
+      h3.card-title
+        = @post.title
+      p.card-text
+        b Tác Giả:
+        span = @post.author.name
+      p.card-text
+        b Loại:
+        span = @post.types.map(&:name).join(", ")
+      - if current_user.is_admin?
+        = link_to "Lấy chương mới về", sync_post_path(@post), class: "btn btn-primary"
+      = link_to "Chỉnh sửa", post_edit_path(@post), class: "btn btn-warning"
+  .col-sm-7.col-md-8.col-lg-9
+    = @post.description.html_safe
+
+table.table
+  thead
+    tr
+      td Name
+      td Pulic
+  tbody
+    - @chapters.each do |ct|
+      tr
+        td
+          = link_to ct.title, chapter_show_path(ct)
+        td.text-success = ct.public ? "&#10003;".html_safe : ""
+
+= will_paginate @chapters

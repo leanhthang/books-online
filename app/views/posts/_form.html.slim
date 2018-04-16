@@ -1,0 +1,19 @@
+= form_for @post, url: post_update_path(@post),method: @method do |f|
+  .form-group.row
+    = f.label :title, "Tiêu đề", class: "col align-middle"
+    .col-sm-9.col-md-10
+      = f.text_field :title, class: "form-control"
+  - if current_user.is_admin?
+    .form-group.row
+        = f.label :public, "Public", class: "col"
+        .form_control.col-sm-9.col-md-10
+          label.switch
+            = f.check_box  :public, {checked: @post.public, disable: true}
+            span.slider
+  .form-group.row
+    = f.label :description, "Mô Tả", class: "col align-middle"
+    .col-sm-9.col-md-10
+      = f.text_area :description, rows: 5,class: "form-control"
+  .form-group
+    = link_to "Back to Posts", post_show_path, class: "btn btn-warning"
+    = f.submit "Save", class: "btn btn-primary"

@@ -1,0 +1,18 @@
+.no-p { padding: 0;}
+.pagination {
+  margin:  0 auto;
+  a, em, span {
+    position: relative;
+    display: block;
+    padding: .5rem .7rem;
+    border: 1px solid #007BFF;
+    border-left: 0;
+  }
+  .previous_page{
+    border-left: 1px solid #007BFF;
+  }
+  .current{
+    background: #007BFF;
+    color: #fff;
+  }
+}

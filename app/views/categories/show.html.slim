@@ -1,0 +1,19 @@
+.btn.btn-primary
+  = "#{@cat.name}: "
+  .badge.badge-light
+    = @cat.post_count
+table.table
+  thead
+    tr
+      th Post Name
+      th Public
+  tbody
+    - @posts.each do |post|
+      tr
+        td
+          = link_to post.title, post_show_path(post)
+        td.text-success = post.public ? "&#10003;".html_safe : ""
+= will_paginate @posts
+
+
+

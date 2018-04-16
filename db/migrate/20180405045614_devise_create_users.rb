@@ -51,6 +51,7 @@ class DeviseCreateUsers < ActiveRecord::Migration[5.1]
 
       t.jsonb     :detail, null: false, default: {}
 
+      t.citext   :visited
       # User address
       t.citext   :country
       t.citext   :province

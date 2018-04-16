@@ -2,50 +2,76 @@ require 'nokogiri'
 require 'open-uri'
 module ComicScanner
   class Scanner
-    def initialize(master_path_scanner, pages = 1)
-      @master_path_scanner = master_path_scanner
-      @pages = pages
-      @docs = []
+    SELF_CLASS = {
+      "ComicScanner::Bachngocsach" => "https://bachngocsach.com/reader/truyen/toan-bo?page=",
+      "ComicScanner::Tangthuvien" => "https://truyen.tangthuvien.vn/bang-xep-hang?selOrder=view_&category=0&selComplete=1&selTime=all&page=",
+    }
 
-      @pages.times do |page|
-        link = "#{@master_path_scanner}#{page}"
-        @docs << Nokogiri::HTML(open(link))
-      end
+    def initialize(pages = 1, start = 0)
+      @path_scanner = SELF_CLASS[self.class.name]
+      @pages = pages
+      @count = 0
+      @start = start
     end
 
     def scan_detail_of_posts
-      posts = []
-      @docs.each do |doc|
-        doc.search('.view-content ul li.term-row').each do |doc_post|
-          posts << post(doc_post, @post_params)
+      @pages.times do |page|
+        next if @start > page
+        link = ("#{@path_scanner}#{page}").gsub(/\"/,"\"")
+        begin
+          puts link
+          doc = Nokogiri::HTML(open(link))
+          scan_detail_of_post(doc)
+        rescue
+          puts "#{link} => errors"
         end
       end
-      posts
+    end
+
+    def scan_detail_of_post(post)
+      post.search(@post_params[:item_scan]).each do |doc_post|
+        begin
+          _post = post(@post_params, doc_post)
+          Post.add_post(_post)
+        rescue Exception => e
+          puts e
+        end
+      end
+    end
+
+    def post(post_params = {}, doc_post)
+      origin_link = ("#{@base_path}#{doc_post.at(@post_params[:title])['href']}").gsub(/\"/,"\"")
+      others = get_others_of_post(origin_link)
+
+      @post_data = {
+        title: doc_post.at(post_params[:title]).text,
+        origin_link: origin_link,
+        origin_img: others[:origin_img],
+        description: others[:description],
+        types: others[:types],
+        author: others[:author],
+        categories: others[:categories],
+        origin_rs: self.class.to_s,
+      }
     end
 
     private
-      def get_description_of_post(origin_link)
+      def get_others_of_post(origin_link)
         doc = Nokogiri::HTML(open(origin_link))
-        return doc.at(@post_params[:description]).content
-      end
-      # @post_params: {
-      #   name: "",
-      #   description: "",
-      #   images: "",
-      #   author: "",
-      #   categories: []
-      # }
-      def post(doc_post, post_params = {})
-        origin_link = "#{@base_path}/#{doc_post.at(post_params[:name])['href']}"
-        {
-          name: doc_post.at(post_params[:name]).text,
-          images: doc_post.at(post_params[:images])["src"],
-          origin_link: origin_link,
-          description: get_description_of_post(origin_link),
-          author: doc_post.at(post_params[:author]).text,
-          categories: doc_post.at(post_params[:categories]).text,
-          chapters: []
-        }
+        @count += 1
+        begin
+          puts "#{origin_link} => #{@count}"
+          {
+            description: doc.at(@post_params[:description]).inner_html,
+            types: doc.css(@post_params[:types]).map{|x| x.text.strip },
+            categories: doc.at(@post_params[:categories]).children.map{|x| x.text.strip },
+            author: doc.at(@post_params[:author]).text,
+            origin_img: doc.at(@post_params[:origin_img])["src"]
+          }
+        rescue
+          puts "#{origin_link} => errors  => #{@count}"
+          { description: "", types: [] }
+        end
       end
 
   end

@@ -1,0 +1,27 @@
+.container-fliud
+  table.table
+    caption List Of Post
+    thead
+      tr
+        th Image
+        th Title
+        th Author
+        th Status
+        th Public
+        th Asign to
+        th Action
+    tbody
+      - @posts.each do |post|
+        tr
+          td
+            img src="#{post.origin_img}" width="150"
+          td = post.title
+          td = post.author.name
+          td = post.status
+          td.text-success = post.public ? "&#10003;".html_safe : ""
+          td = post.assign_to
+          td
+            = link_to "Details", post_show_path(post)
+            .btn.btn-primary Change Assign
+            .btn.btn-primary Change Assign
+  = will_paginate @posts

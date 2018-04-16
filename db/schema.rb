@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180405045614) do
+ActiveRecord::Schema.define(version: 20180414035730) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -18,9 +18,106 @@ ActiveRecord::Schema.define(version: 20180405045614) do
   enable_extension "pgcrypto"
   enable_extension "citext"
 
+  create_table "authors", force: :cascade do |t|
+    t.citext "name"
+    t.citext "name_vn"
+    t.citext "description"
+    t.string "avatar"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_authors_on_name"
+    t.index ["name_vn"], name: "index_authors_on_name_vn"
+  end
+
+  create_table "categories", force: :cascade do |t|
+    t.string "name"
+    t.string "description"
+    t.boolean "public", default: false
+    t.integer "like", default: 0
+    t.integer "rating", default: 0
+    t.integer "visited", default: 0
+    t.integer "post_count", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "chapters", force: :cascade do |t|
+    t.citext "title", null: false
+    t.string "origin_content"
+    t.string "content"
+    t.boolean "public", default: false
+    t.string "translator", default: "f"
+    t.string "editor", default: "f"
+    t.string "approve_by", default: "f"
+    t.string "image"
+    t.integer "like", default: 0
+    t.integer "rating", default: 0
+    t.integer "visited", default: 0
+    t.text "description"
+    t.string "origin_link"
+    t.integer "post_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "pg_search_documents", force: :cascade do |t|
+    t.text "content"
+    t.string "searchable_type"
+    t.bigint "searchable_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["searchable_type", "searchable_id"], name: "index_pg_search_documents_on_searchable_type_and_searchable_id"
+  end
+
+  create_table "post_categories", force: :cascade do |t|
+    t.integer "post_id"
+    t.integer "category_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "posts", force: :cascade do |t|
+    t.citext "title", null: false
+    t.citext "title_vn", null: false
+    t.string "origin_link", null: false
+    t.string "origin_rs", null: false
+    t.integer "author_id"
+    t.citext "author_name_vn"
+    t.citext "description"
+    t.boolean "public", default: false
+    t.string "origin_img"
+    t.string "images"
+    t.integer "chapter_count", default: 0
+    t.string "status"
+    t.string "assign_to", default: "f"
+    t.integer "like", default: 0
+    t.integer "rating", default: 0
+    t.integer "visited", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["author_name_vn"], name: "index_posts_on_author_name_vn"
+    t.index ["title"], name: "index_posts_on_title"
+    t.index ["title_vn"], name: "index_posts_on_title_vn"
+  end
+
+  create_table "type_posts", force: :cascade do |t|
+    t.integer "post_id"
+    t.integer "type_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "types", force: :cascade do |t|
+    t.string "name"
+    t.string "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_types_on_name"
+  end
+
   create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.citext "email", default: "", null: false
-    t.string "phone", default: "000000000", null: false
+    t.string "phone", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
@@ -37,6 +134,8 @@ ActiveRecord::Schema.define(version: 20180405045614) do
     t.string "provider"
     t.string "avatar"
     t.jsonb "setting", default: {}, null: false
+    t.jsonb "detail", default: {}, null: false
+    t.citext "visited"
     t.citext "country"
     t.citext "province"
     t.citext "district"

@@ -1,0 +1,23 @@
+.container-fliud
+  table.table
+    caption List Of cat
+    thead
+      tr
+        th Name
+        th Descripton
+        th Public
+        th Total cat
+        th Action
+    tbody
+      - @cats.each do |cat|
+        tr
+          td
+            = cat.name
+            .badge.badge-pill.badge-success
+              = cat.post_count
+          td = cat.description
+          td.text-success = cat.public ? "&#10003;".html_safe : ""
+          td.text-success = cat.public ? "&#10003;".html_safe : ""
+          td
+            = link_to "Details", category_show_path(cat)
+  = will_paginate @cats

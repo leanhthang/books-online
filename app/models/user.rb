@@ -8,6 +8,10 @@ class User < ApplicationRecord
 
   validates :phone, presence: :true, uniqueness: { case_sensitive: false }
 
+  def is_admin?
+    role == "admin" ? true : false
+  end
+
   def login=(login)
     @login = login
   end

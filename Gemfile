@@ -21,6 +21,15 @@ gem 'devise', '~> 4.2'
 gem 'omniauth', '~> 1.8', '>= 1.8.1'
 gem 'will_paginate', '~> 3.1', '>= 3.1.6'
 
+gem 'pg_search'
+# gem 'elasticsearch-model', github: 'elastic/elasticsearch-rails', branch: '5.x'
+# gem 'elasticsearch-rails', github: 'elastic/elasticsearch-rails', branch: '5.x'
+
+gem 'carrierwave', '~> 1.2', '>= 1.2.2'
+gem 'mini_magick', '~> 4.8'
+gem 'figaro', '~> 1.1', '>= 1.1.1'
+
+gem 'ckeditor', '~> 4.2', '>= 4.2.4'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
@@ -34,6 +43,7 @@ group :development do
   gem 'web-console', '>= 3.3.0'
   gem 'listen', '>= 3.0.5', '< 3.2'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
+  gem 'annotate'
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
 end
