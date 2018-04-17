@@ -1,23 +1,11 @@
 .container-fliud
-  table.table
-    caption List Of cat
-    thead
-      tr
-        th Name
-        th Descripton
-        th Public
-        th Total cat
-        th Action
-    tbody
-      - @cats.each do |cat|
-        tr
-          td
-            .badge.badge-pill.badge-success
-              = cat.post_count
-            = cat.name
-          td = cat.description
-          td.text-success = cat.public ? "&#10003;".html_safe : ""
-          td.text-success = cat.public ? "&#10003;".html_safe : ""
-          td
-            = link_to "Details", admin_category_show_path(cat)
+  - @cats.each do |cat|
+    = link_to admin_category_show_path(cat) do
+      .btn.btn-outline-danger.el-space-tl
+        = cat.name
+        .badge.badge-pill.badge-success.el-space-l
+          = cat.post_count
+      .badge.badge-pill.badge-success.el-space-l
+        = cat.public ? "&#10003;".html_safe : ""
+.el-space
   = will_paginate @cats

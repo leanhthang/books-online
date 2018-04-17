@@ -1,4 +1,8 @@
-h1 Home#index
-p Find me in app/views/home/index.html.slim
-
-= link_to "Logout", destroy_user_session_path, method: :delete
+.row
+  - @posts.each do |post|
+    .col-md-4
+      a.card.no-p href="#{post_path(post)}"
+        img.card-img-top src="#{post.origin_img}" alt="Card image cap"
+        .card-body
+          .card-title
+            = post.title

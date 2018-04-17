@@ -1,0 +1,27 @@
+.row
+  div.card.col.no-p
+    img.card-img-top src="#{@post.origin_img}"  alt="Card image cap"
+    div.card-body
+      h3.card-title
+        = @post.title
+      p.card-text
+        b Tác Giả:
+        span = @post.author.name
+      p.card-text
+        b Loại:
+        span = @post.types.map(&:name).join(", ")
+      - if current_user.is_admin?
+        = link_to "Lấy chương mới về", admin_sync_post_path(@post), class: "btn btn-primary"
+  .col-sm-7.col-md-8.col-lg-9
+    = @post.description.html_safe
+
+table.table
+  thead
+    tr
+      td Name
+  tbody
+    - @chapters.each do |ct|
+      tr
+        td
+          = link_to ct.title, post_chapter_path(ct)
+= will_paginate @chapters

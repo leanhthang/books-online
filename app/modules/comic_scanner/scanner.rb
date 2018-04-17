@@ -3,7 +3,7 @@ require 'open-uri'
 module ComicScanner
   class Scanner
     SELF_CLASS = {
-      "ComicScanner::Bachngocsach" => "https://bachngocsach.com/reader/truyen/toan-bo?page=",
+      "ComicScanner::Bachngocsach" => "https://bachngocsach.com/reader/truyen/hoan-thanh?page=",
       "ComicScanner::Tangthuvien" => "https://truyen.tangthuvien.vn/bang-xep-hang?selOrder=view_&category=0&selComplete=1&selTime=all&page=",
     }
 
@@ -53,6 +53,21 @@ module ComicScanner
         categories: others[:categories],
         origin_rs: self.class.to_s,
       }
+    end
+
+    def chapter(chapter_doc, url_chapter)
+        begin
+          chapter_container = Nokogiri::HTML(open("#{@base_path}/#{url_chapter}"))
+          return {
+            title: chapter_doc.at(@chapter_params[:title]).text,
+            origin_link: url_chapter,
+            translator: chapter_doc.at(@chapter_params[:translator]).text,
+            origin_content: chapter_container.at(@chapter_params[:origin_content]).inner_html
+          }
+        rescue Exception => e
+          puts "#{url_chapter} => errors (#{e})"
+          return {}
+        end
     end
 
     private

@@ -1,0 +1,49 @@
+- @post = @chapter.post
+#wrap-container
+  #comic-box
+    #comicContent.noselect ondblclick="comicUI.fullScreen()" onclick="comicUI.showToolBox()"
+      div
+        = @chapter.origin_content.html_safe
+    #comic-footer
+    #cm-nav-left
+    #cm-nav-right
+
+#cm-nav-top
+  .mask ondblclick="comicUI.fullScreen()"
+  .cm-top-tool-bar
+    .cm-top-left.f-left.txt-center
+      a.btn-cm.txt-center href="#{post_path(@post)}"
+        span.icon-left
+      .btn-cm.txt-center data-toggle="modal" data-target="#list-chapter-modal"
+        span.icon-list
+    .cm-top-right.f-right.txt-center
+      .btn-cm.txt-center onclick="location.reload(true);"
+        span.icon-loop
+      .btn-cm.txt-center data-toggle="modal" data-target="#bug-modal"
+        span.icon-warning
+      .btn-cm.txt-center onclick="comicUI.fullScreen()"
+        span.icon-expand
+      .btn-cm.txt-center.btn-setting data-toggle="modal" data-target="#setting-modal"
+        span.icon-setting
+
+#cm-nav-bottom
+  #bottom-tool-bar class="txt-center"
+    .btn-cm.txt-center
+      span.icon-book
+    .btn-cm.txt-center
+      span.icon-chat
+    .btn-cm.txt-center
+      span.icon-heart
+    .btn-cm.txt-center data-toggle="modal" data-target="#goto-modal"
+      span.icon-send
+    .btn-cm.txt-center
+      span.icon-user-id
+
+#btn-next-chapter.btn-circle.btn-dir-chapter
+  span.icon-right
+#btn-prev-chapter.btn-circle.btn-dir-chapter
+  span.icon-left
+
+= render partial: "layouts/client/modal"
+
+= javascript_include_tag 'comic'

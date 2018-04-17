@@ -13,7 +13,12 @@ module ComicScanner
           types:        ".info-holder div .text-primary"
         }
       @chapter_params = {
-        css_selector_last_of_page: "",
+        scan_selector: "#mucluc-list ul li.mucluc-row",
+        link_scan: ".mucluc-chuong a",
+
+        title: ".mucluc-chuong a",
+        translator: ".mucluc-poster",
+        origin_content: "#noidung"
       }
       @base_path = ""
     end
@@ -31,21 +36,9 @@ module ComicScanner
     #   author: ".term-tacgia-a",
     #   categories: '.term-theloai'
     # }
-    def get_links_of_chapter
-      _posts = scan_detail_of_posts
-      _posts.each do |_post|
-        link_all_chapter = "#{_post[:origin_link]}/muc-luc?page=all"
-        doc = Nokogiri::HTML(open(link_all_chapter))
-        doc.css("#mucluc-list ul li").each do |item|
-          _chapter = {
-            title: item.at(".mucluc-chuong a").text,
-            origin_link: item.at(".mucluc-chuong a")["href"],
-            origin_content: "",
-            translator: item.at(".mucluc-poster").text
-          }
-          Chapter.add_chapter(chapter, _post[:post_obj])
-        end
-      end
+    def chapters(post)
+      link = post.origin_link
+      doc = Nokogiri::HTML(open(link))
     end
   end
 end

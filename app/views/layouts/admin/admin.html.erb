@@ -3,25 +3,23 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
   <title>Books Admin</title>
   <%= csrf_meta_tags %>
-  <%= stylesheet_link_tag    'admin', media: 'all', 'data-turbolinks-track': 'reload' %>
-  <%= javascript_include_tag 'admin', 'data-turbolinks-track': 'reload' %>
+  <%= stylesheet_link_tag    'admin', media: 'all' %>
+  <%= javascript_include_tag 'admin' %>
 </head>
-<body>
-
+<body class="no-p">
+  <div class="container-fluid no-p">
+    <%= render partial: "/layouts/admin/navbar.html.erb" %>
+  </div>
+  <div class="container">
+    <% if notice %>
+      <div class="alert alert-success" role="alert" >
+        <%= notice %>
+      </div>
+    <% end %>
+    <%= yield %>
+  </div>
+  <%= render partial: "/layouts/admin/footer" %>
 </body>
-    <div class="container-fluid">
-      <%= render partial: "/layouts/admin/navbar.html.erb" %>
-    </div>
-    <div class="container">
-      <% if notice %>
-        <div class="alert alert-success" role="alert" >
-          <%= notice %>
-        </div>
-      <% end %>
-      <%= yield %>
-    </div>
-    <%= render partial: "/layouts/admin/footer" %>
 </html>

@@ -19,4 +19,8 @@ module Utility
     end
     return_str.join(" ")
   end
+
+  def float?(string)
+    true if Float(string) rescue false
+  end
 end

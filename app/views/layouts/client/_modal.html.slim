@@ -1,0 +1,81 @@
+  #setting-modal.modal
+    .modal-header.no-p
+      .modal-title.f-left Cài đặt
+      .modal-header-right.f-right.txt-center
+        .btn-cm.btn-close
+          span.icon-close
+    .modal-body.clearfix
+      ul
+        li
+          .setting-title Background:
+          .setting-option
+            .btn-modal.btn-circle.bg-style1 data-bg="bg-style1"
+            .btn-modal.btn-circle.bg-style2 data-bg="bg-style2"
+            .btn-modal.btn-circle.bg-style3 data-bg="bg-style3"
+            .btn-modal.btn-circle.bg-style4 data-bg="bg-style4"
+            .btn-modal.btn-circle.bg-style5 data-bg="bg-style5"
+        li
+          .setting-title Size:
+          .setting-option
+            .btn-modal.btn-circle onclick="userSS.setFontSize()" -
+            .txt-center.setting-site-label aA
+            .btn-modal.btn-circle onclick="userSS.setFontSize(1)" +
+        li
+          .setting-title View:
+          .setting-option.setting-view
+            .btn-cm onclick="userSS.setDisplayOption('page')"
+              span.icon-scroll-default
+            .btn-cm onclick="userSS.setDisplayOption('scroll')"
+              span.icon-scroll-down
+        li
+          .setting-title Footer:
+          .setting-option
+            div
+              input type="checkbox" id="hide-footer"
+              label for="hide-footer"  Hide Footer
+
+  #bug-modal.modal
+    .modal-header.no-p
+      .modal-title.f-left Báo Lỗi
+      .modal-header-right.f-right.txt-center
+        .btn-cm
+          span.icon-check
+        .btn-cm.btn-close
+          span.icon-close
+    .modal-body.clearfix
+      form
+        .form-group
+          select.form-ctrl
+            option Lỗi hiển thị
+            option Lỗi dịch
+            option Lỗi chức năng
+            option Lỗi khác
+        .form-group
+          textarea.form-ctrl rows="6" placeholder="Mô tả chi tiết"
+  #goto-modal.modal
+    .modal-header.no-p
+      .modal-title.f-left Go to chapter
+      .modal-header-right.f-right.txt-center
+        .btn-cm
+          span.icon-check
+        .btn-cm.btn-close
+          span.icon-close
+    .modal-body.clearfix
+      .form-group
+        input.form-ctrl type="number" min="1"
+  #list-chapter-modal.modal data-screen="modal-full"
+    .modal-header.no-p
+      .modal-header-left.f-left.txt-center
+        .btn-cm
+          span.icon-left
+        .clearfix
+      .modal-title.f-left List Chapter
+      .modal-header-right.f-right.txt-center
+        .btn-cm.btn-close
+          span.icon-close
+    .modal-body.clearfix
+      ul
+        = @post.chapters.each do |ct|
+          li
+            a href="#{ post_chapter_path(ct) }" = ct.title
+    .modal-footer

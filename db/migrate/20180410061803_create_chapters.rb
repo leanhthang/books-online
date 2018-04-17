@@ -19,6 +19,7 @@ class CreateChapters < ActiveRecord::Migration[5.1]
       t.text    :description
       t.string  :origin_link
       t.integer :post_id
+      t.integer :order, index: true
       t.timestamps
     end
   end

@@ -13,12 +13,22 @@
         <a class="nav-link" href="/admin/categories">Categories</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link disabled" href="#">Disabled</a>
+        <a class="nav-link disabled" href="<%= root_path %>">Client Page</a>
       </li>
     </ul>
-    <%= form_tag admin_posts_path, method: "GET", class: "form-inline my-2 my-lg-0" do %>
-      <%= text_field_tag :key_word, "", type: "search", placeholder: "Search", class: "form-control mr-sm-2"%>
-      <%= submit_tag "Search", class: "btn btn-outline-success my-2 my-sm-0" %>
-    <% end %>
+    <ul class="nav">
+      <li class="nav-item">
+        <%= form_tag admin_posts_path, method: "GET", class: "form-inline my-2 my-lg-0 no-m" do %>
+          <%= text_field_tag :key_word, "", type: "search", placeholder: "Search", class: "form-control mr-sm-2"%>
+          <%= submit_tag "Search", class: "btn btn-outline-success my-2 my-sm-0" %>
+
+        <% end %>
+      </li>
+      <% if !current_user.nil? %>
+        <li class="nav-item">
+          <%= link_to "Logout", destroy_user_session_path, method: :delete, class: "nav-link"%>
+        </li>
+      <% end %>
+    </ul>
   </div>
 </nav>

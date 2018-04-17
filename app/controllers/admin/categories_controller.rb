@@ -2,7 +2,7 @@ class Admin::CategoriesController < AdminController
   before_action :set_cat, only: [:show, :edit, :update, :destroy]
   def index
     @cats = Category.order("post_count DESC")
-                    .paginate(:page => params[:page], :per_page => 30)
+                    .paginate(:page => params[:page], :per_page => 40)
   end
   def new
   end

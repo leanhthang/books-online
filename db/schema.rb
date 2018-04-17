@@ -65,6 +65,7 @@ ActiveRecord::Schema.define(version: 20180416065030) do
     t.text "description"
     t.string "origin_link"
     t.integer "post_id"
+    t.integer "order"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -140,6 +141,7 @@ ActiveRecord::Schema.define(version: 20180416065030) do
     t.integer "sex", limit: 2, default: 0
     t.citext "full_name"
     t.string "role", limit: 10, default: "user"
+    t.boolean "enable", default: false
     t.string "provider"
     t.string "avatar"
     t.jsonb "setting", default: {}, null: false

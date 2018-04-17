@@ -1,8 +1,8 @@
 /*
  *= require bootstrap.min.css
+ *= require_directory ./admin
  *= require icheck/square/green.css
  *= require toggle_switch.scss
- *= require share.scss
  *= require_self
  */
 

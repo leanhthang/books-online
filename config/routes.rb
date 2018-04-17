@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
+  # client
+  get 'posts/:id', to: "posts#show", as: :post
+  get 'chapter/:id', to: "posts#chapter", :as => :post_chapter
   root to: "home#index"
+
 
   devise_for :users, path: '/', :controllers => {
     :sessions => 'users/sessions',
