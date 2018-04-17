@@ -1,4 +1,5 @@
 class PostsController < ApplicationController
+
   def show
     @post = Post.find(params[:id])
     @chapters = @post.chapters.select(:id, :title, :public)
