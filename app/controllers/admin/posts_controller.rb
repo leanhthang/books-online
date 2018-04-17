@@ -68,7 +68,7 @@ class Admin::PostsController < AdminController
 
     def search(key_word)
       Post.includes(:author)
-                 .search(params[:key_word])
+                 .search(key_word)
                  .paginate(:page => params[:page], :per_page => PAGINATE)
     end
 end

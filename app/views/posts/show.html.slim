@@ -11,8 +11,8 @@
       p.card-text
         b Loại:
         span = @post.types.map(&:name).join(", ")
-      - if current_user.is_admin?
-        = link_to "Lấy chương mới về", admin_sync_post_path(@post), class: "btn btn-primary"
+      / - if current_user.is_admin?
+      = link_to "Lấy chương mới về", admin_sync_post_path(@post), class: "btn btn-primary"
   .col-sm-7.col-md-8.col-lg-9
     = @post.description.html_safe
 

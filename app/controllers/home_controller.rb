@@ -1,10 +1,10 @@
 class HomeController < ApplicationController
   def index
     if params[:key_word]
-      @posts = search(params[:key_word])
+      @posts = Post.search(params[:key_word])
+                 .paginate(:page => params[:page], :per_page => 20)
     else
-      @posts = Post.includes(:author)
-                   .paginate(:page => params[:page], :per_page => 20)
+      @posts = Post.paginate(:page => params[:page], :per_page => 20)
    end
   end
 end
