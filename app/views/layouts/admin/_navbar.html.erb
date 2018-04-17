@@ -21,7 +21,6 @@
         <%= form_tag admin_posts_path, method: "GET", class: "form-inline my-2 my-lg-0 no-m" do %>
           <%= text_field_tag :key_word, "", type: "search", placeholder: "Search", class: "form-control mr-sm-2"%>
           <%= submit_tag "Search", class: "btn btn-outline-success my-2 my-sm-0" %>
-
         <% end %>
       </li>
       <% if !current_user.nil? %>

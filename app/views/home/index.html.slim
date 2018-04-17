@@ -1,8 +1,11 @@
+= render :partial => "layouts/client/navbar_top"
 .row
   - @posts.each do |post|
-    .col-md-4
+    .col-md-3.col-sm-4.col-6
       a.card.no-p href="#{post_path(post)}"
         img.card-img-top src="#{post.origin_img}" alt="Card image cap"
         .card-body
           .card-title
             = post.title
+.col.el-space-tb
+  = will_paginate @posts
