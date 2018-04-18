@@ -1,10 +1,10 @@
-  #setting-modal.modal
-    .modal-header.no-p
-      .modal-title.f-left Cài đặt
-      .modal-header-right.f-right.txt-center
+  #setting-modal.cm-modal
+    .cm-modal-header.no-p
+      .cm-modal-title.f-left Cài đặt
+      .cm-modal-header-right.f-right.txt-center
         .btn-cm.btn-close
           span.icon-close
-    .modal-body.clearfix
+    .cm-modal-body.clearfix
       ul
         li
           .setting-title Background:
@@ -34,15 +34,15 @@
               input type="checkbox" id="hide-footer"
               label for="hide-footer"  Hide Footer
 
-  #bug-modal.modal
-    .modal-header.no-p
-      .modal-title.f-left Báo Lỗi
-      .modal-header-right.f-right.txt-center
+  #bug-modal.cm-modal
+    .cm-modal-header.no-p
+      .cm-modal-title.f-left Báo Lỗi
+      .cm-modal-header-right.f-right.txt-center
         .btn-cm
           span.icon-check
         .btn-cm.btn-close
           span.icon-close
-    .modal-body.clearfix
+    .cm-modal-body.clearfix
       form
         .form-group
           select.form-ctrl
@@ -52,30 +52,31 @@
             option Lỗi khác
         .form-group
           textarea.form-ctrl rows="6" placeholder="Mô tả chi tiết"
-  #goto-modal.modal
-    .modal-header.no-p
-      .modal-title.f-left Go to chapter
-      .modal-header-right.f-right.txt-center
+  #goto-modal.cm-modal
+    .cm-modal-header.no-p
+      .cm-modal-title.f-left Go to chapter
+      .cm-modal-header-right.f-right.txt-center
         .btn-cm
           span.icon-check
         .btn-cm.btn-close
           span.icon-close
-    .modal-body.clearfix
+    .cm-modal-body.clearfix
       .form-group
         input.form-ctrl type="number" min="1"
-  #list-chapter-modal.modal data-screen="modal-full"
-    .modal-header.no-p
-      .modal-header-left.f-left.txt-center
+  #list-chapter-modal.cm-modal data-screen="modal-full"
+    .cm-modal-header.no-p
+      .cm-modal-header-left.f-left.txt-center
         .btn-cm
           span.icon-left
         .clearfix
-      .modal-title.f-left List Chapter
-      .modal-header-right.f-right.txt-center
+      .cm-modal-title.f-left List Chapter
+      .cm-modal-header-right.f-right.txt-center
         .btn-cm.btn-close
           span.icon-close
-    .modal-body.clearfix
-      ul
-        = @post.chapters.each do |ct|
-          li
-            a href="#{ post_chapter_path(ct) }" = ct.title
-    .modal-footer
+    .cm-modal-body.clearfix
+      / ul
+        / = @chapters.each do |ct|
+        /   li
+        /     a href="#{ post_chapter_path(ct) }"
+        /       = ct.title
+    .cm-modal-footer

@@ -43,7 +43,7 @@ utilityLib = new function(){
     full_screen = full_screen || false;
     _box = $(box_selector)
     if (full_screen == false){
-        _top = 20;
+        _top = 0;
     }else{
         _top = 0
         _box.height(window.innerHeight)

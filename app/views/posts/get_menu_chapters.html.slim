@@ -1,0 +1,5 @@
+ul
+  - @chapters.each do |ct|
+    li
+      a href="#{post_chapter_path(ct)}"
+        = ct.title

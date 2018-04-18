@@ -1,4 +1,3 @@
-- @post = @chapter.post
 #wrap-container
   #comic-box
     #comicContent.noselect ondblclick="comicUI.fullScreen()" onclick="comicUI.showToolBox()"
@@ -14,7 +13,7 @@
     .cm-top-left.f-left.txt-center
       a.btn-cm.txt-center href="#{post_path(@post)}"
         span.icon-left
-      .btn-cm.txt-center data-toggle="modal" data-target="#list-chapter-modal"
+      .btn-cm.txt-center data-toggle="modal" data-target="#list-chapter-modal" data-post-id="#{@post.id}" onclick="modalUI.loadMenu(this)"
         span.icon-list
     .cm-top-right.f-right.txt-center
       .btn-cm.txt-center onclick="location.reload(true);"

@@ -149,13 +149,13 @@ li{ list-style: none }
 
 /* Modal */
 /* .modal{ position: absolute; background: white; display: none; } */
-.modal{ position: fixed; background: white; display: none; }
-.modal-header .modal-header-right > *{ font-size: 30px; display: inline-block }
-.modal-header .modal-header-left > *{ display: inline-block }
-.modal-title { padding-left: 15px; line-height: 45px !important; }
-.modal-header-right .icon-check{ color: green; }
-.modal-header-right .icon-close{ color: red; }
-.modal-header{
+.cm-modal{ position: fixed; background: white; display: none; }
+.cm-modal-header .cm-modal-header-right > *{ font-size: 30px; display: inline-block }
+.cm-modal-header .cm-modal-header-left > *{ display: inline-block }
+.cm-modal-title { padding-left: 15px; line-height: 45px !important; }
+.cm-modal-header-right .icon-check{ color: green; }
+.cm-modal-header-right .icon-close{ color: red; }
+.cm-modal-header{
   width: 100%;
   height: 50px;
   line-height: 50px;
@@ -164,28 +164,28 @@ li{ list-style: none }
   font-size: 1.5em
 }
 
-.modal-body{ width: 100%; overflow: auto;}
+.cm-modal-body{ width: 100%; overflow: auto;}
 
-.modal-body { padding:  0px 8px 5px; }
-.modal-body ul li { padding:  4px 6px; }
-.modal-body ul li > div:first-child{
+.cm-modal-body { padding:  0px 8px 5px; }
+.cm-modal-body ul li { padding:  4px 6px; }
+.cm-modal-body ul li > div:first-child{
   width: 30%;
   display: inline-block
 }
-.modal .btn-modal [class*="icon-"]{
+.cm-modal .btn-modal [class*="icon-"]{
   font-weight: bold;
   text-align: center;
 }
-.modal .btn-modal{
+.cm-modal .btn-modal{
   line-height: 40px;
   border: 1px solid #999;
   display: inline-block;
 }
 @media only screen and (max-width: 479px){
-  .modal{ width: 100% }
+  .cm-modal{ width: 100% }
 }
 @media only screen and (min-width: 480px){
-  .modal{ width: 480px }
+  .cm-modal{ width: 480px }
 }
 
 /* background setting */
