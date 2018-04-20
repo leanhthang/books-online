@@ -3,7 +3,7 @@ class Chapter < ApplicationRecord
   after_destroy :aft_destroy_chapter
 
   belongs_to :post
-  validates :title, presence: true, uniqueness: true
+  validates :title, presence: true
 
   def self.add_chapter(params, post)
     _chapter = Chapter.where( title: params[:title], post: post )

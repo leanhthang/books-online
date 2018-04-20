@@ -149,7 +149,8 @@ li{ list-style: none }
 
 /* Modal */
 /* .modal{ position: absolute; background: white; display: none; } */
-.cm-modal{ position: fixed; background: white; display: none; }
+.modal-wrapper{ position: fixed; top: 0; left: 0; height: 100%; width: 100%; background: beige; opacity: 0.4; display: none }
+.cm-modal{ position: absolute; background: white; display: none; }
 .cm-modal-header .cm-modal-header-right > *{ font-size: 30px; display: inline-block }
 .cm-modal-header .cm-modal-header-left > *{ display: inline-block }
 .cm-modal-title { padding-left: 15px; line-height: 45px !important; }
@@ -181,11 +182,11 @@ li{ list-style: none }
   border: 1px solid #999;
   display: inline-block;
 }
-@media only screen and (max-width: 479px){
+@media only screen and (max-width: 501px){
   .cm-modal{ width: 100% }
 }
-@media only screen and (min-width: 480px){
-  .cm-modal{ width: 480px }
+@media only screen and (min-width: 500px){
+  .cm-modal{ width: 500px }
 }
 
 /* background setting */

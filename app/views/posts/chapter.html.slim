@@ -1,6 +1,6 @@
 #wrap-container
   #comic-box
-    #comicContent.noselect ondblclick="comicUI.fullScreen()" onclick="comicUI.showToolBox()"
+    #comicContent.noselect onclick="cmUI.showToolBox()"
       div
         = @chapter.origin_content.html_safe
     #comic-footer
@@ -8,19 +8,19 @@
     #cm-nav-right
 
 #cm-nav-top
-  .mask ondblclick="comicUI.fullScreen()"
+  .mask ondblclick="cmUI.fullScreen()"
   .cm-top-tool-bar
     .cm-top-left.f-left.txt-center
-      a.btn-cm.txt-center href="#{post_path(@post)}"
+      #nav-btn-home.btn-cm.txt-center
         span.icon-left
-      .btn-cm.txt-center data-toggle="modal" data-target="#list-chapter-modal" data-post-id="#{@post.id}" onclick="modalUI.loadMenu(this)"
+      #nav-btn-list-chapter.btn-cm.txt-center data-toggle="modal" data-target="#list-chapter-modal" data-post-id="#{@post.id}"
         span.icon-list
     .cm-top-right.f-right.txt-center
       .btn-cm.txt-center onclick="location.reload(true);"
         span.icon-loop
       .btn-cm.txt-center data-toggle="modal" data-target="#bug-modal"
         span.icon-warning
-      .btn-cm.txt-center onclick="comicUI.fullScreen()"
+      .btn-cm.txt-center onclick="cmUI.fullScreen()"
         span.icon-expand
       .btn-cm.txt-center.btn-setting data-toggle="modal" data-target="#setting-modal"
         span.icon-setting
@@ -35,7 +35,7 @@
       span.icon-heart
     .btn-cm.txt-center data-toggle="modal" data-target="#goto-modal"
       span.icon-send
-    .btn-cm.txt-center
+    .btn-cm.txt-center data-toggle="modal" data-target="#user-modal"
       span.icon-user-id
 
 #btn-next-chapter.btn-circle.btn-dir-chapter

@@ -1,4 +1,5 @@
-class HomeController < ApplicationController
+class HomeController < ActionController::Base
+  layout "layouts/application"
   def index
     if params[:key_word]
       @posts = Post.search(params[:key_word])

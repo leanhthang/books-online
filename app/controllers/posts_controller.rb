@@ -12,8 +12,7 @@ class PostsController < ApplicationController
   end
 
   def get_menu_chapters
-    @chapters ||= @post.chapters.select(:title, :id).order(:order)
-    render layout: false
+    render json: @post.chapters.select(:title, :id).order(:order)
   end
 
   private

@@ -1,30 +1,4 @@
-// production
-// $(document).keydown(function (event) {
-//     if (event.keyCode == 123) { // Prevent F12
-//         return false;
-//     } else if (event.ctrlKey && event.shiftKey && event.keyCode == 73) { // Prevent Ctrl+Shift+I
-//         return false;
-//     }
-// });
-
-$(document).on("contextmenu", function (e) {
-    e.preventDefault();
-});
-
-$(window).resize(function() {
-  if(this.resizeState) clearTimeout(this.resizeState);
-  this.resizeState  = setTimeout(function(){
-      comicUI.detectChangeDefaultOrientation()
-    },200)
-})
-
-$(document).ready(function() {
-  comicUI.init()
-  comicUI.comicBoxAction()
-  comicUI.originalText = $(comicUI.contentBox).html()
-});
-
-comicUI = new function(){
+cmUI = new function(){
   this.endOfColFirst = null;
   this.is_mobile = utilityLib.is_mobile();
   this.padding = 20;
@@ -37,25 +11,25 @@ comicUI = new function(){
   this.boxHeightState = window.innerHeight
   this.cstmCSSColumnContext = function(){
     if(userSS.baseData().displayOption == "page"){
-      $(comicUI.contentBox).css({
-        '-webkit-column-width': comicUI.comicBoxWidth + "px",
-        '-moz-column-width': comicUI.comicBoxWidth + "px",
-        'column-width': comicUI.comicBoxWidth + "px",
+      $(cmUI.contentBox).css({
+        '-webkit-column-width': cmUI.comicBoxWidth + "px",
+        '-moz-column-width': cmUI.comicBoxWidth + "px",
+        'column-width': cmUI.comicBoxWidth + "px",
 
-        '-webkit-column-gap': comicUI.margin + 'px',
-        '-moz-column-gap': comicUI.margin + 'px',
-        'column-gap': comicUI.margin + 'px',
+        '-webkit-column-gap': cmUI.margin + 'px',
+        '-moz-column-gap': cmUI.margin + 'px',
+        'column-gap': cmUI.margin + 'px',
       });
 
       $("#comic-box").css({
-        'padding-left': comicUI.margin + "px",
-        'padding-right': comicUI.margin + "px",
+        'padding-left': cmUI.margin + "px",
+        'padding-right': cmUI.margin + "px",
       });
       $("#comic-footer, #cm-nav-right, #cm-nav-left").show()
       $("#hide-footer").prop('disabled', false);
     }else{
-      $(comicUI.contentBox).css({
-        'padding': "10px "+comicUI.margin + "px",
+      $(cmUI.contentBox).css({
+        'padding': "10px "+cmUI.margin + "px",
       });
       new SimpleBar($("#comic-box")[0])
       $("#hide-footer").prop('disabled', true);
@@ -67,92 +41,103 @@ comicUI = new function(){
   }
 
   this.fullScreen = function(){
-    if(comicUI.fullScreenState){
-      clearTimeout(comicUI.fullScreenState);
-      clearTimeout(comicUI.fullScreenUpdateView);
+    if(cmUI.fullScreenState){
+      clearTimeout(cmUI.fullScreenState);
+      clearTimeout(cmUI.fullScreenUpdateView);
     };
-    comicUI.fullScreenState = setTimeout(function(){
+    cmUI.fullScreenState = setTimeout(function(){
       utilityLib.fullScreen()
     },50);
-    comicUI.fullScreenUpdateView = setTimeout(function(){
-      comicUI.detectChangeDefaultOrientation(true)
+    cmUI.fullScreenUpdateView = setTimeout(function(){
+      cmUI.detectChangeDefaultOrientation(true)
     },300);
   }
 
-  this.leftClick = function(duration){
+  this.leftClick = function(duration, loop){
     duration = duration ? duration : 50
-    if(comicUI.scrollPosition > 0){
-      comicUI.currentPage -= 1
-      comicUI.scrollPosition -= (comicUI.comicBoxWidth - comicUI.margin)
-      comicUI.transformClick(duration)
+    loop = loop ? loop : 0
+    if(cmUI.scrollPosition > 0 || loop > 0){
+      if(loop > 0){
+        cmUI.scrollPosition = (cmUI.comicBoxWidth - cmUI.margin)*loop
+      }else{
+        cmUI.currentPage -= 1
+        cmUI.scrollPosition -= (cmUI.comicBoxWidth - cmUI.margin)
+      }
+      cmUI.transformClick(duration)
     }
   }
   this.rightClick = function(duration, loop){
     duration = duration ? duration : 50
-    comicUI.endOfCol = $(".end-of-col").last().position();
-    if(comicUI.endOfCol.left > 0){
-      comicUI.currentPage += 1
-      comicUI.scrollPosition += (comicUI.comicBoxWidth - comicUI.margin)
-      comicUI.transformClick(duration)
+    loop = loop ? loop : 0
+    cmUI.endOfCol = $(".end-of-col").last().position();
+    if(cmUI.endOfCol.left > 0 || loop > 0){
+      if(loop > 0){
+        cmUI.scrollPosition = (cmUI.comicBoxWidth - cmUI.margin)*loop
+      }else{
+        cmUI.currentPage += 1
+        cmUI.scrollPosition += (cmUI.comicBoxWidth - cmUI.margin)
+      }
+      cmUI.transformClick(duration)
     }
   }
 
   this.transformClick = function(duration){
-    $(comicUI.contentBox).scrollTo(comicUI.scrollPosition, {duration: duration, interrupt:true});
-    comicUI.drawFooter()
+    $(cmUI.contentBox).scrollTo(cmUI.scrollPosition, {duration: duration, interrupt:true});
+    cmUI.drawFooter()
   }
 
   this.detectChangeDefaultOrientation = function(alway_loading){
     alway_loading = alway_loading || false
-    if( alway_loading == true || comicUI.is_mobile == false ){
-      comicUI.initWhenResize();
-      console.log(comicUI.is_mobile +" =>mobile full screen")
-    }else if(comicUI.boxWidthState != window.innerWidth && comicUI.is_mobile){
-      console.log(comicUI.is_mobile +" =>mobile screen")
-      comicUI.initWhenResize()
+    if( alway_loading == true || cmUI.is_mobile == false ){
+      cmUI.initWhenResize();
+    }else if(cmUI.boxWidthState != window.innerWidth && cmUI.is_mobile){
+      cmUI.initWhenResize()
       modalUI.hide()
     }
-    comicUI.boxWidthState = window.innerWidth
-    comicUI.boxHeightState = $(comicUI.contentBox).innerHeight()
+    cmUI.boxWidthState = window.innerWidth
+    cmUI.boxHeightState = $(cmUI.contentBox).innerHeight()
   }
 
   this.comicBoxAction = function(){
     if (userSS.baseData().displayOption == "page"){
       $("#cm-nav-right").on("swipeleft click", function(){
-        comicUI.rightClick()
+        cmUI.rightClick()
       })
-      $(comicUI.contentBox+", #cm-nav-left").on("swipeleft", function(){
-        comicUI.rightClick()
+      $(cmUI.contentBox+", #cm-nav-left").on("swipeleft", function(){
+        cmUI.rightClick()
       })
       $("#cm-nav-left").on("swiperight click", function(){
-        comicUI.leftClick()
+        cmUI.leftClick()
       })
-      $(comicUI.contentBox+", #cm-nav-right").on("swiperight", function(){
-        comicUI.leftClick()
+      $(cmUI.contentBox+", #cm-nav-right").on("swiperight", function(){
+        cmUI.leftClick()
       })
       $("#btn-next-chapter, #btn-prev-chapter").on("click", function(event){
-        comicUI.init()
+        cmUI.init()
       })
       // Swipe up
-      $("#cm-nav-right, #cm-nav-left,"+comicUI.contentBox).on("swipeup", function(){
-        comicUI.rightClick()
+      $("#cm-nav-right, #cm-nav-left,"+cmUI.contentBox).on("swipeup", function(){
+        cmUI.rightClick()
       })
-      $("#cm-nav-right, #cm-nav-left,"+comicUI.contentBox).on("swipedown", function(){
-        comicUI.leftClick()
+      $("#cm-nav-right, #cm-nav-left,"+cmUI.contentBox).on("swipedown", function(){
+        cmUI.leftClick()
       })
 
       // wheel
-      $(comicUI.contentBox).on('wheel', function(event) {
+      $(cmUI.contentBox).on('wheel', function(event) {
         if(event.originalEvent.wheelDelta/120 < 0) {
-           comicUI.leftClick()
+           cmUI.leftClick()
          }else {
-           comicUI.rightClick()
+           cmUI.rightClick()
          }
       });
     }
 
     $(".mask").on('click', function(event) {
-      comicUI.showToolBox()
+      cmUI.showToolBox()
+    });
+    $(".modal-wrapper").on('click', function(event) {
+      modalUI.hide()
     });
     // Button
     $("[data-toggle='modal']").on('click', function(event) {
@@ -166,23 +151,22 @@ comicUI = new function(){
 
   this.showToolBox = function(){
     if($("#cm-nav-top").is(":visible")){
-      comicUI.hideNavBar()
+      cmUI.hideNavBar()
       modalUI.hide()
     }else{
       $("#cm-nav-top, #cm-nav-bottom, #btn-next-chapter, #btn-prev-chapter").show()
     }
   }
 
-
   this.drawFooter = function(){
-    page_detail = comicUI.currentPage +"/"+comicUI.countTotalPage()
-    title = comicUI.add3Dots("pham nhan tu tien v2 1234567890")
+    page_detail = cmUI.currentPage +"/"+cmUI.countTotalPage()
+    title = cmUI.add3Dots("pham nhan tu tien v2 1234567890")
     chapTitle = "<span class='f-right'>"+title+" &nbsp;(10%)</span>"
     $("#comic-footer").html(page_detail+chapTitle)
   }
 
   this.countTotalPage = function(){
-    return Math.ceil(comicUI.endOfColFirst/(comicUI.comicBoxWidth-comicUI.margin)) + 1
+    return Math.ceil(cmUI.endOfColFirst/(cmUI.comicBoxWidth-cmUI.margin)) + 1
   }
 
   this.hideNavBar = function(){
@@ -194,55 +178,54 @@ comicUI = new function(){
     display_option = display_option || "page"
     display_option = userSS.baseData().displayOption
     $("#comic-box").height(window.innerHeight)
-    comicUI.contentBox = "#comicContent";
-    if(comicUI.originalText.length > 0) $(comicUI.contentBox).append(comicUI.originalText)
-    $(comicUI.contentBox).append('<div class="ads-box"></div>')
-    $(comicUI.contentBox).append('<div class="end-of-col"></div>')
+    cmUI.contentBox = "#comicContent";
+    if(cmUI.originalText.length > 0) $(cmUI.contentBox).append(cmUI.originalText)
+    $(cmUI.contentBox).append('<div class="ads-box"></div>')
+    $(cmUI.contentBox).append('<div class="end-of-col"></div>')
 
-    comicUI.comicBoxWidth = $("#comic-box").innerWidth()
+    cmUI.comicBoxWidth = $("#comic-box").innerWidth()
 
-    comicUI.cstmCSSColumnContext()
+    cmUI.cstmCSSColumnContext()
 
     if(display_option == "page"){
 
-      // comicUI.loadAds()
-      // comicUI.test()
-      comicUI.endOfColFirst = $(".end-of-col").last().position().left;
-      comicUI.drawFooter()
+      // cmUI.loadAds()
+      // cmUI.test()
+      cmUI.endOfColFirst = $(".end-of-col").last().position().left;
+      cmUI.drawFooter()
     }
   }
 
   this.init = function(){
-    comicUI.destroy()
-    comicUI.currentPage = 1;
-    comicUI.margin = userSS.baseData().margin;
-    comicUI.scrollPosition = 0;
-    comicUI.addComicBody()
+    cmUI.destroy()
+    cmUI.currentPage = 1;
+    cmUI.margin = userSS.baseData().margin;
+    cmUI.scrollPosition = 0;
+    cmUI.addComicBody()
     userSS.limitAccessPerDay()
   }
 
   this.initWhenResize = function(){
-    oldPageWidth = comicUI.endOfColFirst
-    oldPageIndex = comicUI.currentPage
-    comicUI.init()
-    target_page_index = (oldPageIndex * comicUI.endOfColFirst)/oldPageWidth
-    for(var i = target_page_index; i > 0; i--){
-      if(oldPageIndex < comicUI.currentPage){
-        comicUI.leftClick(0)
-      }else{
-        comicUI.rightClick(0)
-      }
-    }
     modalUI.hide()
+    oldPageWidth = cmUI.endOfColFirst
+    oldPageIndex = cmUI.currentPage
+    cmUI.init()
+    cmUI.currentPage = Math.ceil(oldPageIndex * (oldPageWidth/cmUI.endOfColFirst))
+    if(oldPageIndex < cmUI.currentPage){
+      cmUI.leftClick(0, cmUI.currentPage+1)
+    }else{
+      cmUI.rightClick(0, cmUI.currentPage -1)
+    }
+    cmUI.drawFooter()
   }
 
   this.loadAds = function(){
     // Init ads thread
-    comicUI.ads = comicUI.ads ? comicUI.ads : null
+    cmUI.ads = cmUI.ads ? cmUI.ads : null
     // Destroy old process
-    clearTimeout(comicUI.ads)
+    clearTimeout(cmUI.ads)
     // Start process
-    comicUI.ads = setTimeout(function(){
+    cmUI.ads = setTimeout(function(){
       $(".ads-box").append(adsData)
       $(".ads-box").append('<div class="end-of-col"></div>')
       console.log("ads loading...")
@@ -250,19 +233,18 @@ comicUI = new function(){
   }
 
   this.destroy = function(){
-    $(comicUI.contentBox).html('')
+    $(cmUI.contentBox).html('')
   }
 
-
   this.add3Dots = function(string){
-      _boxW = comicUI.comicBoxWidth
+      _boxW = cmUI.comicBoxWidth
       limit = 25;
       if(_boxW < 400 ){
         limit = 25
       }else if (_boxW < 560 ) {
-        limit = 30
+        limit = 35
       }else if (_boxW < 760 ) {
-        limit = 40
+        limit = 50
       }else{
         limit = 65
       }
@@ -271,138 +253,10 @@ comicUI = new function(){
 
   this.test = function(){
     setInterval(function(){
-      html = comicUI.endOfColFirst+" => "+comicUI.scrollPosition+" => "+(comicUI.scrollPosition/(comicUI.comicBoxWidth - 20)).toFixed(4)+" => "+comicUI.comicBoxWidth+" => "+$("#comic-box").innerWidth()+" => "+(comicUI.endOfCol.left)
+      html = cmUI.endOfColFirst+" => "+cmUI.scrollPosition+" => "+(cmUI.scrollPosition/(cmUI.comicBoxWidth - 20)).toFixed(4)+" => "+cmUI.comicBoxWidth+" => "+$("#comic-box").innerWidth()+" => "+(cmUI.endOfCol.left)
 
       $("#comic-footer .f-right").html(html)
     }, 200)
 
-  }
-}
-
-var modalUI = new function(){
-  this.cssCstm = function(modal_id){
-    modal = $(modal_id)
-    modal.show()
-    if(modal.attr('data-screen') == "modal-full"){
-      utilityLib.buildCenterBox(modal_id, true)
-      modal.find(".cm-modal-body").height(window.innerHeight - 76)
-    }else{
-      utilityLib.buildCenterBox(modal_id)
-    }
-    comicUI.transformClick()
-  }
-  this.hide = function(){
-    $(".cm-modal").hide()
-  }
-  this.btnCloseModal = function(){
-    $(".cm-modal-header .btn-close, #comicContent, #cm-nav-left, #cm-nav-right").on('click', function() {
-      modalUI.hide()
-    });
-  }
-
-  this.loadMenu = function(modal_id){
-    post_id = $(modal_id).attr("data-post-id")
-    var modal_target = $(modal_id).attr("data-target")
-    $.ajax({
-      url: "/get_menu_chapters/"+post_id,
-      type: 'GET',
-      dataType: 'html',
-      async: false
-    })
-    .done(function(data) {
-      $(modal_target+" .cm-modal-body").html(data)
-    })
-    .fail(function() {
-      "something errors"
-    })
-  }
-
-  this.show = function(modal_id){
-    modalUI.cssCstm(modal_id)
-    comicUI.hideNavBar()
-    modalUI.btnCloseModal()
-  }
-}
-
-userSS = new function(){
-  this.clear =  function(){
-    localStorage.clear();
-  }
-
-  this.baseData = function(){
-    return_data = {}
-    return_data.margin      = localStorage.getItem("margin") || 15
-    return_data.footer      = localStorage.getItem("footer") || "show"
-    return_data.background  = localStorage.getItem("background") || "bg-style1"
-    return_data.fontSize    = localStorage.getItem("fontSize") || 1.4
-    return_data.displayOption     = localStorage.getItem("displayOption") || "page"
-    return return_data
-  }
-
-  this.setFontSize = function(increase_or_decrease){
-    if(increase_or_decrease == 0) return false;
-    increase_or_decrease = increase_or_decrease || -1
-    increase_or_decrease = parseInt(increase_or_decrease)
-    font_size = parseFloat(userSS.baseData().fontSize)
-    if(font_size > 0.7 && font_size < 2.7){
-      font_size += increase_or_decrease*0.1
-    }else if (font_size <= 0.7 ) {
-      font_size = 0.8
-    }else if (font_size >= 2.7) {
-      font_size = 2.6
-    }
-
-    localStorage.setItem("fontSize", font_size);
-    $(comicUI.contentBox+", .setting-site-label").css("font-size", font_size +"em");
-    if (userSS.baseData().displayOption == "page"){
-      comicUI.drawFooter()
-    }
-  }
-
-  this.setFontType = function(){
-
-  }
-  this.setFooter = function(){
-
-  }
-
-  this.setBackground = function(){
-    $(".btn-modal[data-bg*='bg-style']").on('click', function(event) {
-      html = "<span class='icon-check'></span>"
-      bg = $(this).attr("data-bg")
-      $("div[data-bg*='bg-'] > span").remove()
-      $("#wrap-container[class*='bg-']").removeClass()
-      localStorage.setItem("background", bg);
-      $("#wrap-container").addClass(bg)
-      $(this).append(html)
-    });
-  }
-
-  this.setMargin = function(){
-
-  }
-  this.setDisplayOption = function(display_option){
-    localStorage.setItem("displayOption", display_option)
-    comicUI.init()
-    window.location.reload(true)
-  }
-
-  this.setSettingConf = function(){
-    userSS.setFontSize(0)
-    userSS.setBackground()
-  }
-
-  this.settingInit = function(){
-    bg = userSS.baseData().background;
-    $("#wrap-container").addClass(bg)
-
-    fontSize = userSS.baseData().fontSize;
-    $(comicUI.contentBox+", .setting-site-label").css("font-size", fontSize +"em");
-  }
-  // 300
-  this.limitAccessPerDay = function(){
-    // access_count = cookie.getCookie("limitAccessPerDay") || 0
-    // access_count = parseInt(access_count) + 1
-    // cookie.setCookie("limitAccessPerDay", access_count, 1)
   }
 }

@@ -8,88 +8,39 @@
   font-weight: normal;
   font-style: normal;
 }
+.icon-scroll-down:before{ content: "\e900";}
+.icon-scroll-default:before{ content: "\e901";}
+.icon-warning:before{ content: "\f100";}
+.icon-shrink:before{ content: "\f267";}
+.icon-note:before{ content: "\f11a";}
+.icon-left:before{ content: "\f124";}
+.icon-right:before{ content: "\f125";}
+.icon-bell2:before{ content: "\f3e1";}
+.icon-book:before{ content: "\f3e7";}
+.icon-close:before{ content: "\f406";}
+.icon-heart-outline:before{ content: "\f442";}
+.icon-heart:before{ content: "\f443";}
+.icon-loop:before{ content: "\f459";}
+.icon-send:before{ content: "\f474";}
+.icon-search:before{ content: "\f4a4";}
+.icon-bell:before{ content: "\78";}
+.icon-check:before{ content: "\53";}
+.icon-download:before{ content: "\31";}
+.icon-expand:before{ content: "\3e";}
+.icon-setting:before{ content: "\7e";}
+.icon-star:before{ content: "\e045";}
+.icon-user-id:before{ content: "\e058";}
+.icon-list:before{ content: "\e05b";}
+.icon-grid-view:before{ content: "\e05d";}
+.icon-chat:before{ content: "\4d";}
+.icon-filter:before{ content: "\59";}
+.icon-margin-fat:before{ content: "\65";}
+.icon-margin-thin:before{ content: "\6a";}
 
-.icon-scroll-down:before {
-  content: "\e900";
-}
-.icon-scroll-default:before {
-  content: "\e901";
-}
-.icon-warning:before {
-  content: "\f100";
-}
-.icon-shrink:before {
-  content: "\f267";
-}
-.icon-note:before {
-  content: "\f11a";
-}
-.icon-left:before {
-  content: "\f124";
-}
-.icon-right:before {
-  content: "\f125";
-}
-.icon-bell2:before {
-  content: "\f3e1";
-}
-.icon-book:before {
-  content: "\f3e7";
-}
-.icon-close:before {
-  content: "\f406";
-}
-.icon-heart-outline:before {
-  content: "\f442";
-}
-.icon-heart:before {
-  content: "\f443";
-}
-.icon-loop:before {
-  content: "\f459";
-}
-.icon-send:before {
-  content: "\f474";
-}
-.icon-search:before {
-  content: "\f4a4";
-}
-.icon-bell:before {
-  content: "\78";
-}
-.icon-check:before {
-  content: "\53";
-}
-.icon-download:before {
-  content: "\31";
-}
-.icon-expand:before {
-  content: "\3e";
-}
-.icon-setting:before {
-  content: "\7e";
-}
-.icon-star:before {
-  content: "\e045";
-}
-.icon-user-id:before {
-  content: "\e058";
-}
-.icon-list:before {
-  content: "\e05b";
-}
-.icon-grid-view:before {
-  content: "\e05d";
-}
-.icon-chat:before {
-  content: "\4d";
-}
-.icon-filter:before {
-  content: "\59";
-}
-.icon-margin-fat:before {
-  content: "\65";
-}
-.icon-margin-thin:before {
-  content: "\6a";
+
+.loading{
+  width: 50px;
+  height: 50px;
+  position: fixed;
+  background: red;
 }

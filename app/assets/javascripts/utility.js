@@ -39,16 +39,36 @@ utilityLib = new function(){
     };
   })();
 
-  this.buildCenterBox = function(box_selector, full_screen){
+  this.buildModalBox = function(box_selector, full_screen){
     full_screen = full_screen || false;
     _box = $(box_selector)
-    if (full_screen == false){
-        _top = 0;
+    if (full_screen == true){
+      _box.height(window.innerHeight)
+    }
+    if(utilityLib.is_mobile()){
+      _top = 0
     }else{
-        _top = 0
-        _box.height(window.innerHeight)
+      _top = (window.innerHeight - _box.innerHeight())/2
     }
     _left = (window.innerWidth - _box.innerWidth())/2;
     _box.css({ top: _top, left: _left })
+  }
+
+  this.buildCenterBox = {
+    show: function(box_selector, full_screen){
+      $(box_selector).show()
+      full_screen = full_screen || false;
+      _box = $(box_selector)
+      if (full_screen == false){
+          _top = (window.innerHeight - _box.innerHeight())/2
+      }else{
+          _top = 0;
+      }
+      _left = (window.innerWidth - _box.innerWidth())/2;
+      _box.css({ top: _top, left: _left })
+    }, hide: function(box_selector){
+      $(box_selector).hide()
+    }
+
   }
 }
