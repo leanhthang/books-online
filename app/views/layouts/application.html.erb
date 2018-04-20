@@ -32,7 +32,8 @@
         $(document).ready(function() {
           cmUI.init()
           cmUI.comicBoxAction()
-          cmUI.originalText = $(cmUI.contentBox).html()
+          cmUI.chapterHeader = $("#chapter-header-detail").html()
+          cmUI.originalText = cmUI.chapterHeader + $(cmUI.contentBox).html()
         });
       </script>
 

@@ -2,7 +2,9 @@ Rails.application.routes.draw do
   # client
   get 'posts/:id', to: "posts#show", as: :post
   get 'chapter/:id/:post_id', to: "posts#chapter", :as => :post_chapter
-  get 'get_menu_chapters/:id', to: "posts#get_menu_chapters", :as => :get_menu_chapter
+  get 'get_menu_items/:id', to: "posts#get_menu_items", :as => :get_menu_chapter
+  get 'get_next_chapter', to: "posts#get_next_chapter", :as => :get_next_chapter
+  get 'get_prev_chapter', to: "posts#get_prev_chapter", :as => :get_prev_chapter
   root to: "home#index"
 
 

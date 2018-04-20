@@ -13,13 +13,13 @@ class CreateChapters < ActiveRecord::Migration[5.1]
       # who is approve this chapter
       t.string  :approve_by, default: false
       t.string  :image
-      t.integer :like, default: 0
+      t.integer :like_c, default: 0
       t.integer :rating, default: 0
       t.integer :visited, default: 0
       t.text    :description
       t.string  :origin_link
       t.integer :post_id
-      t.integer :order, index: true
+      t.integer :order_c
       t.timestamps
     end
   end

@@ -31,7 +31,7 @@ var modalUI = new function(){
       beforeSend: function(){
         utilityLib.buildCenterBox.show(".loading")
       },
-      url: "/get_menu_chapters/"+post_id,
+      url: "/get_menu_items/"+post_id,
       type: 'GET',
       dataType: 'json',
     })

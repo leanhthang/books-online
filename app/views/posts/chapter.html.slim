@@ -1,21 +1,20 @@
 #wrap-container
+  - chapter_id = ecb64(@chapter.id)
+  input#chapter-id type="hidden" value="#{chapter_id}"
+  input#chapter-title type="hidden" value="#{@chapter.title}"
+  input#post-id type="hidden" value="#{@post.id}"
+  input#current-order-chapter type="hidden" value="#{@chapter.order}"
+  input#chapter-count type="hidden" value="#{@post.chapter_count}"
+
   #comic-box
     #comicContent.noselect
-      .card
-        .card-content
-          .card-body
-            h4.card-title.text-center = @post.title
-            h6.card-title.text-center = @chapter.title
-          .card-body.row
-            .col
-            .btn.btn-outline-success.col <<
-            .btn.btn-outline-success.col >>
-            .col
+      #chapter-header-detail
+        = render partial: "/posts/chapter_header_detail"
       div onclick="cmUI.showToolBox()"
         = @chapter.origin_content.html_safe
         .text-danger.col.text-center
           | Hết chương #{@chapter.title}
-    #comic-footer data-chapter-title="#{@chapter.title}" data-chapter-progress="#{@chapter.order}/#{@post.chapter_count}"
+    #comic-footer data-chapter-title="#{@chapter.title}"
     #cm-nav-left
     #cm-nav-right
 

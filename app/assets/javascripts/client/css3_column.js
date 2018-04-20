@@ -1,4 +1,5 @@
 cmUI = new function(){
+  this.post_id = $("#post-id").val()
   this.endOfColFirst = null;
   this.is_mobile = utilityLib.is_mobile();
   this.padding = 20;
@@ -157,11 +158,36 @@ cmUI = new function(){
       $("#cm-nav-top, #cm-nav-bottom, #btn-next-chapter, #btn-prev-chapter").show()
     }
   }
+  // in_or_decrease: +1/-1
+  this.getChapter = function(_this, in_or_decrease){
+    // debugger
+    console.log(atob($("#chapter-id").val()))
+    $.ajax({
+      beforeSend: function(){
+        utilityLib.buildCenterBox.show(".loading")
+      },
+      url: $(_this).attr("data-url"),
+      type: 'GET',
+      dataType: 'JSON',
+      data: {post_id: cmUI.post_id, id: $("#chapter-id").val()},
+    })
+    .done(function(data) {
+      utilityLib.buildCenterBox.hide(".loading")
+      $("#chapter-id").val(btoa(data.id))
+      $("#current-order-chapter").val(data.order)
+      $("#chapter-title").val(data.title)
+      cmUI.originalText = cmUI.chapterHeader + data.origin_content
+      cmUI.init()
+    })
+    .fail(function() {
+      console.log("error");
+    })
+  }
 
   this.drawFooter = function(){
     page_detail = cmUI.currentPage +"/"+cmUI.countTotalPage()
-    title = cmUI.add3Dots($("#comic-footer").attr("data-chapter-title"))
-    read_progress = $("#comic-footer").attr("data-chapter-progress")
+    title = cmUI.add3Dots($("#chapter-title").val())
+    read_progress = $("#current-order-chapter").val() +"/"+$("#chapter-count").val()
     chapTitle = "<span class='f-right'>"+title+" &nbsp;("+read_progress+")</span>"
     $("#comic-footer").html(page_detail+chapTitle)
   }

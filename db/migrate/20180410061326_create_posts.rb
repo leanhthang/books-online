@@ -17,7 +17,7 @@ class CreatePosts < ActiveRecord::Migration[5.1]
       t.string :status
       # The currently, who is responsibility for this post
       t.string :assign_to, default: false
-      t.integer :like, default: 0
+      t.integer :like_c, default: 0
       t.integer :rating, default: 0
       t.integer :visited, default: 0
       t.timestamps
