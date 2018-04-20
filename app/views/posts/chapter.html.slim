@@ -10,10 +10,10 @@
     #comicContent.noselect
       #chapter-header-detail
         = render partial: "/posts/chapter_header_detail"
-      div onclick="cmUI.showToolBox()"
+      #comicData onclick="cmUI.showToolBox()"
         = @chapter.origin_content.html_safe
-        .text-danger.col.text-center
-          | Hết chương #{@chapter.title}
+      .text-danger.col.text-center
+        | Hết chương #{@chapter.title}
     #comic-footer data-chapter-title="#{@chapter.title}"
     #cm-nav-left
     #cm-nav-right

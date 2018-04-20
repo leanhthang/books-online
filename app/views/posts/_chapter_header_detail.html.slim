@@ -5,6 +5,8 @@
       h6#chapter-tiltle-header.card-title.text-center = @chapter.title
     .card-body.row
       .col
-      .btn.btn-outline-success.col onclick="cmUI.getChapter(this)" data-url="#{get_prev_chapter_path}" <<
-      .btn.btn-outline-success.col.el-space-l onclick="cmUI.getChapter(this)" data-url="#{get_next_chapter_path}" >>
+      .col
+        .row
+          .btn.btn-outline-success.col onclick="cmUI.getChapter(this)" data-url="#{get_prev_chapter_path}" <<
+          .btn.btn-outline-success.col.el-space-l onclick="cmUI.getChapter(this)" data-url="#{get_next_chapter_path}" >>
       .col

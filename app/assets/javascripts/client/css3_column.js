@@ -176,7 +176,7 @@ cmUI = new function(){
       $("#chapter-id").val(btoa(data.id))
       $("#current-order-chapter").val(data.order)
       $("#chapter-title").val(data.title)
-      cmUI.originalText = cmUI.chapterHeader + data.origin_content
+      cmUI.originalText = data.origin_content
       cmUI.init()
       $("#chapter-tiltle-header").html(data.title)
     })
@@ -207,7 +207,10 @@ cmUI = new function(){
     display_option = userSS.baseData().displayOption
     $("#comic-box").height(window.innerHeight)
     cmUI.contentBox = "#comicContent";
-    if(cmUI.originalText.length > 0) $(cmUI.contentBox).append(cmUI.originalText)
+    if(cmUI.originalText.length > 0) {
+      $(cmUI.contentBox+" #chapter-header-detail").html(cmUI.chapterHeader)
+      $(cmUI.contentBox+" #comicData").html(cmUI.originalText)
+    }
     $(cmUI.contentBox).append('<div class="ads-box"></div>')
     $(cmUI.contentBox).append('<div class="end-of-col"></div>')
 
@@ -265,6 +268,7 @@ cmUI = new function(){
 
   this.destroy = function(){
     $(cmUI.contentBox).html('')
+    $(cmUI.contentBox).html("<div id='chapter-header-detail'></div><div id='comicData' onclick='cmUI.showToolBox()'></div>")
   }
 
   this.add3Dots = function(string){

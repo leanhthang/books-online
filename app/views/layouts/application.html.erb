@@ -33,10 +33,15 @@
           cmUI.init()
           cmUI.comicBoxAction()
           cmUI.chapterHeader = $("#chapter-header-detail").html()
-          cmUI.originalText = $(cmUI.contentBox).html()
+          cmUI.originalText = $(cmUI.contentBox+" #comicData").html()
         });
       </script>
 
-      <div class="loading"></div>
+      <div class="cssload-thecube loading">
+        <div class="cssload-cube cssload-c1"></div>
+        <div class="cssload-cube cssload-c2"></div>
+        <div class="cssload-cube cssload-c4"></div>
+        <div class="cssload-cube cssload-c3"></div>
+      </div>
   </body>
 </html>
