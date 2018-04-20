@@ -178,6 +178,7 @@ cmUI = new function(){
       $("#chapter-title").val(data.title)
       cmUI.originalText = cmUI.chapterHeader + data.origin_content
       cmUI.init()
+      $("#chapter-tiltle-header").html(data.title)
     })
     .fail(function() {
       console.log("error");
