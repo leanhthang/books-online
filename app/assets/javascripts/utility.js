@@ -48,7 +48,7 @@ utilityLib = new function(){
     if(utilityLib.is_mobile()){
       _top = 0
     }else{
-      _top = (window.innerHeight - _box.innerHeight())/2
+      _top = (window.innerHeight - _box.innerHeight())/4
     }
     _left = (window.innerWidth - _box.innerWidth())/2;
     _box.css({ top: _top, left: _left })

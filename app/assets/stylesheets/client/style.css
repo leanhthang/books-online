@@ -44,3 +44,9 @@
   position: fixed;
   background: red;
 }
+
+/* customize bootstrap */
+.card-link:hover {
+    background: #333
+}
+.btn{ border-radius: 0 !important }

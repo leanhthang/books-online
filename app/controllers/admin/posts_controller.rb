@@ -38,7 +38,6 @@ class Admin::PostsController < AdminController
       _module = @post.origin_rs.constantize
       _module.new.chapters(@post)
     end
-    sleep(5)
     redirect_to admin_post_show_path
   end
 

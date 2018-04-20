@@ -7,7 +7,7 @@ module ApplicationHelper
     end
   end
 
-  def convert_string_vn_to_unmarked(string)
-
+  def ecb64(str)
+    return Base64.encode64(str.to_s) rescue ""
   end
 end

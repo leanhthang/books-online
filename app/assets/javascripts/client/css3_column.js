@@ -58,7 +58,7 @@ cmUI = new function(){
     loop = loop ? loop : 0
     if(cmUI.scrollPosition > 0 || loop > 0){
       if(loop > 0){
-        cmUI.scrollPosition = (cmUI.comicBoxWidth - cmUI.margin)*loop
+        cmUI.scrollPosition = (cmUI.comicBoxWidth - cmUI.margin)*(loop - 1)
       }else{
         cmUI.currentPage -= 1
         cmUI.scrollPosition -= (cmUI.comicBoxWidth - cmUI.margin)
@@ -70,9 +70,9 @@ cmUI = new function(){
     duration = duration ? duration : 50
     loop = loop ? loop : 0
     cmUI.endOfCol = $(".end-of-col").last().position();
-    if(cmUI.endOfCol.left > 0 || loop > 0){
+    if(cmUI.endOfCol.left > 0){
       if(loop > 0){
-        cmUI.scrollPosition = (cmUI.comicBoxWidth - cmUI.margin)*loop
+        cmUI.scrollPosition = (cmUI.comicBoxWidth - cmUI.margin)*(loop - 1)
       }else{
         cmUI.currentPage += 1
         cmUI.scrollPosition += (cmUI.comicBoxWidth - cmUI.margin)
@@ -160,8 +160,9 @@ cmUI = new function(){
 
   this.drawFooter = function(){
     page_detail = cmUI.currentPage +"/"+cmUI.countTotalPage()
-    title = cmUI.add3Dots("pham nhan tu tien v2 1234567890")
-    chapTitle = "<span class='f-right'>"+title+" &nbsp;(10%)</span>"
+    title = cmUI.add3Dots($("#comic-footer").attr("data-chapter-title"))
+    read_progress = $("#comic-footer").attr("data-chapter-progress")
+    chapTitle = "<span class='f-right'>"+title+" &nbsp;("+read_progress+")</span>"
     $("#comic-footer").html(page_detail+chapTitle)
   }
 
@@ -207,14 +208,17 @@ cmUI = new function(){
 
   this.initWhenResize = function(){
     modalUI.hide()
-    oldPageWidth = cmUI.endOfColFirst
+    oldTotalPage = cmUI.countTotalPage()
     oldPageIndex = cmUI.currentPage
     cmUI.init()
-    cmUI.currentPage = Math.ceil(oldPageIndex * (oldPageWidth/cmUI.endOfColFirst))
+    cmUI.currentPage = Math.round((cmUI.countTotalPage() * oldPageIndex)/oldTotalPage)
+    if(cmUI.currentPage > cmUI.countTotalPage()){
+      cmUI.currentPage = cmUI.countTotalPage()
+    }
     if(oldPageIndex < cmUI.currentPage){
-      cmUI.leftClick(0, cmUI.currentPage+1)
+      cmUI.leftClick(0, cmUI.currentPage)
     }else{
-      cmUI.rightClick(0, cmUI.currentPage -1)
+      cmUI.rightClick(0, cmUI.currentPage)
     }
     cmUI.drawFooter()
   }
@@ -238,15 +242,16 @@ cmUI = new function(){
 
   this.add3Dots = function(string){
       _boxW = cmUI.comicBoxWidth
-      limit = 25;
-      if(_boxW < 400 ){
-        limit = 25
+      if(_boxW < 320 ){
+        return ""
+      }else if (_boxW < 400 ) {
+        limit = 27
       }else if (_boxW < 560 ) {
-        limit = 35
+        limit = 40
       }else if (_boxW < 760 ) {
-        limit = 50
+        limit = 55
       }else{
-        limit = 65
+        limit = 70
       }
       return utilityLib.add3Dots(string, limit)
   }

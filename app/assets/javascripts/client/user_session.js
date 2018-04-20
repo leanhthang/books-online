@@ -3,6 +3,13 @@ userSS = new function(){
     localStorage.clear();
   }
 
+  // post_id: {
+  //   menu_items: [],
+  //   next_chapters: [],
+  //   prev_chapters: [],
+  // }
+  this.data = {}
+
   this.baseData = function(){
     return_data = {}
     return_data.margin      = localStorage.getItem("margin") || 15
@@ -75,7 +82,7 @@ userSS = new function(){
     $(cmUI.contentBox+", .setting-site-label").css("font-size", fontSize +"em");
     // auto set status for modal setting
     // background
-    $(".setting-option > ."+bg).append("<span class='icon-check'></span>")
+    $(".setting-option > ."+bg).html("<span class='icon-check'></span>")
     displayOption = userSS.baseData().displayOption
     if(displayOption == "page"){
       $(".setting-view > .setting-view-page").css('background', '#999');

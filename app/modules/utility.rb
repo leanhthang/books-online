@@ -20,7 +20,15 @@ module Utility
     return_str.join(" ")
   end
 
-  def float?(string)
+  def self.float?(string)
     true if Float(string) rescue false
+  end
+
+  def self.ecb64(str)
+    return Base64.encode64(str.to_s) rescue ""
+  end
+
+  def self.dcb64(str)
+    return Base64.decode64(str) rescue ""
   end
 end

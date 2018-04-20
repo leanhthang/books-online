@@ -35,7 +35,9 @@ module ComicScanner
       doc = Nokogiri::HTML(open(link))
       puts link
       @index = 0
-      doc.css(@chapter_params[:scan_selector]).each do |chapter_doc|
+      skip_has_download = post.chapter_count - 1
+      doc.css(@chapter_params[:scan_selector]).each_with_index do |chapter_doc, idx|
+        return false if skip_has_download > idx
         url_chapter = chapter_doc.at(@chapter_params[:link_scan])['href']
         chapter_params = chapter(chapter_doc, url_chapter)
         if chapter_params.present?

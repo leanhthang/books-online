@@ -26,18 +26,19 @@ var modalUI = new function(){
   this.loadMenu = function(modal_id){
     if( modal_id != "#list-chapter-modal") return false
     post_id = $(modal_id).attr("data-post-id")
+    userSS.data["post_id_"+post_id] = {}
     $.ajax({
       beforeSend: function(){
         utilityLib.buildCenterBox.show(".loading")
       },
       url: "/get_menu_chapters/"+post_id,
       type: 'GET',
-      dataType: 'html',
+      dataType: 'json',
     })
     .done(function(data) {
       utilityLib.buildCenterBox.hide(".loading")
       $(modal_id+" .cm-modal-body").html((data))
-      modalUI.listMenus = data
+      userSS.data["post_id_"+post_id]['menu_items'] = data
     })
   }
   this.action = function(modal_id){

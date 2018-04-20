@@ -20,16 +20,16 @@ module ComicScanner
         link = ("#{@path_scanner}#{page}").gsub(/\"/,"\"")
         begin
           puts link
-          doc = Nokogiri::HTML(open(link))
-          scan_detail_of_post(doc)
+          scan_detail_of_post(link)
         rescue
           puts "#{link} => errors"
         end
       end
     end
 
-    def scan_detail_of_post(post)
-      post.search(@post_params[:item_scan]).each do |doc_post|
+    def scan_detail_of_post(link_post)
+      docs = Nokogiri::HTML(open(link_post))
+      docs.search(@post_params[:item_scan]).each do |doc_post|
         begin
           _post = post(@post_params, doc_post)
           Post.add_post(_post)
