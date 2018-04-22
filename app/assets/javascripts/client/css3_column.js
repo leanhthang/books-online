@@ -80,9 +80,10 @@ cmUI = new function(){
     }
   }
 
-  this.transformClick = function(duration){
-    duration = duration || 350
-    $(cmUI.contentBox).scrollTo(cmUI.scrollPosition, {duration: duration, interrupt:true});
+  this.transformClick = function(duration, scroll_length){
+    duration      = duration || 350
+    scroll_length = scroll_length || cmUI.scrollPosition
+    $(cmUI.contentBox).scrollTo(scroll_length, {duration: duration, interrupt:true});
     cmUI.drawFooter()
   }
 
@@ -98,29 +99,43 @@ cmUI = new function(){
     cmUI.boxHeightState = $(cmUI.contentBox).innerHeight()
   }
 
+  this.swipeComic = function(){
+    cmUI.endOfCol = $(".end-of-col").last().position();
+    $("#cm-nav-right, #cm-nav-left, "+cmUI.contentBox).swipe({
+        swipeStatus:function(event, phase, direction, distance, duration, fingers, fingerData){
+          if( cmUI.scrollPosition >= 0 && (direction == 'right' || direction == "down") ){
+            cmUI.transformClick(5, cmUI.scrollPosition - distance)
+          }else if(cmUI.endOfCol.left >= 0 && (direction == 'left' || direction == "up")){
+            cmUI.transformClick(5, cmUI.scrollPosition + distance)
+          }
+          if( (phase == 'end' || phase == 'cancel') && distance < 80 ) {
+            cmUI.transformClick(300)
+          }
+        },
+        swipe: function(event, direction, distance, duration, fingerCount) {
+          console.log("swip: "+distance)
+            if(direction == 'left' || direction == 'up') {
+              cmUI.rightClick(0);
+            }else{
+              cmUI.leftClick(0)
+            }
+        },
+        threshold: 80
+      })
+  }
+
   this.comicBoxAction = function(){
     if (userSS.baseData().displayOption == "page"){
-      $("#cm-nav-right").on("swipeleft click", function(){
+      cmUI.swipeComic()
+
+      $("#cm-nav-right").on(" click", function(event){
         cmUI.rightClick()
       })
-      $(cmUI.contentBox+", #cm-nav-left").on("swipeleft", function(event){
-        cmUI.rightClick()
-      })
-      $("#cm-nav-left").on("swiperight click", function(){
-        cmUI.leftClick()
-      })
-      $(cmUI.contentBox+", #cm-nav-right").on("swiperight", function(){
+      $("#cm-nav-left").on("click", function(){
         cmUI.leftClick()
       })
       $("#btn-next-chapter, #btn-prev-chapter").on("click", function(event){
         cmUI.init()
-      })
-      // Swipe up
-      $("#cm-nav-right, #cm-nav-left,"+cmUI.contentBox).on("swipeup", function(){
-        cmUI.rightClick()
-      })
-      $("#cm-nav-right, #cm-nav-left,"+cmUI.contentBox).on("swipedown", function(){
-        cmUI.leftClick()
       })
 
       // wheel
