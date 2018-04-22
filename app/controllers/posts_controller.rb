@@ -1,5 +1,4 @@
-class PostsController < ActionController::Base
-  layout "layouts/admin/admin"
+class PostsController < ApplicationController
   before_action :decode_params_id, only: [:get_next_chapter, :get_prev_chapter]
   before_action :get_chapters, only: [:chapter]
   def show
