@@ -71,4 +71,12 @@ utilityLib = new function(){
     }
 
   }
+
+  this.exec = function(func_name, params){
+    params = params || null
+    var fn = window[func_name];
+    if(typeof fn !== 'function')
+        return;
+    fn.apply(window, params);
+  }
 }

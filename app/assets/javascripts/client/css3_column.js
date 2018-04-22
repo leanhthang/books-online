@@ -55,7 +55,6 @@ cmUI = new function(){
   }
 
   this.leftClick = function(duration, loop){
-    duration = duration ? duration : 50
     loop = loop ? loop : 0
     if(cmUI.scrollPosition > 0 || loop > 0){
       if(loop > 0){
@@ -68,7 +67,6 @@ cmUI = new function(){
     }
   }
   this.rightClick = function(duration, loop){
-    duration = duration ? duration : 50
     loop = loop ? loop : 0
     cmUI.endOfCol = $(".end-of-col").last().position();
     if(cmUI.endOfCol.left > 0){
@@ -83,6 +81,7 @@ cmUI = new function(){
   }
 
   this.transformClick = function(duration){
+    duration = duration || 350
     $(cmUI.contentBox).scrollTo(cmUI.scrollPosition, {duration: duration, interrupt:true});
     cmUI.drawFooter()
   }
@@ -104,7 +103,7 @@ cmUI = new function(){
       $("#cm-nav-right").on("swipeleft click", function(){
         cmUI.rightClick()
       })
-      $(cmUI.contentBox+", #cm-nav-left").on("swipeleft", function(){
+      $(cmUI.contentBox+", #cm-nav-left").on("swipeleft", function(event){
         cmUI.rightClick()
       })
       $("#cm-nav-left").on("swiperight click", function(){
