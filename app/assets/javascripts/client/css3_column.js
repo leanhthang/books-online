@@ -51,7 +51,7 @@ cmUI = new function(){
     },50);
     cmUI.fullScreenUpdateView = setTimeout(function(){
       cmUI.detectChangeDefaultOrientation(true)
-    },300);
+    },250);
   }
 
   this.leftClick = function(duration, loop){
@@ -81,7 +81,7 @@ cmUI = new function(){
   }
 
   this.transformClick = function(duration, scroll_length){
-    duration      = duration || 350
+    duration      = duration || 100
     scroll_length = scroll_length || cmUI.scrollPosition
     $(cmUI.contentBox).scrollTo(scroll_length, {duration: duration, interrupt:true});
     cmUI.drawFooter()
@@ -100,6 +100,7 @@ cmUI = new function(){
   }
 
   this.swipeComic = function(){
+    threshold = 40
     cmUI.endOfCol = $(".end-of-col").last().position();
     $("#cm-nav-right, #cm-nav-left, "+cmUI.contentBox).swipe({
         swipeStatus:function(event, phase, direction, distance, duration, fingers, fingerData){
@@ -108,7 +109,7 @@ cmUI = new function(){
           }else if(cmUI.endOfCol.left >= 0 && (direction == 'left' || direction == "up")){
             cmUI.transformClick(5, cmUI.scrollPosition + distance)
           }
-          if( (phase == 'end' || phase == 'cancel') && distance < 80 ) {
+          if( (phase == 'end' || phase == 'cancel') && distance < threshold ) {
             cmUI.transformClick(300)
           }
         },
@@ -120,7 +121,7 @@ cmUI = new function(){
               cmUI.leftClick(0)
             }
         },
-        threshold: 80
+        threshold: threshold
       })
   }
 

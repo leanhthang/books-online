@@ -16,5 +16,13 @@ namespace :scanner do
       )
     cm.scan_detail_of_posts
   end
+  desc "Truyenfull scan post"
+  task :truyenfull_add_post, [:pages, :start] => :environment do |t, params|
+    # 673
+    cm = ComicScanner::Truyenfull.new(
+        params[:pages].to_i, params[:start].to_i
+      )
+    cm.scan_detail_of_posts
+  end
 end
 

@@ -5,6 +5,7 @@ module ComicScanner
     SELF_CLASS = {
       "ComicScanner::Bachngocsach" => "https://bachngocsach.com/reader/truyen?page=",
       "ComicScanner::Tangthuvien" => "https://truyen.tangthuvien.vn/bang-xep-hang?selOrder=view_&category=0&selComplete=1&selTime=all&page=",
+      "ComicScanner::Truyenfull" => "http://truyenfull.vn/danh-sach/truyen-moi/trang-",
     }
 
     def initialize(pages = 1, start = 0)
@@ -37,9 +38,16 @@ module ComicScanner
       end
     end
 
+    def skip_ddos_uri(link)
+        return open(link,
+            "Pragma" => "no-cache",
+            "User-Agent" => "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.181 Safari/537.36",
+            "X-Requested-With" => "XMLHttpRequest"
+          )
+    end
     private
       def get_others_of_post(origin_link)
-        doc = Nokogiri::HTML(open(origin_link), nil, Encoding::UTF_8.to_s)
+        doc = Nokogiri::HTML(skip_ddos_uri(origin_link), nil, Encoding::UTF_8.to_s)
         @count += 1
         begin
           return_data = {
@@ -57,7 +65,9 @@ module ComicScanner
       end
 
       def scan_detail_of_post(link_post)
-        docs = Nokogiri::HTML(open(link_post), nil, Encoding::UTF_8.to_s)
+        uri = open(link_post, "Origin" => "http://truyenfull.vn", "Pragma" => "no-cache","User-Agent" => "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.181 Safari/537.36",
+"X-Requested-With" => "XMLHttpRequest")
+        docs = Nokogiri::HTML(uri, nil, Encoding::UTF_8.to_s)
         docs.search(@post_params[:item_scan]).each do |doc_post|
           begin
             _post = handle_post_params(doc_post)
@@ -86,7 +96,7 @@ module ComicScanner
 
       def handle_chap_params(chapter_doc, url_chapter)
           begin
-            chapter_container = Nokogiri::HTML(open("#{@base_path}#{url_chapter}"), nil, Encoding::UTF_8.to_s)
+            chapter_container = Nokogiri::HTML(skip_ddos_uri("#{@base_path}#{url_chapter}"), nil, Encoding::UTF_8.to_s)
             return_data = {
               title: chapter_doc.at(@chapter_params[:title]).text,
               origin_link: url_chapter,

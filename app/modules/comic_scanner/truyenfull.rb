@@ -1,22 +1,22 @@
 module ComicScanner
-  class Tangthuvien < ComicScanner::Scanner
+  class Truyenfull < ComicScanner::Scanner
     def initialize(pages = 1, start = 0)
       super
       @post_params = {
-          item_scan: ".content .list-page .row",
+          item_scan: "#list-page .col-truyen-main .list-truyen .row",
           title: ".truyen-title a",
           #
-          description:  ".desc .desc-text",
-          origin_img:   ".info-holder .books img",
-          author:       ".info-holder .info div:first-child a",
-          categories:   '.info-holder .info div:nth-child(2) a',
-          types:        ".info-holder div .text-primary"
+          description:  ".desc-text-full",
+          origin_img:   ".book img",
+          author:       ".info div a[itemprop='author']",
+          categories:   '.info div:nth-child(2) a',
+          types:        ".info div:last-child span"
         }
       @chapter_params = {
-        list_chaps_of_page: "div ul li:not(.divider-chap)",
+        list_chaps_of_page: "#list-chapter ul.list-chapter li",
         link_scan: "a",
-        title: "a span",
-        origin_content: ".box-chap"
+        title: "a",
+        origin_content: ".chapter-c"
       }
       @base_path = ""
     end
@@ -44,15 +44,13 @@ module ComicScanner
       def get_all_pages_links_of_post(_post)
         link = "#{_post.origin_link}"
         doc = Nokogiri::HTML(skip_ddos_uri(link))
-        max_page = doc.css(".pagination li a[onclick]").last.attributes['onclick'].value.scan(/\d+/).first.to_i
-        post_id = doc.at("input[name='story_id']")['value']
+        max_page = doc.css("input#total-page")['value']
         page_links = []
         max_page.times do |t|
-          page_links << "https://truyen.tangthuvien.vn/doc-truyen/page/#{post_id}?page=#{t}"
+          page_links << "#{link}/trang-#{t}/"
         end
+        debugger
         page_links
       end
   end
 end
-
-
