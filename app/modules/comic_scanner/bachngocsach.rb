@@ -31,10 +31,10 @@ module ComicScanner
     end
 
     def chapters(_post)
+      @order_c = _post.chapter_count
       link = "#{_post.origin_link}/muc-luc?page=all"
       page_doc = Nokogiri::HTML(open(link))
       puts link
-      @order_c = 0
       skip_has_download = _post.chapter_count
       store_chapters_of_page(_post, page_doc, skip_has_download)
     end

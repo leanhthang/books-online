@@ -5,7 +5,7 @@ class PostsController < ApplicationController
     @post = Post.find(params[:id])
     @chapters = @post.chapters.select(:id, :title, :public)
                      .order(:order_c)
-                     .paginate(:page => params[:page], :per_page => 25)
+                     .paginate(:page => params[:page], :per_page => 50)
   end
 
   def chapter

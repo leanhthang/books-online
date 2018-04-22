@@ -28,7 +28,7 @@ module ComicScanner
     end
 
     def chapters(_post)
-      @order_c = 0
+      @order_c = _post.chapter_count
       skip_has_download = _post.chapter_count
       page_links = get_all_pages_links_of_post(_post)
       page_links.each do |page_link|
