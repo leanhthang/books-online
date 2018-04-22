@@ -14,14 +14,14 @@ module ComicScanner
           types: "#flag .flag-term"
         }
       @chapter_params = {
-        scan_selector: "#mucluc-list ul li.mucluc-row",
+        list_chaps_of_page: "#mucluc-list ul li.mucluc-row",
         link_scan: ".mucluc-chuong a",
 
         title: ".mucluc-chuong a",
         translator: ".mucluc-poster",
         origin_content: "#noidung"
       }
-      @base_path = "https://bachngocsach.com"
+      @base_path = "https://bachngocsach.com/"
     end
 
     # include ComicScanner::Scanner
@@ -30,24 +30,15 @@ module ComicScanner
       @cat_obj
     end
 
-    def chapters(post)
+    def chapters(_post)
       link = "#{post.origin_link}/muc-luc?page=all"
-      doc = Nokogiri::HTML(open(link))
+      page_doc = Nokogiri::HTML(open(link))
       puts link
-      @index = 0
-      skip_has_download = post.chapter_count - 1
-      doc.css(@chapter_params[:scan_selector]).each_with_index do |chapter_doc, idx|
-        return false if skip_has_download > idx
-        url_chapter = chapter_doc.at(@chapter_params[:link_scan])['href']
-        chapter_params = chapter(chapter_doc, url_chapter)
-        if chapter_params.present?
-          chapter_params[:order] = (@index += 1)
-          Chapter.add_chapter(chapter_params, post)
-        end
-      end
+      @order_c = 0
+      skip_has_download = post.chapter_count
+      store_chapters_of_page(_post, page_doc, skip_has_download)
     end
+
 
   end
 end
-
-

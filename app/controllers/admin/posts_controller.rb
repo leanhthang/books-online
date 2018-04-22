@@ -13,7 +13,7 @@ class Admin::PostsController < AdminController
 
   def show
     @chapters = @post.chapters.select(:id, :title, :public)
-                     .order(:order)
+                     .order(:order_c)
                      .paginate(:page => params[:page], :per_page => PAGINATE)
   end
 
@@ -34,10 +34,10 @@ class Admin::PostsController < AdminController
   end
 
   def sync_post
-    Thread.new do
+    # Thread.new do
       _module = @post.origin_rs.constantize
       _module.new.chapters(@post)
-    end
+    # end
     redirect_to admin_post_show_path
   end
 

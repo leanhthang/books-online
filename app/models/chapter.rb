@@ -12,7 +12,7 @@ class Chapter < ApplicationRecord
       _chapter.origin_link    = params[:origin_link]
       _chapter.translator     = params[:translator] if params[:translator]
       _chapter.origin_content = params[:origin_content]
-      _chapter.order          = params[:order]
+      _chapter.order_c        = params[:order_c]
       _chapter.save
     end
   end
@@ -21,10 +21,10 @@ class Chapter < ApplicationRecord
   def self.insert_order_to_new_position(chapter_id, insert_chapter_at)
     _insert_pos = Chapter.find(insert_chapter_at)
     _chapter    = Chapter.find(chapter_id)
-    if Utility.float?(_insert_pos.order)
-      _chapter.order = "#{_insert_pos.order.to_s}1".to_f
+    if Utility.float?(_insert_pos.order_c)
+      _chapter.order_c = "#{_insert_pos.order_c.to_s}1".to_f
     else
-      _chapter.order = "#{_insert_pos.order.to_s}.1".to_f
+      _chapter.order_c = "#{_insert_pos.order_c.to_s}.1".to_f
     end
     _chapter.save
   end

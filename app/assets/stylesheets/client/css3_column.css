@@ -3,7 +3,6 @@
   box-sizing: border-box;
   padding: 0; margin: 0; box-sizing: border-box; border: 0;
 }
-.loading{ display: none }
 li{ list-style: none }
 .clearfix {  clear: both; }
 [class^="icon-"], [class*=" icon-"] {
@@ -113,7 +112,7 @@ li{ list-style: none }
 #btn-prev-chapter{ left: 20px; }
 /* top nav-bar */
 #cm-nav-top{
-  position: absolute; top: 0; left: 0;
+  position: fixed; top: 0; left: 0;
   display: none;
   width: 100%;
   height: 100%;
@@ -138,7 +137,7 @@ li{ list-style: none }
 
 /* Nav bottom */
 #cm-nav-bottom{
-  position: absolute;
+  position: fixed;
   width: 100%;
   bottom: 0; left: 0;
 }

@@ -42,7 +42,7 @@ ActiveRecord::Schema.define(version: 20180420021359) do
     t.string "name"
     t.string "description"
     t.boolean "public", default: false
-    t.integer "like", default: 0
+    t.integer "like_c", default: 0
     t.integer "rating", default: 0
     t.integer "visited", default: 0
     t.integer "post_count", default: 0
@@ -59,13 +59,13 @@ ActiveRecord::Schema.define(version: 20180420021359) do
     t.string "editor", default: "f"
     t.string "approve_by", default: "f"
     t.string "image"
-    t.integer "like", default: 0
+    t.integer "like_c", default: 0
     t.integer "rating", default: 0
     t.integer "visited", default: 0
     t.text "description"
     t.string "origin_link"
     t.integer "post_id"
-    t.integer "order"
+    t.integer "order_c"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -110,7 +110,7 @@ ActiveRecord::Schema.define(version: 20180420021359) do
     t.integer "chapter_count", default: 0
     t.string "status"
     t.string "assign_to", default: "f"
-    t.integer "like", default: 0
+    t.integer "like_c", default: 0
     t.integer "rating", default: 0
     t.integer "visited", default: 0
     t.datetime "created_at", null: false
