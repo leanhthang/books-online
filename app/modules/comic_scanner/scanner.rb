@@ -31,6 +31,7 @@ module ComicScanner
           url_chapter = chapter_doc.at(@chapter_params[:link_scan])['href']
           _chap_params = handle_chap_params(chapter_doc, url_chapter)
           if _chap_params.present?
+            p url_chapter
             _chap_params[:order_c] = (@order_c += 1)
             Chapter.add_chapter(_chap_params, _post)
           end
@@ -39,11 +40,11 @@ module ComicScanner
     end
 
     def skip_ddos_uri(link)
-        return open(link,
-            "Pragma" => "no-cache",
-            "User-Agent" => "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.181 Safari/537.36",
-            "X-Requested-With" => "XMLHttpRequest"
-          )
+      return open(link,
+          "Pragma" => "no-cache",
+          "User-Agent" => "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.181 Safari/537.36",
+          "X-Requested-With" => "XMLHttpRequest"
+        )
     end
     private
       def get_others_of_post(origin_link)
@@ -65,9 +66,7 @@ module ComicScanner
       end
 
       def scan_detail_of_post(link_post)
-        uri = open(link_post, "Origin" => "http://truyenfull.vn", "Pragma" => "no-cache","User-Agent" => "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.181 Safari/537.36",
-"X-Requested-With" => "XMLHttpRequest")
-        docs = Nokogiri::HTML(uri, nil, Encoding::UTF_8.to_s)
+        docs = Nokogiri::HTML(skip_ddos_uri(link_post), nil, Encoding::UTF_8.to_s)
         docs.search(@post_params[:item_scan]).each do |doc_post|
           begin
             _post = handle_post_params(doc_post)
@@ -95,19 +94,20 @@ module ComicScanner
       end
 
       def handle_chap_params(chapter_doc, url_chapter)
-          begin
+          # begin
             chapter_container = Nokogiri::HTML(skip_ddos_uri("#{@base_path}#{url_chapter}"), nil, Encoding::UTF_8.to_s)
             return_data = {
               title: chapter_doc.at(@chapter_params[:title]).text,
               origin_link: url_chapter,
               origin_content: chapter_container.at(@chapter_params[:origin_content]).inner_html
             }
+
             return_data[:translator] = chapter_doc.at(@chapter_params[:translator]).text if @chapter_params[:translator].present?
             return_data
-          rescue Exception => e
-            puts "#{url_chapter} => errors (#{e})"
-            return {}
-          end
+          # rescue Exception => e
+          #   puts "#{url_chapter} => errors (#{e})"
+          #   return {}
+          # end
       end
   end
 end

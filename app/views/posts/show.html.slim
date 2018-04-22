@@ -12,7 +12,7 @@
           b Loại:
           span = @post.types.map(&:name).join(", ")
     .col-sm-7.col-md-8.col-lg-9
-      = @post.description.html_safe
+      = @post.description.html_safe if @post.description
 
   table.table
     thead

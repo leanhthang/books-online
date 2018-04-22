@@ -6,7 +6,7 @@ module ComicScanner
           item_scan: "#list-page .col-truyen-main .list-truyen .row",
           title: ".truyen-title a",
           #
-          description:  ".desc-text-full",
+          description:  ".desc-text",
           origin_img:   ".book img",
           author:       ".info div a[itemprop='author']",
           categories:   '.info div:nth-child(2) a',
@@ -28,8 +28,8 @@ module ComicScanner
     end
 
     def chapters(_post)
-      @order_c = _post.chapter_count
-      skip_has_download = _post.chapter_count
+      @order_c = _post.chapters.count
+      skip_has_download = @order_c
       page_links = get_all_pages_links_of_post(_post)
       page_links.each do |page_link|
         page_doc = Nokogiri::HTML(skip_ddos_uri(page_link), nil, Encoding::UTF_8.to_s)
@@ -44,12 +44,12 @@ module ComicScanner
       def get_all_pages_links_of_post(_post)
         link = "#{_post.origin_link}"
         doc = Nokogiri::HTML(skip_ddos_uri(link))
-        max_page = doc.css("input#total-page")['value']
+        max_page = doc.at("input#total-page")['value'].to_i
         page_links = []
         max_page.times do |t|
-          page_links << "#{link}/trang-#{t}/"
+          t += 1
+          page_links << "#{link}trang-#{t}/"
         end
-        debugger
         page_links
       end
   end

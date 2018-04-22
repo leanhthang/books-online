@@ -28,8 +28,8 @@ module ComicScanner
     end
 
     def chapters(_post)
-      @order_c = _post.chapter_count
-      skip_has_download = _post.chapter_count
+      @order_c = _post.chapters.count
+      skip_has_download = @order_c
       page_links = get_all_pages_links_of_post(_post)
       page_links.each do |page_link|
         page_doc = Nokogiri::HTML(skip_ddos_uri(page_link), nil, Encoding::UTF_8.to_s)
