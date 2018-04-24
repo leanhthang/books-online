@@ -1,7 +1,9 @@
 class CreatePosts < ActiveRecord::Migration[5.1]
   def change
+    enable_extension 'uuid-ossp'
+    enable_extension 'pgcrypto'
     enable_extension 'citext'
-    create_table :posts do |t|
+    create_table :posts, id: :uuid do |t|
       t.citext  :title, null: false
       t.citext  :title_vn, null: false
       t.string  :origin_link, null: false

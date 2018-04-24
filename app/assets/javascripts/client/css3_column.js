@@ -88,12 +88,13 @@ cmUI = new function(){
   }
 
   this.detectChangeDefaultOrientation = function(alway_loading){
+    cmUI.hideToolBox()
     alway_loading = alway_loading || false
     if( alway_loading == true || cmUI.is_mobile == false ){
       cmUI.initWhenResize();
     }else if(cmUI.boxWidthState != window.innerWidth && cmUI.is_mobile){
       cmUI.initWhenResize()
-      modalUI.hide()
+      // modalUI.hide()
     }
     cmUI.boxWidthState = window.innerWidth
     cmUI.boxHeightState = $(cmUI.contentBox).innerHeight()
@@ -110,15 +111,14 @@ cmUI = new function(){
             cmUI.transformClick(0, cmUI.scrollPosition + distance)
           }
           if( (phase == 'end' || phase == 'cancel') && distance < threshold ) {
-            cmUI.transformClick(200)
+            cmUI.transformClick(50)
           }
         },
         swipe: function(event, direction, distance, duration, fingerCount) {
-          console.log("swip: "+distance)
             if(direction == 'left' || direction == 'up') {
-              cmUI.rightClick(150);
+              cmUI.rightClick(20);
             }else{
-              cmUI.leftClick(150)
+              cmUI.leftClick(20)
             }
         },
         threshold: threshold
@@ -139,6 +139,9 @@ cmUI = new function(){
         cmUI.init()
       })
 
+      $("#btn-next-chapter, #btn-prev-chapter").on("click", function(){
+        $("[data-target='#"+this.id+"']").trigger('click')
+      })
       // wheel
       $(cmUI.contentBox).on('wheel', function(event) {
         if(event.originalEvent.wheelDelta/120 < 0) {
@@ -167,16 +170,16 @@ cmUI = new function(){
 
   this.showToolBox = function(){
     if($("#cm-nav-top").is(":visible")){
-      cmUI.hideNavBar()
+      cmUI.hideToolBox()
       modalUI.hide()
     }else{
       $("#cm-nav-top, #cm-nav-bottom, #btn-next-chapter, #btn-prev-chapter").show()
     }
   }
-  // in_or_decrease: +1/-1
-  this.getChapter = function(_this, in_or_decrease){
-    // debugger
+
+  this.getChapter = function(_this, params){
     console.log(atob($("#chapter-id").val()))
+    params = params || {post_id: cmUI.post_id, id: $("#chapter-id").val()}
     $.ajax({
       beforeSend: function(){
         utilityLib.buildCenterBox.show(".loading")
@@ -184,20 +187,21 @@ cmUI = new function(){
       url: $(_this).attr("data-url"),
       type: 'GET',
       dataType: 'JSON',
-      data: {post_id: cmUI.post_id, id: $("#chapter-id").val()},
+      data: params,
     })
-    .done(function(data) {
-
-      utilityLib.buildCenterBox.hide(".loading")
-      $("#chapter-id").val(btoa(data.id))
-      $("#current-order-chapter").val(data.order_c)
-      $("#chapter-title").val(data.title)
-      cmUI.originalText = data.origin_content
+    .done(function(resp) {
+      $("#chapter-id").val(btoa(resp.id))
+      $("#current-order-chapter").val(resp.order_c)
+      $("#chapter-title").val(resp.title)
+      cmUI.originalText = resp.origin_content
       cmUI.init()
-      $("#chapter-tiltle-header").html(data.title)
+      $("#chapter-tiltle-header").html(resp.title)
+      modalUI.hide()
+      utilityLib.buildCenterBox.hide(".loading")
     })
     .fail(function() {
       console.log("error");
+      utilityLib.buildCenterBox.hide(".loading")
     })
   }
 
@@ -213,7 +217,7 @@ cmUI = new function(){
     return Math.ceil(cmUI.endOfColFirst/(cmUI.comicBoxWidth-cmUI.margin)) + 1
   }
 
-  this.hideNavBar = function(){
+  this.hideToolBox = function(){
     $("#cm-nav-top, #cm-nav-bottom, #btn-next-chapter, #btn-prev-chapter").hide()
   }
 

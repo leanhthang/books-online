@@ -46,7 +46,11 @@ utilityLib = new function(){
       _box.height(window.innerHeight)
     }
     if(utilityLib.is_mobile()){
-      _top = 0
+      if(_box.attr("data-modal-type") == 'modal-form'){
+        _top = 20
+      }else{
+        _top = 0
+      }
     }else{
       _top = (window.innerHeight - _box.innerHeight())/4
     }

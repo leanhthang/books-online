@@ -150,8 +150,8 @@ li{ list-style: none }
 
 /* Modal */
 /* .modal{ position: absolute; background: white; display: none; } */
-.modal-wrapper{ position: fixed; top: 0; left: 0; height: 100%; width: 100%; background: beige; opacity: 0.4; display: none }
-.cm-modal{ position: absolute; background: white; display: none; }
+.modal-wrapper{ position: fixed; top: 0; left: 0; height: 100%; width: 100%; background: #333; opacity: 0.4; display: none }
+.cm-modal{ position: fixed; background: white; display: none; }
 .cm-modal-header .cm-modal-header-right > *{ font-size: 30px; display: inline-block }
 .cm-modal-header .cm-modal-header-left > *{ display: inline-block }
 .cm-modal-title { padding-left: 15px; line-height: 45px !important; }
@@ -166,14 +166,11 @@ li{ list-style: none }
   font-size: 1.5em
 }
 
-.cm-modal-body{ width: 100%; overflow: auto;}
+.cm-modal-body, .cm-modal-body ul{ overflow-y: auto;}
 
-.cm-modal-body { padding:  0px 8px 5px; }
-.cm-modal-body ul li { padding:  4px 6px; }
-.cm-modal-body ul li > div:first-child{
-  width: 30%;
-  display: inline-block
-}
+.cm-modal-body { width: 100%; padding:  0px 8px 5px; }
+.cm-modal-body ul li div { padding:  6px 8px; border-bottom: 1px solid #dadada;}
+.cm-modal-body ul li div:hover { background: aquamarine; }
 .cm-modal .btn-modal [class*="icon-"]{
   font-weight: bold;
   text-align: center;
@@ -182,6 +179,9 @@ li{ list-style: none }
   line-height: 40px;
   border: 1px solid #999;
   display: inline-block;
+}
+.cm-modal-footer{
+  position: fixed; bottom: 0; left: 0; background: red; width: 100%; height: 50px;
 }
 @media only screen and (max-width: 501px){
   .cm-modal{ width: 100% }

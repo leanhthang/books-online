@@ -5,7 +5,7 @@ class HomeController < ActionController::Base
       @posts = Post.search(params[:key_word])
                  .paginate(:page => params[:page], :per_page => 20)
     else
-      @posts = Post.paginate(:page => params[:page], :per_page => 20)
+      @posts = Post.order(:created_at).paginate(:page => params[:page], :per_page => 20)
    end
   end
 end

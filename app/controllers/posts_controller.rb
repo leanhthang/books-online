@@ -9,7 +9,9 @@ class PostsController < ApplicationController
   end
 
   def chapter
-
+    if params[:json]
+      render json: @chapter
+    end
   end
 
   def get_next_chapter
@@ -31,7 +33,7 @@ class PostsController < ApplicationController
 
   def get_menu_items
     @post = Post.find(params[:id])
-    render json: @post.chapters.select(:title, :id).order(:order_c)
+    render json: @post.chapters.select(:title, :id).order(order_c: :desc)
   end
 
   private

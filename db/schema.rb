@@ -27,7 +27,7 @@ ActiveRecord::Schema.define(version: 20180420021359) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "authors", force: :cascade do |t|
+  create_table "authors", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.citext "name"
     t.citext "name_vn"
     t.citext "description"
@@ -38,7 +38,7 @@ ActiveRecord::Schema.define(version: 20180420021359) do
     t.index ["name_vn"], name: "index_authors_on_name_vn"
   end
 
-  create_table "categories", force: :cascade do |t|
+  create_table "categories", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "name"
     t.string "description"
     t.boolean "public", default: false
@@ -50,7 +50,7 @@ ActiveRecord::Schema.define(version: 20180420021359) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "chapters", force: :cascade do |t|
+  create_table "chapters", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.citext "title", null: false
     t.string "origin_content"
     t.string "content"
@@ -70,7 +70,7 @@ ActiveRecord::Schema.define(version: 20180420021359) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "comments", force: :cascade do |t|
+  create_table "comments", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.integer "post_id", limit: 2
     t.integer "chapter_id", limit: 2
     t.integer "user_id"
@@ -96,7 +96,7 @@ ActiveRecord::Schema.define(version: 20180420021359) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "posts", force: :cascade do |t|
+  create_table "posts", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.citext "title", null: false
     t.citext "title_vn", null: false
     t.string "origin_link", null: false
@@ -120,14 +120,14 @@ ActiveRecord::Schema.define(version: 20180420021359) do
     t.index ["title_vn"], name: "index_posts_on_title_vn"
   end
 
-  create_table "type_posts", force: :cascade do |t|
+  create_table "type_posts", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.integer "post_id"
     t.integer "type_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "types", force: :cascade do |t|
+  create_table "types", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "name"
     t.string "description"
     t.datetime "created_at", null: false
@@ -135,7 +135,7 @@ ActiveRecord::Schema.define(version: 20180420021359) do
     t.index ["name"], name: "index_types_on_name"
   end
 
-  create_table "user_reports", force: :cascade do |t|
+  create_table "user_reports", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.integer "post_id", limit: 2
     t.integer "chapter_id", limit: 2
     t.integer "user_id"

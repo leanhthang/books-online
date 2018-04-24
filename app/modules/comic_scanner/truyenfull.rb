@@ -8,9 +8,9 @@ module ComicScanner
           #
           description:  ".desc-text",
           origin_img:   ".book img",
-          author:       ".info div a[itemprop='author']",
-          categories:   '.info div:nth-child(2) a',
-          types:        ".info div:last-child span"
+          author:       ".info-holder .info div:first-child a",
+          categories:   '.info-holder .info div:nth-child(2) a',
+          types:        ".info-holder .info div:last-child span"
         }
       @chapter_params = {
         list_chaps_of_page: "#list-chapter ul.list-chapter li",

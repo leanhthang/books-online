@@ -32,7 +32,7 @@ module ComicScanner
           _chap_params = handle_chap_params(chapter_doc, url_chapter)
           if _chap_params.present?
             p url_chapter
-            sleep 1
+            sleep 0.33
             _chap_params[:order_c] = (@order_c += 1)
             Chapter.add_chapter(_chap_params, _post)
           end

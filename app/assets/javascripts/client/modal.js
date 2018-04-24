@@ -7,11 +7,11 @@ var modalUI = new function(){
     }
     if(modal.attr('data-screen') == "modal-full"){
       utilityLib.buildModalBox(modal_id, true)
-      modal.find(".cm-modal-body").height(window.innerHeight - 76)
     }else{
       utilityLib.buildModalBox(modal_id)
     }
-    // cmUI.transformClick()
+    modal_body_height = window.innerHeight - modal.find(".cm-modal-header").height() - modal.find('.cm-modal-footer').height() + 20
+    modal.find(".cm-modal-body").css("height", modal_body_height)
   }
   this.hide = function(){
     $(".cm-modal").hide()
@@ -39,6 +39,7 @@ var modalUI = new function(){
       utilityLib.buildCenterBox.hide(".loading")
       $(modal_id+" .cm-modal-body").html((data))
       userSS.data["post_id_"+post_id]['menu_items'] = data
+      UI.menuLists.init(data)
     })
   }
   this.action = function(modal_id){
@@ -48,7 +49,7 @@ var modalUI = new function(){
   this.show = function(modal_id){
     $(".modal-wrapper").show()
     modalUI.cssCstm(modal_id)
-    cmUI.hideNavBar()
+    cmUI.hideToolBox()
     modalUI.btnCloseModal()
     modalUI.loadMenu(modal_id)
   }

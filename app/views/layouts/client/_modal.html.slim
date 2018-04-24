@@ -35,7 +35,7 @@
             input type="checkbox" id="hide-footer"
             label for="hide-footer"  Hide Footer
 
-#bug-modal.cm-modal
+#bug-modal.cm-modal data-modal-type="modal-form"
   .cm-modal-header.no-p
     .cm-modal-title.f-left Báo Lỗi
     .cm-modal-header-right.f-right.txt-center
@@ -75,12 +75,10 @@
       .btn-cm.btn-close
         span.icon-close
   .cm-modal-body.clearfix
-    / ul
-      / = @chapters.each do |ct|
-      /   li
-      /     a href="#{ post_chapter_path(ct) }"
-      /       = ct.title
   .cm-modal-footer
+    .row
+      .col <<
+      .col >>
 
 
 
@@ -95,9 +93,3 @@
       .btn-cm.btn-close
         span.icon-close
   .cm-modal-body.clearfix
-    / ul
-      / = @chapters.each do |ct|
-      /   li
-      /     a href="#{ post_chapter_path(ct) }"
-      /       = ct.title
-  .cm-modal-footer

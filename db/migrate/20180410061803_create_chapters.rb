@@ -1,7 +1,9 @@
 class CreateChapters < ActiveRecord::Migration[5.1]
   def change
+    enable_extension 'uuid-ossp'
+    enable_extension 'pgcrypto'
     enable_extension 'citext'
-    create_table :chapters do |t|
+    create_table :chapters, id: :uuid do |t|
       t.citext  :title, null: false
       t.string  :origin_content
       t.string  :content
