@@ -28,7 +28,7 @@ namespace :scanner do
   desc "ComicScanner::Truyenfull/Bachngocsach scan post"
   task :get_all_chapters , [:origin_rs] => :environment do |t, params|
     # 673
-    posts = Post.where(origin_rs: params[:origin_rs]).limit(2)
+    posts = Post.where(origin_rs: params[:origin_rs])
     posts.each do |post|
       _module = post.origin_rs.constantize
       _module.new.chapters(post)
