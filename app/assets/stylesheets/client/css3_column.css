@@ -166,7 +166,7 @@ li{ list-style: none }
   font-size: 1.5em
 }
 
-.cm-modal-body, .cm-modal-body ul{ overflow-y: auto;}
+.cm-modal-body { overflow-y: auto;}
 
 .cm-modal-body { width: 100%; padding:  0px 8px 5px; }
 .cm-modal-body ul li div { padding:  6px 8px; border-bottom: 1px solid #dadada;}
@@ -189,7 +189,9 @@ li{ list-style: none }
 @media only screen and (min-width: 500px){
   .cm-modal{ width: 500px }
 }
-
+/* Modal customize */
+.current-chap-active { background: red; }
+#list-chapter-modal .cm-modal-body ul{ overflow-y: auto;}
 /* background setting */
 #setting-modal ul li {
   width: 100%;

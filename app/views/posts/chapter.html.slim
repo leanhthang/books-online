@@ -1,6 +1,5 @@
 #wrap-container
-  - chapter_id = ecb64(@chapter.id)
-  input#chapter-id type="hidden" value="#{chapter_id}"
+  input#chapter-id type="hidden" value="#{@chapter.id}"
   input#chapter-title type="hidden" value="#{@chapter.title}"
   input#post-id type="hidden" value="#{@post.id}"
   input#current-order-chapter type="hidden" value="#{@chapter.order_c}"

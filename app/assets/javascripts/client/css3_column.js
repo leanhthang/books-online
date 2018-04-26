@@ -94,10 +94,12 @@ cmUI = new function(){
       cmUI.initWhenResize();
     }else if(cmUI.boxWidthState != window.innerWidth && cmUI.is_mobile){
       cmUI.initWhenResize()
-      // modalUI.hide()
     }
     cmUI.boxWidthState = window.innerWidth
     cmUI.boxHeightState = $(cmUI.contentBox).innerHeight()
+    if($("#comic-footer").offset().top > window.innerHeight){
+      cmUI.detectChangeDefaultOrientation()
+    }
   }
 
   this.swipeComic = function(){
@@ -141,6 +143,7 @@ cmUI = new function(){
 
       $("#btn-next-chapter, #btn-prev-chapter").on("click", function(){
         $("[data-target='#"+this.id+"']").trigger('click')
+        cmUI.hideToolBox()
       })
       // wheel
       $(cmUI.contentBox).on('wheel', function(event) {
@@ -178,7 +181,6 @@ cmUI = new function(){
   }
 
   this.getChapter = function(_this, params){
-    console.log(atob($("#chapter-id").val()))
     params = params || {post_id: cmUI.post_id, id: $("#chapter-id").val()}
     $.ajax({
       beforeSend: function(){
@@ -190,7 +192,8 @@ cmUI = new function(){
       data: params,
     })
     .done(function(resp) {
-      $("#chapter-id").val(btoa(resp.id))
+      if(!resp){ utilityLib.buildCenterBox.hide(".loading"); return false; }
+      $("#chapter-id").val(resp.id)
       $("#current-order-chapter").val(resp.order_c)
       $("#chapter-title").val(resp.title)
       cmUI.originalText = resp.origin_content
@@ -200,7 +203,6 @@ cmUI = new function(){
       utilityLib.buildCenterBox.hide(".loading")
     })
     .fail(function() {
-      console.log("error");
       utilityLib.buildCenterBox.hide(".loading")
     })
   }

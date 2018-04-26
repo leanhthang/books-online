@@ -8,7 +8,7 @@ class CreatePosts < ActiveRecord::Migration[5.1]
       t.citext  :title_vn, null: false
       t.string  :origin_link, null: false
       t.string  :origin_rs, null: false
-      t.integer :author_id
+      t.uuid    :author_id
       t.citext  :author_name_vn
       t.citext  :description
       t.boolean :public, default: false

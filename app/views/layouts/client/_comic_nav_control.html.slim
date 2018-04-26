@@ -4,7 +4,7 @@
     .cm-top-left.f-left.txt-center
       #nav-btn-home.btn-cm.txt-center
         span.icon-left
-      #nav-btn-list-chapter.btn-cm.txt-center data-toggle="modal" data-target="#list-chapter-modal" data-post-id="#{@post.id}"
+      #nav-btn-list-chapter.btn-cm.txt-center data-toggle="modal" data-target="#list-chapter-modal" data-post-id="#{@post.id}" onclick="UI.menuLists.pinchCurrentId()"
         span.icon-list
     .cm-top-right.f-right.txt-center
       .btn-cm.txt-center onclick="location.reload(true);"

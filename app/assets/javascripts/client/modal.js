@@ -10,7 +10,8 @@ var modalUI = new function(){
     }else{
       utilityLib.buildModalBox(modal_id)
     }
-    modal_body_height = window.innerHeight - modal.find(".cm-modal-header").height() - modal.find('.cm-modal-footer').height() + 20
+    footerH = modal.find('.cm-modal-footer').height() || 0
+    modal_body_height = window.innerHeight - modal.find(".cm-modal-header").height() - footerH + 20
     modal.find(".cm-modal-body").css("height", modal_body_height)
   }
   this.hide = function(){
@@ -40,6 +41,8 @@ var modalUI = new function(){
       $(modal_id+" .cm-modal-body").html((data))
       userSS.data["post_id_"+post_id]['menu_items'] = data
       UI.menuLists.init(data)
+    }).fail(function(){
+      utilityLib.buildCenterBox.hide(".loading")
     })
   }
   this.action = function(modal_id){

@@ -20,7 +20,7 @@ class CreateChapters < ActiveRecord::Migration[5.1]
       t.integer :visited, default: 0
       t.text    :description
       t.string  :origin_link
-      t.integer :post_id
+      t.uuid    :post_id
       t.integer :order_c
       t.timestamps
     end

@@ -1,6 +1,6 @@
-class PostsController < ApplicationController
-  before_action :decode_params_id, only: [:get_next_chapter, :get_prev_chapter]
+class PostsController < ActionController::Base
   before_action :get_chapters, only: [:chapter]
+  layout "layouts/application"
   def show
     @post = Post.find(params[:id])
     @chapters = @post.chapters.select(:id, :title, :public)
@@ -18,7 +18,7 @@ class PostsController < ApplicationController
     current_chapter_order = Chapter.find(params[:id]).order_c
     @chapter = Chapter.select(:id, :origin_content, :title, :order_c)
                       .where("post_id = ? and order_c > ?", params[:post_id], current_chapter_order)
-                      .limit(1).first
+                      .limit(1)[0]
     render json: @chapter
   end
 
@@ -27,7 +27,7 @@ class PostsController < ApplicationController
     @chapter = Chapter.select(:id, :origin_content, :title, :order_c)
                       .where("post_id = ? and order_c < ?", params[:post_id], current_chapter_order)
                       .order(order_c: :desc)
-                      .limit(1).first
+                      .limit(1)[0]
     render json: @chapter
   end
 
@@ -38,12 +38,7 @@ class PostsController < ApplicationController
 
   private
     def get_chapters
-      decode_params_id
       @chapter ||= Chapter.find(params[:id])
       @post ||= @chapter.post
-    end
-
-    def decode_params_id
-      params[:id] = Utility.dcb64(params[:id]).to_i
     end
 end

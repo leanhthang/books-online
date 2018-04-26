@@ -22,5 +22,5 @@
       - @chapters.each do |ct|
         tr
           td
-            = link_to ct.title, post_chapter_path(ecb64(ct.id), @post)
+            = link_to ct.title, post_chapter_path(ct.id, @post)
   = will_paginate @chapters
