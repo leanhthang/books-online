@@ -9,9 +9,9 @@
     #comicContent.noselect
       #chapter-header
         = render partial: "/posts/chapter_header_detail"
-      #comicData onclick="cmUI.showToolBox()"
+      #comicData
         = @chapter.origin_content.html_safe
-      .text-danger.col.text-center
+      #chapter-footer.text-danger.col.text-center
         | Hết chương
         p = @chapter.title
     #comic-footer data-chapter-title="#{@chapter.title}"

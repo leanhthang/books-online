@@ -84,6 +84,9 @@ cmUI = new function(){
     duration      = duration || 30
     scroll_length = scroll_length || cmUI.scrollPosition
     $(cmUI.contentBox).scrollTo(scroll_length, {duration: duration, interrupt:true});
+    if($("#comic-footer").offset().top > window.innerHeight){
+      cmUI.detectChangeDefaultOrientation()
+    }
     cmUI.drawFooter()
   }
 
@@ -97,9 +100,6 @@ cmUI = new function(){
     }
     cmUI.boxWidthState = window.innerWidth
     cmUI.boxHeightState = $(cmUI.contentBox).innerHeight()
-    if($("#comic-footer").offset().top > window.innerHeight){
-      cmUI.detectChangeDefaultOrientation()
-    }
   }
 
   this.swipeComic = function(){
@@ -154,8 +154,8 @@ cmUI = new function(){
          }
       });
     }
-
-    $(".mask").on('click', function(event) {
+    $(".mask, #comicContent").on('click', function(event) {
+      event.preventDefault();
       cmUI.showToolBox()
     });
     $(".modal-wrapper").on('click', function(event) {
@@ -290,7 +290,7 @@ cmUI = new function(){
 
   this.destroy = function(){
     $(cmUI.contentBox).html('')
-    $(cmUI.contentBox).html("<div id='chapter-header'></div><div id='comicData' onclick='cmUI.showToolBox()'></div><div id='chpter-end'></div>")
+    $(cmUI.contentBox).html("<div id='chapter-header'></div><div id='comicData'></div><div id='chap-end'></div>")
   }
 
   this.add3Dots = function(string){
