@@ -10,9 +10,11 @@ var modalUI = new function(){
     }else{
       utilityLib.buildModalBox(modal_id)
     }
-    footerH = modal.find('.cm-modal-footer').height() || 0
-    modal_body_height = window.innerHeight - modal.find(".cm-modal-header").height() - footerH + 20
-    modal.find(".cm-modal-body").css("height", modal_body_height)
+    if (modal.find('.cm-modal-footer').height()){
+      modal_body_height = window.innerHeight - modal.find(".cm-modal-header").height() - footerH + 20
+      modal.find(".cm-modal-body").css("height", modal_body_height)
+    }
+
   }
   this.hide = function(){
     $(".cm-modal").hide()

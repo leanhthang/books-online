@@ -36,8 +36,8 @@ cmUI = new function(){
       $("#hide-footer").prop('disabled', true);
     }
 
-    $("#cm-nav-top .mask").height(window.innerHeight - 55)
-    // Setting style
+    $("#cm-nav-top .mask").height(window.innerHeight - 50)
+    // Setpting style
     userSS.settingInit()
   }
 
@@ -84,8 +84,8 @@ cmUI = new function(){
     duration      = duration || 30
     scroll_length = scroll_length || cmUI.scrollPosition
     $(cmUI.contentBox).scrollTo(scroll_length, {duration: duration, interrupt:true});
-    if($("#comic-footer").offset().top > window.innerHeight){
-      cmUI.detectChangeDefaultOrientation()
+    if($("#comic-footer").length > 0 && $("#comic-footer").offset().top == $(window).innerHeight()){
+      cmUI.detectChangeDefaultOrientation(true)
     }
     cmUI.drawFooter()
   }
