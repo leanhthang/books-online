@@ -201,8 +201,9 @@ li{ list-style: none }
   font-weight: bold; font-size: 2em;
 }
 .setting-site-label { width: 90px }
-.cl-style1 { color: white !important }
+.cl-style1 {  }
 .cl-bg-style1 { background: white !important; color: black !important }
+.cl-bg-style1 > span { color: black !important }
 .cl-style2 { color: #E74C68 !important }
 .cl-bg-style2 { background: #E74C68 !important }
 .cl-style3 { color: #829255 !important }
