@@ -1,5 +1,5 @@
 cmUI = new function(){
-  this.post_id = $("#post-id").val()
+  this.post_id = $("#post-id").val();
   this.endOfColFirst = null;
   this.is_mobile = utilityLib.is_mobile();
   this.padding = 20;
@@ -48,10 +48,10 @@ cmUI = new function(){
     };
     cmUI.fullScreenState = setTimeout(function(){
       utilityLib.fullScreen()
+      cmUI.fullScreenUpdateView = setTimeout(function(){
+        cmUI.detectChangeDefaultOrientation(true)
+      },250);
     },70);
-    cmUI.fullScreenUpdateView = setTimeout(function(){
-      cmUI.detectChangeDefaultOrientation(true)
-    },250);
   }
 
   this.leftClick = function(duration, loop){
@@ -103,7 +103,7 @@ cmUI = new function(){
   }
 
   this.swipeComic = function(){
-    threshold = 45
+    threshold = 40
     cmUI.endOfCol = $(".end-of-col").last().position();
     $("#cm-nav-right, #cm-nav-left, "+cmUI.contentBox).swipe({
         swipeStatus:function(event, phase, direction, distance, duration, fingers, fingerData){
@@ -138,7 +138,8 @@ cmUI = new function(){
         cmUI.leftClick()
       })
 
-      $("#btn-next-chapter, #btn-prev-chapter").on("click", function(){
+      $("#btn-next-chapter, #btn-prev-chapter").on("click", function(event){
+        event.preventDefault();
         $("[data-target='#"+this.id+"']").trigger('click')
       })
       // wheel
@@ -172,8 +173,16 @@ cmUI = new function(){
       cmUI.hideToolBox()
       modalUI.hide()
     }else{
+      if(screen.height == cmUI.boxHeightState && cmUI.is_mobile == true){
+        utilityLib.toast.show({text: utilityLib.timeNow(), top: 50, left: 0})
+      }
       $("#cm-nav-top, #cm-nav-bottom, #btn-next-chapter, #btn-prev-chapter").show()
     }
+  }
+
+  this.hideToolBox = function(){
+    utilityLib.toast.hide()
+    $("#cm-nav-top, #cm-nav-bottom, #btn-next-chapter, #btn-prev-chapter").hide()
   }
 
   this.getChapter = function(_this, params){
@@ -190,6 +199,7 @@ cmUI = new function(){
     .done(function(resp) {
       if(!resp){ utilityLib.buildCenterBox.hide(".loading"); return false; }
       $("#chapter-id").val(resp.id)
+      cmUI.currentPostChap = {post_id: cmUI.post_id, id: resp.id}
       $("#current-order-chapter").val(resp.order_c)
       $("#chapter-title").val(resp.title)
       cmUI.originalText = resp.origin_content
@@ -215,12 +225,9 @@ cmUI = new function(){
     return Math.ceil(cmUI.endOfColFirst/(cmUI.comicBoxWidth-cmUI.margin)) + 1
   }
 
-  this.hideToolBox = function(){
-    $("#cm-nav-top, #cm-nav-bottom, #btn-next-chapter, #btn-prev-chapter").hide()
-  }
-
   // display_option: scroll / page
   this.addComicBody = function(display_option){
+    cmUI.currentPostChap = userSS.baseData().currentPostChap
     display_option = display_option || "page"
     display_option = userSS.baseData().displayOption
     $("#comic-box").height(window.innerHeight)

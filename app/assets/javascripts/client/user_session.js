@@ -12,12 +12,13 @@ userSS = new function(){
 
   this.baseData = function(){
     return_data = {}
-    return_data.margin      = localStorage.getItem("margin") || 20
-    return_data.footer      = localStorage.getItem("footer") || "show"
-    return_data.background  = localStorage.getItem("background") || "bg-style1"
-    return_data.fontSize    = localStorage.getItem("fontSize") || 1.4
-    return_data.fontColor    = localStorage.getItem("fontColor") || "cl-style5"
-    return_data.displayOption     = localStorage.getItem("displayOption") || "page"
+    return_data.margin        = localStorage.getItem("margin") || 20
+    return_data.currentPostChap   = localStorage.getItem("currentPostChap") || cmUI.currentPostChap
+    return_data.footer        = localStorage.getItem("footer") || "show"
+    return_data.background    = localStorage.getItem("background") || "bg-style1"
+    return_data.fontSize      = localStorage.getItem("fontSize") || 1.4
+    return_data.fontColor     = localStorage.getItem("fontColor") || "cl-style5"
+    return_data.displayOption = localStorage.getItem("displayOption") || "page"
     return return_data
   }
 
@@ -41,7 +42,7 @@ userSS = new function(){
     }
   }
 
-  this.setFontType = function(){
+  this.setCurrentPostChapId = function(){
 
   }
   this.setFooter = function(){

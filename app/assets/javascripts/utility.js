@@ -83,4 +83,34 @@ utilityLib = new function(){
         return;
     fn.apply(window, params);
   }
+
+  this.timeNow = function(){
+    let date = new Date();
+    let options = {
+        weekday: "long", year: "numeric", month: "short",
+        day: "numeric", hour: "2-digit", minute: "2-digit"
+    };
+    return date.toLocaleTimeString("vi-VN", options)
+  }
+
+  // {text: _text, top: px, left: true/false, right: true/false}
+  this.toast = {
+    setPosition: function(func_params){
+      toast = $(".toast")
+      if(func_params.top){ toast.css('top', func_params.top +'px'); }
+      if(func_params.left){ toast.css('left', func_params.left +'px'); }
+      if(func_params.right){ toast.css('right', func_params.right +'px'); }
+    },
+    show: function(func_params){
+      html = "<div class='toast'>"+func_params.text+"</div>"
+      $("body").append(html)
+      utilityLib.buildCenterBox.show(".toast")
+      utilityLib.toast.setPosition(func_params)
+    },
+    hide: function(){
+      $(".toast").remove()
+    }
+  }
+
+
 }
