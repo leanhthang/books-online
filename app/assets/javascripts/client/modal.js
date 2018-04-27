@@ -7,14 +7,13 @@ var modalUI = new function(){
     }
     if(modal.attr('data-screen') == "modal-full"){
       utilityLib.buildModalBox(modal_id, true)
+
+      footerH = modal.find('.cm-modal-footer').height() || 0
+      modal_body_height = window.innerHeight - modal.find(".cm-modal-header").height() - footerH + 20
+      modal.find(".cm-modal-body").css("height", modal_body_height)
     }else{
       utilityLib.buildModalBox(modal_id)
     }
-    if (modal.find('.cm-modal-footer').height()){
-      modal_body_height = window.innerHeight - modal.find(".cm-modal-header").height() - footerH + 20
-      modal.find(".cm-modal-body").css("height", modal_body_height)
-    }
-
   }
   this.hide = function(){
     $(".cm-modal").hide()

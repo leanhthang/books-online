@@ -85,9 +85,7 @@ li{ list-style: none }
 /* next or preview chapter */
 .btn-circle { height: 35px; border: 1px solid #b9afaf; background: white;
   text-align: center; font-weight: bold; display: none; color: #b9afaf;
-  line-height: 35px; opacity: 0.9; cursor: pointer;}
-.btn-circle { width: 35px; border-radius: 50%; }
-.btn-circle1 { width: auto; height: 35px; border-radius: 6px }
+  line-height: 35px; opacity: 0.9; cursor: pointer; width: 35px; border-radius: 50%; }
 .btn-dir-chapter {
   position: absolute;
   top: 40%;
@@ -159,7 +157,6 @@ li{ list-style: none }
 .cm-modal-body { overflow-y: auto;}
 
 .cm-modal-body { width: 100%; padding:  0px 8px 5px; }
-.cm-modal-body ul li { padding:  8px 0px; }
 
 .cm-modal .btn-modal [class*="icon-"]{
   font-weight: bold; text-align: center; line-height: 46px;color: white;
@@ -179,8 +176,8 @@ li{ list-style: none }
   .cm-modal{ width: 500px }
 }
 /* Modal customize */
-.current-chap-active { background: red; }
-#list-chapter-modal .cm-modal-body ul{ overflow-y: auto;}
+.current-chap-active { background: darkkhaki; color: aliceblue; }
+#list-chapter-modal .cm-modal-body ul { overflow-y: auto;}
 #list-chapter-modal ul li div { padding:  6px 8px; border-bottom: 1px solid #dadada;}
 #list-chapter-modal  ul li div:hover { background: aquamarine; }
 /* background setting */

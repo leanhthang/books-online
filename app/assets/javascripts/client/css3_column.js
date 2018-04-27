@@ -137,13 +137,9 @@ cmUI = new function(){
       $("#cm-nav-left").on("click", function(){
         cmUI.leftClick()
       })
-      $("#btn-next-chapter, #btn-prev-chapter").on("click", function(event){
-        cmUI.init()
-      })
 
       $("#btn-next-chapter, #btn-prev-chapter").on("click", function(){
         $("[data-target='#"+this.id+"']").trigger('click')
-        cmUI.hideToolBox()
       })
       // wheel
       $(cmUI.contentBox).on('wheel', function(event) {
@@ -250,6 +246,7 @@ cmUI = new function(){
   }
 
   this.init = function(){
+    cmUI.hideToolBox()
     cmUI.destroy()
     cmUI.currentPage = 1;
     cmUI.margin = userSS.baseData().margin;
