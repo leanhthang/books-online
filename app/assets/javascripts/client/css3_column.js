@@ -84,7 +84,7 @@ cmUI = new function(){
     duration      = duration || 30
     scroll_length = scroll_length || cmUI.scrollPosition
     $(cmUI.contentBox).scrollTo(scroll_length, {duration: duration, interrupt:true});
-    if($("#comic-footer").length > 0 && $("#comic-footer").offset().top == $(window).innerHeight()){
+    if(window.innerHeight < $(window).innerHeight()){
       cmUI.detectChangeDefaultOrientation(true)
     }
     cmUI.drawFooter()
@@ -138,10 +138,6 @@ cmUI = new function(){
         cmUI.leftClick()
       })
 
-      $("#btn-next-chapter, #btn-prev-chapter").on("click", function(event){
-        event.preventDefault();
-        $("[data-target='#"+this.id+"']").trigger('click')
-      })
       // wheel
       $(cmUI.contentBox).on('wheel', function(event) {
         if(event.originalEvent.wheelDelta/120 < 0) {
@@ -151,8 +147,7 @@ cmUI = new function(){
          }
       });
     }
-    $(".mask, #comicContent").on('click', function(event) {
-      event.preventDefault();
+    $(".mask").on('click', function(event) {
       cmUI.showToolBox()
     });
     $(".modal-wrapper").on('click', function(event) {
@@ -197,16 +192,17 @@ cmUI = new function(){
       data: params,
     })
     .done(function(resp) {
-      if(!resp){ utilityLib.buildCenterBox.hide(".loading"); return false; }
-      $("#chapter-id").val(resp.id)
-      cmUI.currentPostChap = {post_id: cmUI.post_id, id: resp.id}
-      $("#current-order-chapter").val(resp.order_c)
-      $("#chapter-title").val(resp.title)
-      cmUI.originalText = resp.origin_content
-      cmUI.init()
-      $("#chapter-tiltle-header").html(resp.title)
-      modalUI.hide()
-      utilityLib.buildCenterBox.hide(".loading")
+        if(!resp){ utilityLib.buildCenterBox.hide(".loading"); return false; }
+        $("#chapter-id").val(resp.id)
+        cmUI.currentPostChap = {post_id: cmUI.post_id, id: resp.id}
+        $("#current-order-chapter").val(resp.order_c)
+        $("#chapter-title").val(resp.title)
+        cmUI.originalText = resp.origin_content
+        cmUI.init()
+        $("#chapter-tiltle-header").html(resp.title)
+        cmUI.chapterFooter = ('<div class="text-danger col text-center" id="chapter-footer">Hết chương<p>'+resp.title+'</p></div>')
+        modalUI.hide()
+        utilityLib.buildCenterBox.hide(".loading")
     })
     .fail(function() {
       utilityLib.buildCenterBox.hide(".loading")
@@ -214,6 +210,7 @@ cmUI = new function(){
   }
 
   this.drawFooter = function(){
+    console.log(cmUI.countTotalPage())
     page_detail = cmUI.currentPage +"/"+cmUI.countTotalPage()
     title = cmUI.add3Dots($("#chapter-title").val())
     read_progress = $("#current-order-chapter").val() +"/"+$("#chapter-count").val()
@@ -235,6 +232,7 @@ cmUI = new function(){
     if(cmUI.originalText.length > 0) {
       $(cmUI.contentBox+" #chapter-header").html(cmUI.chapterHeader)
       $(cmUI.contentBox+" #comicData").html(cmUI.originalText)
+      $(cmUI.contentBox+" #chapter-footer").html(cmUI.chapterFooter)
     }
     $(cmUI.contentBox).append('<div class="ads-box"></div>')
     $(cmUI.contentBox).append('<div class="end-of-col"></div>')
@@ -244,11 +242,12 @@ cmUI = new function(){
     cmUI.cstmCSSColumnContext()
 
     if(display_option == "page"){
-
       // cmUI.loadAds()
       // cmUI.test()
-      cmUI.endOfColFirst = $(".end-of-col").last().position().left;
-      cmUI.drawFooter()
+      setTimeout(function(){
+        cmUI.endOfColFirst = $(".end-of-col").last().position().left;
+        cmUI.drawFooter()
+      }, 100)
     }
   }
 
@@ -260,6 +259,8 @@ cmUI = new function(){
     cmUI.scrollPosition = 0;
     cmUI.addComicBody()
     userSS.limitAccessPerDay()
+    if(cmUI.is_mobile == false){ cmUI.transformClick() }
+    console.log('init')
   }
 
   this.initWhenResize = function(){
@@ -294,7 +295,7 @@ cmUI = new function(){
 
   this.destroy = function(){
     $(cmUI.contentBox).html('')
-    $(cmUI.contentBox).html("<div id='chapter-header'></div><div id='comicData'></div><div id='chap-end'></div>")
+    $(cmUI.contentBox).html("<div id='chapter-header'></div><div id='comicData' onclick='cmUI.showToolBox()'></div><div id='chap-end'></div>")
   }
 
   this.add3Dots = function(string){

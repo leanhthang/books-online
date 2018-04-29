@@ -9,7 +9,7 @@
     #comicContent.noselect
       #chapter-header
         = render partial: "/posts/chapter_header_detail"
-      #comicData
+      #comicData onclick="cmUI.showToolBox()"
         = @chapter.origin_content.html_safe
       #chapter-footer.text-danger.col.text-center
         | Hết chương
