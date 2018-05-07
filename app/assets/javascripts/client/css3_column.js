@@ -192,17 +192,18 @@ cmUI = new function(){
       data: params,
     })
     .done(function(resp) {
-        if(!resp){ utilityLib.buildCenterBox.hide(".loading"); return false; }
-        $("#chapter-id").val(resp.id)
-        cmUI.currentPostChap = {post_id: cmUI.post_id, id: resp.id}
-        $("#current-order-chapter").val(resp.order_c)
-        $("#chapter-title").val(resp.title)
-        cmUI.originalText = resp.origin_content
-        cmUI.init()
-        $("#chapter-tiltle-header").html(resp.title)
-        cmUI.chapterFooter = ('<div class="text-danger col text-center" id="chapter-footer">Hết chương<p>'+resp.title+'</p></div>')
-        modalUI.hide()
-        utilityLib.buildCenterBox.hide(".loading")
+      if(!resp){ utilityLib.buildCenterBox.hide(".loading"); return false; }
+      $("#chapter-id").val(resp.id)
+      cmUI.currentPostChap = {post_id: cmUI.post_id, id: resp.id}
+      $("#current-order-chapter").val(resp.order_c)
+      $("#chapter-title").val(resp.title)
+      cmUI.originalText = resp.origin_content
+      cmUI.init()
+      $("#chapter-tiltle-header").html(resp.title)
+      cmUI.chapterFooter = ('<div class="text-danger col text-center">Hết chương<p>'+resp.title+'</p></div>')
+      $(cmUI.contentBox+" #chapter-footer").html(cmUI.chapterFooter)
+      modalUI.hide()
+      utilityLib.buildCenterBox.hide(".loading")
     })
     .fail(function() {
       utilityLib.buildCenterBox.hide(".loading")
@@ -232,7 +233,6 @@ cmUI = new function(){
     if(cmUI.originalText.length > 0) {
       $(cmUI.contentBox+" #chapter-header").html(cmUI.chapterHeader)
       $(cmUI.contentBox+" #comicData").html(cmUI.originalText)
-      $(cmUI.contentBox+" #chapter-footer").html(cmUI.chapterFooter)
     }
     $(cmUI.contentBox).append('<div class="ads-box"></div>')
     $(cmUI.contentBox).append('<div class="end-of-col"></div>')
@@ -295,7 +295,7 @@ cmUI = new function(){
 
   this.destroy = function(){
     $(cmUI.contentBox).html('')
-    $(cmUI.contentBox).html("<div id='chapter-header'></div><div id='comicData' onclick='cmUI.showToolBox()'></div><div id='chap-end'></div>")
+    $(cmUI.contentBox).html("<div id='chapter-header'></div><div id='comicData' onclick='cmUI.showToolBox()'></div><div id='chapter-footer'></div>")
   }
 
   this.add3Dots = function(string){

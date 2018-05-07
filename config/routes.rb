@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'infos/privacy'
+
   # client
   get 'posts/:id', to: "posts#show", as: :post
   get 'chapter/:id/:post_id', to: "posts#chapter", :as => :post_chapter

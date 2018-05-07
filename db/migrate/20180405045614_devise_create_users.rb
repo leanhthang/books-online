@@ -46,10 +46,10 @@ class DeviseCreateUsers < ActiveRecord::Migration[5.1]
       t.string    :role, limit: 10, default: 'user'
       t.boolean   :enable, default: false
       t.string    :birthday
-      t.string    :provider
       t.string    :avatar
       t.jsonb     :setting, null: false, default: {}
 
+      t.string    :provider
       t.jsonb     :detail, null: false, default: {}
 
       t.citext   :visited
