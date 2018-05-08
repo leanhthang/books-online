@@ -112,15 +112,15 @@ cmUI = new function(){
           }else if(cmUI.endOfCol.left >= 0 && (direction == 'left' || direction == "up")){
             cmUI.transformClick(0, cmUI.scrollPosition + distance)
           }
-          if( (phase == 'end' || phase == 'cancel') && distance < threshold ) {
+          if( (phase == 'end' || phase == 'cancel') && distance < threshold) {
             cmUI.transformClick(50)
           }
         },
         swipe: function(event, direction, distance, duration, fingerCount) {
             if(direction == 'left' || direction == 'up') {
-              cmUI.rightClick(20);
+              cmUI.rightClick(0);
             }else{
-              cmUI.leftClick(20)
+              cmUI.leftClick(0)
             }
         },
         threshold: threshold
@@ -132,10 +132,10 @@ cmUI = new function(){
       cmUI.swipeComic()
 
       $("#cm-nav-right").on(" click", function(event){
-        cmUI.rightClick()
+        cmUI.rightClick(0)
       })
       $("#cm-nav-left").on("click", function(){
-        cmUI.leftClick()
+        cmUI.leftClick(0)
       })
 
       // wheel
@@ -211,7 +211,6 @@ cmUI = new function(){
   }
 
   this.drawFooter = function(){
-    console.log(cmUI.countTotalPage())
     page_detail = cmUI.currentPage +"/"+cmUI.countTotalPage()
     title = cmUI.add3Dots($("#chapter-title").val())
     read_progress = $("#current-order-chapter").val() +"/"+$("#chapter-count").val()
@@ -260,7 +259,6 @@ cmUI = new function(){
     cmUI.addComicBody()
     userSS.limitAccessPerDay()
     if(cmUI.is_mobile == false){ cmUI.transformClick() }
-    console.log('init')
   }
 
   this.initWhenResize = function(){
@@ -289,7 +287,6 @@ cmUI = new function(){
     cmUI.ads = setTimeout(function(){
       $(".ads-box").append(adsData)
       $(".ads-box").append('<div class="end-of-col"></div>')
-      console.log("ads loading...")
     },2500);
   }
 
