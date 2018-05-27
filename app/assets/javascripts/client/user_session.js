@@ -3,11 +3,6 @@ userSS = new function(){
     localStorage.clear();
   }
 
-  // post_id: {
-  //   menu_items: [],
-  //   next_chapters: [],
-  //   prev_chapters: [],
-  // }
   this.data = {}
 
   this.baseData = function(){
@@ -17,7 +12,7 @@ userSS = new function(){
     return_data.footer        = localStorage.getItem("footer") || "show"
     return_data.background    = localStorage.getItem("background") || "bg-style1"
     return_data.fontSize      = localStorage.getItem("fontSize") || 1.4
-    return_data.fontColor     = localStorage.getItem("fontColor") || "cl-style5"
+    return_data.fontColor     = localStorage.getItem("fontColor") || "cl-style1"
     return_data.displayOption = localStorage.getItem("displayOption") || "page"
     return return_data
   }

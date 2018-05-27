@@ -50,8 +50,8 @@ cmUI = new function(){
       utilityLib.fullScreen()
       cmUI.fullScreenUpdateView = setTimeout(function(){
         cmUI.detectChangeDefaultOrientation(true)
-      },250);
-    },70);
+      },500);
+    },100);
   }
 
   this.leftClick = function(duration, loop){
@@ -108,9 +108,9 @@ cmUI = new function(){
     $("#cm-nav-right, #cm-nav-left, "+cmUI.contentBox).swipe({
         swipeStatus:function(event, phase, direction, distance, duration, fingers, fingerData){
           if( cmUI.scrollPosition >= 0 && (direction == 'right' || direction == "down") ){
-            cmUI.transformClick(0, cmUI.scrollPosition - distance)
+            cmUI.transformClick(10, cmUI.scrollPosition - distance)
           }else if(cmUI.endOfCol.left >= 0 && (direction == 'left' || direction == "up")){
-            cmUI.transformClick(0, cmUI.scrollPosition + distance)
+            cmUI.transformClick(10, cmUI.scrollPosition + distance)
           }
           if( (phase == 'end' || phase == 'cancel') && distance < threshold) {
             cmUI.transformClick(50)
