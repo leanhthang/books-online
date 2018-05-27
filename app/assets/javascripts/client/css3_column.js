@@ -32,7 +32,7 @@ cmUI = new function(){
       $(cmUI.contentBox).css({
         'padding': "10px "+cmUI.margin + "px",
       });
-      new SimpleBar($("#comic-box")[0])
+      $("#comicContent").css('overflow-y', 'auto');
       $("#hide-footer").prop('disabled', true);
     }
 
@@ -180,7 +180,7 @@ cmUI = new function(){
     $("#cm-nav-top, #cm-nav-bottom, #btn-next-chapter, #btn-prev-chapter").hide()
   }
 
-  this.getChapter = function(_this, params){
+  this.goToChap = function(_this, params){
     params = params || {post_id: cmUI.post_id, id: $("#chapter-id").val()}
     $.ajax({
       beforeSend: function(){
@@ -193,6 +193,7 @@ cmUI = new function(){
     })
     .done(function(resp) {
       if(!resp){ utilityLib.buildCenterBox.hide(".loading"); return false; }
+
       $("#chapter-id").val(resp.id)
       cmUI.currentPostChap = {post_id: cmUI.post_id, id: resp.id}
       $("#current-order-chapter").val(resp.order_c)

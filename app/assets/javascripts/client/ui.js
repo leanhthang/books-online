@@ -1,7 +1,7 @@
 var UI = new function() {
   this.menuLists = {
     genList: function(el, current_chap){
-      return "<li data-chap-id='"+el.id+"'><div onclick='cmUI.getChapter(this, {})' data-url='/chapter/"+el.id+"/"+cmUI.post_id+"?json=1'>"+el.title+"</div></li>"
+      return "<li data-chap-id='"+el.id+"'><div onclick='cmUI.goToChap(this, {})' data-url='/chapter/"+el.id+"/"+cmUI.post_id+"?json=1'>"+el.title+"</div></li>"
     },
     pinchCurrentId: function(){
       current_chap_pin = $("[data-chap-id='"+$("#chapter-id").val()+"']")

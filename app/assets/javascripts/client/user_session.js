@@ -52,6 +52,7 @@ userSS = new function(){
       $("#wrap-container[class*='bg-']").removeClass()
       localStorage.setItem("background", bg);
       $("#wrap-container").addClass(bg)
+      $("#comicContent .card").addClass('card-'+bg)
       $(this).append(html)
     });
   }
@@ -96,6 +97,7 @@ userSS = new function(){
     $(".setting-option > ."+bg).html("<span class='icon-check'></span>")
     $(".setting-option > ."+cl).html("<span class='icon-check'></span>")
     displayOption = userSS.baseData().displayOption
+    $("#comicContent .card").addClass('card-'+bg)
     if(displayOption == "page"){
       $(".setting-view > .setting-view-page").css('background', '#999');
     }else{

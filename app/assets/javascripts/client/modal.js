@@ -28,23 +28,33 @@ var modalUI = new function(){
   this.loadMenu = function(modal_id){
     if( modal_id != "#list-chapter-modal") return false
     post_id = $(modal_id).attr("data-post-id")
-    userSS.data["post_id_"+post_id] = {}
-    $.ajax({
-      beforeSend: function(){
-        utilityLib.buildCenterBox.show(".loading")
-      },
-      url: "/get_menu_items/"+post_id,
-      type: 'GET',
-      dataType: 'json',
-    })
-    .done(function(data) {
-      utilityLib.buildCenterBox.hide(".loading")
-      $(modal_id+" .cm-modal-body").html((data))
-      userSS.data["post_id_"+post_id]['menu_items'] = data
-      UI.menuLists.init(data)
-    }).fail(function(){
-      utilityLib.buildCenterBox.hide(".loading")
-    })
+    if(!userSS.data["post_id_"+post_id]){
+      userSS.data["post_id_"+post_id] = {}
+      $.ajax({
+        beforeSend: function(){
+          utilityLib.buildCenterBox.show(".loading")
+        },
+        url: "/get_menu_items/"+post_id,
+        type: 'GET',
+        dataType: 'json',
+      })
+      .done(function(data) {
+        modalUI.drawListOfMenu(data, modal_id, post_id)
+      }).fail(function(){
+        utilityLib.buildCenterBox.hide(".loading")
+      })
+    }else{
+      data = userSS.data["post_id_"+post_id]['menu_items']
+      modalUI.drawListOfMenu(data, modal_id, post_id)
+    }
+  }
+
+  this.drawListOfMenu = function(data, modal_id, post_id) {
+    utilityLib.buildCenterBox.show(".loading")
+    $(modal_id+" .cm-modal-body").html((data))
+    userSS.data["post_id_"+post_id]['menu_items'] = data
+    UI.menuLists.init(data)
+    utilityLib.buildCenterBox.hide(".loading")
   }
   this.action = function(modal_id){
     $("#nav-btn-list-chapter").c
