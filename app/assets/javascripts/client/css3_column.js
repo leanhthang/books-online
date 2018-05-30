@@ -50,8 +50,8 @@ cmUI = new function(){
       utilityLib.fullScreen()
       cmUI.fullScreenUpdateView = setTimeout(function(){
         cmUI.detectChangeDefaultOrientation(true)
-      },500);
-    },100);
+      },50);
+    },20);
   }
 
   this.leftClick = function(duration, loop){
@@ -94,9 +94,9 @@ cmUI = new function(){
     cmUI.hideToolBox()
     alway_loading = alway_loading || false
     if( alway_loading == true || cmUI.is_mobile == false ){
-      cmUI.initWhenResize();
+      cmUI.autoCheckComicFooter(0)
     }else if(cmUI.boxWidthState != window.innerWidth && cmUI.is_mobile){
-      cmUI.initWhenResize()
+      cmUI.autoCheckComicFooter(0)
     }
     cmUI.boxWidthState = window.innerWidth
     cmUI.boxHeightState = $(cmUI.contentBox).innerHeight()
@@ -251,6 +251,17 @@ cmUI = new function(){
     }
   }
 
+  this.autoCheckComicFooter = function(duration){
+      duration = duration || 1800
+      if(cmUI.autoCheckCF && duration){ clearTimeout(cmUI.autoCheckCF);}
+      cmUI.autoCheckCF = setTimeout(function(){
+        _topCF = $('#comic-footer').offset().top
+        if($('#comic-footer').is(':appeared') == false || _topCF < (window.innerHeight - 30) ){
+          cmUI.initWhenResize()
+        }
+      },1800);
+    }
+
   this.init = function(){
     cmUI.hideToolBox()
     cmUI.destroy()
@@ -260,6 +271,7 @@ cmUI = new function(){
     cmUI.addComicBody()
     userSS.limitAccessPerDay()
     if(cmUI.is_mobile == false){ cmUI.transformClick() }
+    cmUI.autoCheckComicFooter()
   }
 
   this.initWhenResize = function(){

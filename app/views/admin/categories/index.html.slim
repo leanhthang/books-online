@@ -3,9 +3,9 @@
     = link_to admin_category_show_path(cat) do
       .btn.btn-outline-danger.el-space-tl
         = cat.name
-        .badge.badge-pill.badge-success.el-space-l
+        .badge.badge-pill.badge-success.ml-1
           = cat.post_count
-      .badge.badge-pill.badge-success.el-space-l
+      .badge.badge-pill.badge-success.ml-1
         = cat.public ? "&#10003;".html_safe : ""
 .el-space
   = will_paginate @cats

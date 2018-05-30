@@ -79,8 +79,8 @@ li{ list-style: none }
     background: rgba(255,255,255,0.3);
  }
 /* Navigation left right */
-#cm-nav-left { position: absolute; width: 33%; height: 100%;  top: 0; left: 0; display: none; }
-#cm-nav-right { position: absolute;  width: 33%; height: 100%; top: 0; right: 0; display: none;}
+#cm-nav-left { position: absolute; width: 30%; height: 100%;  top: 0; left: 0; display: none; }
+#cm-nav-right { position: absolute;  width: 30%; height: 100%; top: 0; right: 0; display: none;}
 .end-of-col { height: 0; width: 0; background: red }
 /* next or preview chapter */
 .btn-circle { height: 35px; border: 1px solid #b9afaf; background: white;
