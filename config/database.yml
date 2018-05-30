@@ -16,6 +16,4 @@ test:
   database: books_test
 production:
   <<: *default
-  database: books_prod
-  username: books
-  password: <%= ENV['BOOKS_DATABASE_PASSWORD'] %>
+  database: books_dev
