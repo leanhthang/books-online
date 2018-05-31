@@ -80,7 +80,7 @@ userSS = new function(){
       localStorage.setItem("post-id", $("#post-id").val())
       console.log("post")
     }else{
-      if(cmUI.firstInit == true && $("#chapter-id").val() != userSS.baseData().chapID){
+      if(cmUI.firstInit == true && userSS.baseData().chapID && $("#chapter-id").val() != userSS.baseData().chapID){
         modalUI.show("#preview-chap-modal")
         //
       }else{
