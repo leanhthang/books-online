@@ -1,6 +1,7 @@
 cmUI = new function(){
   this.post_id = $("#post-id").val();
   this.endOfColFirst = null;
+  this.firstInit = true;
   this.is_mobile = utilityLib.is_mobile();
   this.padding = 20;
   this.scrollPosition = 0;
@@ -94,9 +95,9 @@ cmUI = new function(){
     cmUI.hideToolBox()
     alway_loading = alway_loading || false
     if( alway_loading == true || cmUI.is_mobile == false ){
-      cmUI.autoCheckComicFooter(0)
+      cmUI.auto.checkComicFooter(0)
     }else if(cmUI.boxWidthState != window.innerWidth && cmUI.is_mobile){
-      cmUI.autoCheckComicFooter(0)
+      cmUI.auto.checkComicFooter(0)
     }
     cmUI.boxWidthState = window.innerWidth
     cmUI.boxHeightState = $(cmUI.contentBox).innerHeight()
@@ -205,6 +206,7 @@ cmUI = new function(){
       $(cmUI.contentBox+" #chapter-footer").html(cmUI.chapterFooter)
       modalUI.hide()
       utilityLib.buildCenterBox.hide(".loading")
+      userSS.setPostChapID()
     })
     .fail(function() {
       utilityLib.buildCenterBox.hide(".loading")
@@ -251,7 +253,8 @@ cmUI = new function(){
     }
   }
 
-  this.autoCheckComicFooter = function(duration){
+  this.auto = {
+    checkComicFooter: function(duration){
       duration = duration || 1800
       if(cmUI.autoCheckCF && duration){ clearTimeout(cmUI.autoCheckCF);}
       cmUI.autoCheckCF = setTimeout(function(){
@@ -260,7 +263,19 @@ cmUI = new function(){
           cmUI.initWhenResize()
         }
       },1800);
+    },
+    checkCurrentChap: function(){
+      if(userSS.baseData().postID == $("#post-id").val() && userSS.baseData().postID == $("#post-id").val()){
+
+      }
+    },
+    init: function() {
+      cmUI.auto.checkCurrentChap()
+      cmUI.auto.checkComicFooter()
     }
+  }
+
+
 
   this.init = function(){
     cmUI.hideToolBox()
@@ -271,7 +286,7 @@ cmUI = new function(){
     cmUI.addComicBody()
     userSS.limitAccessPerDay()
     if(cmUI.is_mobile == false){ cmUI.transformClick() }
-    cmUI.autoCheckComicFooter()
+    cmUI.auto.init()
   }
 
   this.initWhenResize = function(){

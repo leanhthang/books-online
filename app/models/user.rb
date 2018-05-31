@@ -6,6 +6,8 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable,
          :authentication_keys => [:login]
 
+  has_one :user_report, dependent: :delete
+
   validates :phone, presence: :true, uniqueness: { case_sensitive: false }
 
   def is_admin?

@@ -7,8 +7,11 @@ userSS = new function(){
 
   this.baseData = function(){
     return_data = {}
+    return_data.postID        = localStorage.getItem("post-id") || null
+    return_data.chapID        = localStorage.getItem("chapter-id") || null
+    return_data.currentChapOrder = localStorage.getItem("cur-chap-order") || null
     return_data.margin        = localStorage.getItem("margin") || 20
-    return_data.currentPostChap   = localStorage.getItem("currentPostChap") || cmUI.currentPostChap
+    return_data.currentPostChap = localStorage.getItem("currentPostChap") || cmUI.currentPostChap
     return_data.footer        = localStorage.getItem("footer") || "show"
     return_data.background    = localStorage.getItem("background") || "bg-style1"
     return_data.fontSize      = localStorage.getItem("fontSize") || 1.4
@@ -71,6 +74,21 @@ userSS = new function(){
   this.setMargin = function(){
 
   }
+  this.setPostChapID = function(){
+    // set post and chap id
+    if($("#post-id").val() != userSS.baseData().postID){
+      localStorage.setItem("post-id", $("#post-id").val())
+      console.log("post")
+    }else{
+      if(cmUI.firstInit == true && $("#chapter-id").val() != userSS.baseData().chapID){
+        modalUI.show("#preview-chap-modal")
+        //
+      }else{
+        cmUI.firstInit = false
+        localStorage.setItem("chapter-id", $("#chapter-id").val())
+      }
+    }
+  }
   this.setDisplayOption = function(display_option){
     localStorage.setItem("displayOption", display_option)
     cmUI.init()
@@ -80,6 +98,7 @@ userSS = new function(){
   this.setSettingConf = function(){
     userSS.setFontSize(0)
     userSS.setBackground()
+    userSS.setPostChapID()
     userSS.setTextColor()
   }
 

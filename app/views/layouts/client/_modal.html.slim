@@ -85,8 +85,6 @@
         span.icon-close
   .cm-modal-body.clearfix
 
-
-
 #user-modal.cm-modal data-screen="modal-full" data-screen-width="full"  data-post-id="#{@post.id}"
   .cm-modal-header.no-p
     .cm-modal-header-left.f-left.txt-center
@@ -98,3 +96,20 @@
       .btn-cm.btn-close
         span.icon-close
   .cm-modal-body.clearfix
+
+#preview-chap-modal.cm-modal
+  .cm-modal-header.no-p
+    .cm-modal-title.f-left Đến Chương Tiếp Theo
+    .cm-modal-header-right.f-right.txt-center
+      .btn-cm.btn-close
+        span.icon-close
+  .cm-modal-body.clearfix
+    .container.row.m-0
+      i.col-12.p-3.text-center
+        | Bạn có muốn chuyển đến chương đang đọc
+      .col-6.btn.btn-secondary Hủy
+      .col-6.btn.btn-primary onclick="goToWatchingChap()" Chuyễn đến
+javascript:
+  function goToWatchingChap(){
+    window.location.replace("/chapter/"+userSS.baseData().chapID+"/"+userSS.baseData().postID);
+  }
