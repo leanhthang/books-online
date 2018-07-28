@@ -5,7 +5,7 @@
   input#current-order-chapter type="hidden" value="#{@chapter.order_c}"
   input#chapter-count type="hidden" value="#{@post.chapter_count}"
 
-  #comic-box
+  .comic-box
     #comicContent.noselect
       #chapter-header
         = render partial: "/posts/chapter_header_detail"
@@ -22,3 +22,17 @@
 = render partial: "layouts/client/modal"
 
 = javascript_include_tag 'comic'
+javascript:
+  $(window).resize(function() {
+    if(this.resizeState) clearTimeout(this.resizeState);
+    this.resizeState  = setTimeout(function(){
+        cmUI.detectChangeDefaultOrientation()
+      },100)
+  })
+  $(document).ready(function() {
+    cmUI.init()
+    cmUI.comicBoxAction()
+    cmUI.chapterHeader = $("#chapter-header").html()
+    cmUI.chapterFooter = $("#chapter-footer").html()
+    cmUI.originalText = $(cmUI.contentBox+" #comicData").html()
+  });

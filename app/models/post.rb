@@ -30,15 +30,16 @@ class Post < ApplicationRecord
     post = Post.find_by_title(params[:title])
     if post.blank?
       author = Author.add_author(params)
-
+      title_vn = Utility.utf8_to_ascii(params[:title])
       post = Post.create(
           title: params[:title],
-          title_vn: Utility.utf8_to_ascii(params[:title]),
+          title_vn: title_vn,
           author_name_vn: Utility.utf8_to_ascii(params[:author]),
           origin_img: params[:origin_img],
           origin_link: params[:origin_link],
           description: params[:description],
           origin_rs:   params[:origin_rs],
+          url_alias: gen_url_alias(title_vn),
           author: author # author_id
         )
       Category.add_cat(params[:categories], post)
@@ -51,6 +52,11 @@ class Post < ApplicationRecord
     post.save
   end
 
+
+  private
+    def gen_url_alias(title_vn)
+      title_vn.map{|x| x[0]}.join() + "-#{title_vn.split(' ').join('-')}"
+    end
 
 end
 

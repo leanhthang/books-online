@@ -9,8 +9,9 @@ cmUI = new function(){
   this.currentPage = 1;
   this.totalPage = 0;
   this.originalText = "";
-  this.boxWidthState = window.innerWidth
-  this.boxHeightState = window.innerHeight
+  this.boxWidthState = $(window).width()
+  this.boxHeightState = $(window).height()
+
   this.cstmCSSColumnContext = function(){
     if(userSS.baseData().displayOption == "page"){
       $(cmUI.contentBox).css({
@@ -23,9 +24,12 @@ cmUI = new function(){
         'column-gap': cmUI.margin + 'px',
       });
 
-      $("#comic-box").css({
-        'padding-left': cmUI.margin + "px",
-        'padding-right': cmUI.margin + "px",
+      // $(".comic-box").css({
+      //   'padding': "0 "+ cmUI.margin + "px"
+      // });
+
+      $("#comicContent").css({
+        'padding': cmUI.margin + "px",
       });
       $("#comic-footer, #cm-nav-right, #cm-nav-left").show()
       $("#hide-footer").prop('disabled', false);
@@ -37,26 +41,26 @@ cmUI = new function(){
       $("#hide-footer").prop('disabled', true);
     }
 
-    $("#cm-nav-top .mask").height(window.innerHeight - 50)
+    $("#cm-nav-top .mask").height($(window).height() - 50)
     // Setpting style
     userSS.settingInit()
   }
 
   this.fullScreen = function(){
-    if(cmUI.fullScreenState){
-      clearTimeout(cmUI.fullScreenState);
-      clearTimeout(cmUI.fullScreenUpdateView);
-    };
+    clearTimeout(cmUI.fullScreenState);
     cmUI.fullScreenState = setTimeout(function(){
       utilityLib.fullScreen()
+      clearTimeout(cmUI.fullScreenUpdateView);
       cmUI.fullScreenUpdateView = setTimeout(function(){
-        cmUI.detectChangeDefaultOrientation(true)
+        cmUI.detectChangeDefaultOrientation()
       },50);
-    },20);
+      clearTimeout(cmUI.fullScreenState);
+    },100);
   }
 
   this.leftClick = function(duration, loop){
     loop = loop ? loop : 0
+    $("#comicContent").css('right', "0px");
     if(cmUI.scrollPosition > 0 || loop > 0){
       if(loop > 0){
         cmUI.scrollPosition = (cmUI.comicBoxWidth - cmUI.margin)*(loop - 1)
@@ -67,15 +71,19 @@ cmUI = new function(){
       cmUI.transformClick(duration)
     }
   }
+
   this.rightClick = function(duration, loop){
     loop = loop ? loop : 0
     cmUI.endOfCol = $(".end-of-col").last().position();
-    if(cmUI.endOfCol.left > 0){
+    if(cmUI.endOfCol.left > 0 && cmUI.currentPage < cmUI.countTotalPage()){
       if(loop > 0){
         cmUI.scrollPosition = (cmUI.comicBoxWidth - cmUI.margin)*(loop - 1)
       }else{
         cmUI.currentPage += 1
         cmUI.scrollPosition += (cmUI.comicBoxWidth - cmUI.margin)
+      }
+      if(cmUI.endOfCol.left <= cmUI.comicBoxWidth){
+        $("#comicContent").css('right', cmUI.margin+'px');
       }
       cmUI.transformClick(duration)
     }
@@ -85,21 +93,17 @@ cmUI = new function(){
     duration      = duration || 30
     scroll_length = scroll_length || cmUI.scrollPosition
     $(cmUI.contentBox).scrollTo(scroll_length, {duration: duration, interrupt:true});
-    if(window.innerHeight < $(window).innerHeight()){
-      cmUI.detectChangeDefaultOrientation(true)
-    }
+    // if($(window).height() < $(window).innerHeight()){
+    //   cmUI.detectChangeDefaultOrientation()
+    // }
     cmUI.drawFooter()
   }
 
-  this.detectChangeDefaultOrientation = function(alway_loading){
+  this.detectChangeDefaultOrientation = function(){
     cmUI.hideToolBox()
-    alway_loading = alway_loading || false
-    if( alway_loading == true || cmUI.is_mobile == false ){
-      cmUI.auto.checkComicFooter(0)
-    }else if(cmUI.boxWidthState != window.innerWidth && cmUI.is_mobile){
-      cmUI.auto.checkComicFooter(0)
-    }
-    cmUI.boxWidthState = window.innerWidth
+    cmUI.auto.checkComicFooter(20)
+    console.log("resize")
+    cmUI.boxWidthState = $(window).width()
     cmUI.boxHeightState = $(cmUI.contentBox).innerHeight()
   }
 
@@ -108,7 +112,7 @@ cmUI = new function(){
     cmUI.endOfCol = $(".end-of-col").last().position();
     $("#cm-nav-right, #cm-nav-left, "+cmUI.contentBox).swipe({
         swipeStatus:function(event, phase, direction, distance, duration, fingers, fingerData){
-          if( cmUI.scrollPosition >= 0 && (direction == 'right' || direction == "down") ){
+          if( cmUI.scrollPosition > 0 && (direction == 'right' || direction == "down") ){
             cmUI.transformClick(10, cmUI.scrollPosition - distance)
           }else if(cmUI.endOfCol.left >= 0 && (direction == 'left' || direction == "up")){
             cmUI.transformClick(10, cmUI.scrollPosition + distance)
@@ -222,7 +226,7 @@ cmUI = new function(){
   }
 
   this.countTotalPage = function(){
-    return Math.ceil(cmUI.endOfColFirst/(cmUI.comicBoxWidth-cmUI.margin)) + 1
+    return Math.ceil(cmUI.endOfColFirst/(cmUI.comicBoxWidth-cmUI.margin)) //+ 1
   }
 
   // display_option: scroll / page
@@ -230,7 +234,7 @@ cmUI = new function(){
     cmUI.currentPostChap = userSS.baseData().currentPostChap
     display_option = display_option || "page"
     display_option = userSS.baseData().displayOption
-    $("#comic-box").height(window.innerHeight)
+    $(".comic-box").height($(window).height())
     cmUI.contentBox = "#comicContent";
     if(cmUI.originalText.length > 0) {
       $(cmUI.contentBox+" #chapter-header").html(cmUI.chapterHeader)
@@ -239,7 +243,7 @@ cmUI = new function(){
     $(cmUI.contentBox).append('<div class="ads-box"></div>')
     $(cmUI.contentBox).append('<div class="end-of-col"></div>')
 
-    cmUI.comicBoxWidth = $("#comic-box").innerWidth()
+    cmUI.comicBoxWidth = $(".comic-box").innerWidth()
 
     cmUI.cstmCSSColumnContext()
 
@@ -249,20 +253,20 @@ cmUI = new function(){
       setTimeout(function(){
         cmUI.endOfColFirst = $(".end-of-col").last().position().left;
         cmUI.drawFooter()
-      }, 100)
+      }, 50)
     }
   }
 
   this.auto = {
     checkComicFooter: function(duration){
-      duration = duration || 1800
-      if(cmUI.autoCheckCF && duration){ clearTimeout(cmUI.autoCheckCF);}
+      duration = duration || 500
+      clearTimeout(cmUI.autoCheckCF);
       cmUI.autoCheckCF = setTimeout(function(){
         _topCF = $('#comic-footer').offset().top
-        if($('#comic-footer').is(':appeared') == false || _topCF < (window.innerHeight - 30) ){
-          cmUI.initWhenResize()
-        }
-      },1800);
+        console.log(cmUI.boxWidthState +" lat => "+$(window).width())
+        cmUI.initWhenResize()
+        clearTimeout(cmUI.autoCheckCF);
+      },300);
     },
     checkCurrentChap: function(){
       if(userSS.baseData().postID == $("#post-id").val() && userSS.baseData().postID == $("#post-id").val()){
@@ -274,8 +278,6 @@ cmUI = new function(){
       cmUI.auto.checkComicFooter()
     }
   }
-
-
 
   this.init = function(){
     cmUI.hideToolBox()
@@ -296,7 +298,7 @@ cmUI = new function(){
     cmUI.init()
     cmUI.currentPage = Math.round((cmUI.countTotalPage() * oldPageIndex)/oldTotalPage)
     if(cmUI.currentPage > cmUI.countTotalPage()){
-      cmUI.currentPage = cmUI.countTotalPage()
+      cmUI.currentPage = cmUI.countTotalPage() - 1
     }
     if(oldPageIndex < cmUI.currentPage){
       cmUI.leftClick(0, cmUI.currentPage)
@@ -315,7 +317,7 @@ cmUI = new function(){
     cmUI.ads = setTimeout(function(){
       $(".ads-box").append(adsData)
       $(".ads-box").append('<div class="end-of-col"></div>')
-    },2500);
+    },1500);
   }
 
   this.destroy = function(){
@@ -341,10 +343,9 @@ cmUI = new function(){
 
   this.test = function(){
     setInterval(function(){
-      html = cmUI.endOfColFirst+" => "+cmUI.scrollPosition+" => "+(cmUI.scrollPosition/(cmUI.comicBoxWidth - 20)).toFixed(4)+" => "+cmUI.comicBoxWidth+" => "+$("#comic-box").innerWidth()+" => "+(cmUI.endOfCol.left)
+      html = cmUI.endOfColFirst+" => "+cmUI.scrollPosition+" => "+(cmUI.scrollPosition/(cmUI.comicBoxWidth - 20)).toFixed(4)+" => "+cmUI.comicBoxWidth+" => "+$(".comic-box").innerWidth()+" => "+(cmUI.endOfCol.left)
 
       $("#comic-footer .f-right").html(html)
     }, 200)
-
   }
 }

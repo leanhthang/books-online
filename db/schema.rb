@@ -10,13 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180420021359) do
+ActiveRecord::Schema.define(version: 2018_07_21_184129) do
 
   # These are extensions that must be enabled in order to support this database
+  enable_extension "citext"
+  enable_extension "pgcrypto"
   enable_extension "plpgsql"
   enable_extension "uuid-ossp"
-  enable_extension "pgcrypto"
-  enable_extension "citext"
 
   create_table "activities", force: :cascade do |t|
     t.uuid "user_id"
@@ -68,6 +68,7 @@ ActiveRecord::Schema.define(version: 20180420021359) do
     t.integer "order_c"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "url_alias"
   end
 
   create_table "comments", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -115,6 +116,7 @@ ActiveRecord::Schema.define(version: 20180420021359) do
     t.integer "visited", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "url_alias"
     t.index ["author_name_vn"], name: "index_posts_on_author_name_vn"
     t.index ["title"], name: "index_posts_on_title"
     t.index ["title_vn"], name: "index_posts_on_title_vn"

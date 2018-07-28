@@ -1,0 +1,25 @@
+.book-detail{
+  opacity: .9;
+  display: flex;
+  display: -webkit-flex;
+  .post-show-img{
+    float: left;
+    img{
+      max-width: 250px;
+    }
+  }
+  .post-show-detail{
+    float:right;
+    font-size: 1rem;
+  }
+}
+.book-desc{
+  border: 3px solid #ddd;
+  color: #002f72;
+}
+.bg-chap {
+  background-image:url('/assets/standin_bg_book.jpg');
+  background-repeat:no-repeat;
+  background-size:cover;
+}
+.bg-nav{ background: #3F7AB8;}

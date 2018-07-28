@@ -31,4 +31,12 @@ module Utility
   def self.dcb64(str)
     return Base64.decode64(str) rescue ""
   end
+
+  def self.add3dots(string, limit)
+    dots = "..."
+    if string.length > limit
+      string = "#{string[0..limit]}#{dots}"
+    end
+    return string
+  end
 end

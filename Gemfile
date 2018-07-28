@@ -1,21 +1,16 @@
 source 'https://rubygems.org'
+git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-git_source(:github) do |repo_name|
-  repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
-  "https://github.com/#{repo_name}.git"
-end
-
+ruby '2.5.1'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 5.1.6'
+gem 'rails', '~> 5.2.0'
 gem 'pg', '>= 0.18', '< 2.0'
-gem 'puma', '~> 3.7'
+gem 'puma', '~> 3.11'
 gem 'sass-rails', '~> 5.0'
-gem 'uglifier', '>= 1.0.3', require: 'uglifier'
-gem 'coffee-rails', '~> 4.2'
+gem 'uglifier', '>= 1.3.0'
 gem 'turbolinks', '~> 5'
-gem 'jbuilder', '~> 2.5'
-gem 'slim-rails', '~> 3.1', '>= 3.1.2'
+gem 'slim-rails', '~> 3.1', '>= 3.1.3'
 
 gem 'devise', '~> 4.2'
 gem 'omniauth', '~> 1.8', '>= 1.8.1'

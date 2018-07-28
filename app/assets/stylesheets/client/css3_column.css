@@ -42,10 +42,11 @@ li{ list-style: none }
   max-width: 1200px;margin: 0 auto;
   border-right: 1px solid #b9afaf;
   border-left: 1px solid #b9afaf;
-  color: #262626
+  color: #262626;
+  overflow-x: hidden;
 }
 /* Wrap comic content */
-#comic-box {
+.comic-box {
   position: relative; width: 100%;
   max-width: 1200px; margin: 0 auto;
 }
@@ -197,8 +198,9 @@ li{ list-style: none }
 .setting-view span[class*='icon-'] {
   font-weight: bold; font-size: 2em;
 }
+
 .setting-site-label { width: 90px }
-.cl-style1 {  }
+.cl-style1 { color: #002f72; }
 .cl-bg-style1 { background: white !important; color: black !important }
 .cl-bg-style1 > span { color: black !important }
 .cl-style2 { color: #E74C68 !important }

@@ -9,10 +9,12 @@ class Chapter < ApplicationRecord
     _chapter = Chapter.where( title: params[:title], post: post )
                       .first_or_create( title: params[:title], post: post )
     if _chapter.present?
+      url_alias = gen_chapter_alias(post.url_alias, params[:title], params[:order_c])
       _chapter.origin_link    = params[:origin_link]
       _chapter.translator     = params[:translator] if params[:translator]
       _chapter.origin_content = params[:origin_content]
       _chapter.order_c        = params[:order_c]
+      _chapter.url_alias      = url_alias
       _chapter.save
     end
   end
@@ -35,5 +37,9 @@ class Chapter < ApplicationRecord
     end
     def aft_destroy_chapter
       Post.chapter_count(self.post, -1)
+    end
+    def gen_chapter_alias(post_url_alias, title, order_c)
+      _title = Utility.utf8_to_ascii(title)
+      "#{post_url_alias}-"+_title.map{|x| x[0]}.join() + "-#{order_c}}"
     end
 end

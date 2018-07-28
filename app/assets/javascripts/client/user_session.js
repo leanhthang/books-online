@@ -80,9 +80,10 @@ userSS = new function(){
       localStorage.setItem("post-id", $("#post-id").val())
       console.log("post")
     }else{
-      if(cmUI.firstInit == true && userSS.baseData().chapID && $("#chapter-id").val() != userSS.baseData().chapID){
+      if(cmUI.firstInit == true && userSS.baseData().chapID &&
+          userSS.baseData().postID == $("#post-id").val() &&
+            $("#chapter-id").val() != userSS.baseData().chapID){
         modalUI.show("#preview-chap-modal")
-        //
       }else{
         cmUI.firstInit = false
         localStorage.setItem("chapter-id", $("#chapter-id").val())
@@ -98,7 +99,7 @@ userSS = new function(){
   this.setSettingConf = function(){
     userSS.setFontSize(0)
     userSS.setBackground()
-    userSS.setPostChapID()
+    // userSS.setPostChapID()
     userSS.setTextColor()
   }
 

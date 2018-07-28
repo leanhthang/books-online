@@ -5,7 +5,7 @@ class PostsController < ActionController::Base
     @post = Post.find(params[:id])
     @chapters = @post.chapters.select(:id, :title, :public)
                      .order(:order_c)
-                     .paginate(:page => params[:page], :per_page => 50)
+                     .paginate(:page => params[:page], :per_page => 10)
   end
 
   def chapter
@@ -40,5 +40,11 @@ class PostsController < ActionController::Base
     def get_chapters
       @chapter ||= Chapter.find(params[:id])
       @post ||= @chapter.post
+    end
+
+
+
+    def detect_post
+
     end
 end
