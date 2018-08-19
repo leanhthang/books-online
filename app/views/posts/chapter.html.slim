@@ -23,16 +23,17 @@
 
 = javascript_include_tag 'comic'
 javascript:
-  $(window).resize(function() {
+  $(window).on('resize', function(event) {
     if(this.resizeState) clearTimeout(this.resizeState);
-    this.resizeState  = setTimeout(function(){
+        this.resizeState  = setTimeout(function(){
         cmUI.detectChangeDefaultOrientation()
-      },100)
+      },350)
   })
-  $(document).ready(function() {
+  $(window).on('load', function(event) {
+    event.preventDefault();
     cmUI.init()
     cmUI.comicBoxAction()
     cmUI.chapterHeader = $("#chapter-header").html()
-    cmUI.chapterFooter = $("#chapter-footer").html()
+    cmUI.chapterFooter = $("#chapter-footer")[0].outerHTML
     cmUI.originalText = $(cmUI.contentBox+" #comicData").html()
   });

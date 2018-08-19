@@ -1,0 +1,32 @@
+#sign-in.row
+  .sign-in-content.col-12.col-sm-9.col-md-6.col-lg-4.centerbox
+    = form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: "form" }) do |form|
+      .carousel-inner
+        .card.border-white
+          .card-header.bg-white.b-0.p-2
+            h2.text-center VNTrek.com
+            p.row.text-center.m-0
+              small.text-muted.w-100 Hệ thống quản lý thông tin nhà trọ, khách sạn, quán cafe phân tán.
+            .card-body.p-0.mt-2.p-2
+              .input-group.mb-2
+                  .input-group-prepend
+                    .input-group-text.icon-phone2
+                  = form.text_field :login, autofocus: true, placeholder: 'Phone Number or Email',  class: 'form-control'
+              .input-group.mb-2
+                  .input-group-prepend
+                    .input-group-text.icon-flame
+                  = form.password_field :password, autocomplete: "on", placeholder: 'Password',  class: 'form-control'
+              .form-group.row
+                .col-12.col-md-6.text-center
+                  fieldset
+                    label.cstm-ckb.m-0 data-check="false"
+                      | Nhớ đăng nhập
+                      = form.check_box :remember_me, id: "remember-me", checked: false
+                      span.ckb
+                .col-12.col-md-6.text-right
+                  = link_to "Quên mật khẩu?", new_password_path(resource_name), class: "card-link"
+              = form.submit "Đăng Nhập", class: 'btn btn-primary btn-block', role: "button", 'data-slide' => "next"
+
+            p.float-sm-right.text-center.m-0.pr-2
+              | Tạo mới tài khoản?
+              = link_to "Đăng Ký", new_user_registration_path, class: "pl-2 card-link"

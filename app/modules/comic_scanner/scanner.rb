@@ -24,7 +24,6 @@ module ComicScanner
       end
     end
 
-
     def store_chapters_of_page(_post, page_doc, skip_has_download)
       page_doc.css(@chapter_params[:list_chaps_of_page]).each_with_index do |chapter_doc, idx|
         if  idx >= skip_has_download
@@ -59,6 +58,7 @@ module ComicScanner
             origin_img: doc.at(@post_params[:origin_img])["src"]
           }
           return_data[:description] = doc.at(@post_params[:description]).inner_html if doc.at(@post_params[:description]).present?
+
           return_data
         rescue Exception => e
           puts "#{origin_link} => errors  => #{e}"

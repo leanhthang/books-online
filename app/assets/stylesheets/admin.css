@@ -3,6 +3,7 @@
  *= require_directory ./admin
  *= require icheck/square/green.css
  *= require toggle_switch.scss
+ *= require ui.css
  *= require_self
  */
 

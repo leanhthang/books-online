@@ -32,6 +32,7 @@ namespace :scanner do
     posts.each do |post|
       _module = post.origin_rs.constantize
       _module.new.chapters(post)
+      return 0
     end
   end
 end

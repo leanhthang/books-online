@@ -54,8 +54,13 @@ utilityLib = new function(){
     }else{
       _top = (window.innerHeight - _box.innerHeight())/4
     }
-    _left = (window.innerWidth - _box.innerWidth())/2;
-    _box.css({ top: _top, left: _left })
+    _boxW = _box.innerWidth()
+    if(_box.attr('data-screen-width') == "full"){
+      _boxW = $(".comic-box").innerWidth()
+    }
+    _left = (window.innerWidth - _boxW)/2;
+    _box.css({ top: _top, left: _left})
+    _box[0].style.width = _boxW+"px"
   }
 
   this.buildCenterBox = {

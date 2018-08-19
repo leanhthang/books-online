@@ -6,17 +6,17 @@ module ComicScanner
           item_scan: ".content .list-page .row",
           title: ".truyen-title a",
           #
-          description:  ".desc .desc-text",
-          origin_img:   ".info-holder .books img",
-          author:       ".info-holder .info div:first-child a",
-          categories:   '.info-holder .info div:nth-child(2) a',
-          types:        ".info-holder div .text-primary"
+          description:  ".book-info-detail .book-intro",
+          origin_img:   ".book-img img",
+          author:       ".book-info .tag a:first-child",
+          categories:   ".book-info .tag [data-eid='qd_G10']",
+          types:        ".book-info .tag span:nth-child(2)"
         }
       @chapter_params = {
         list_chaps_of_page: "div ul li:not(.divider-chap)",
         link_scan: "a",
         title: "a span",
-        origin_content: ".box-chap"
+        origin_content: ".chapter-c-content .box-chap"
       }
       @base_path = ""
     end

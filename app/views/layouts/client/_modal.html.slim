@@ -96,7 +96,8 @@
       .btn-cm.btn-close
         span.icon-close
   .cm-modal-body.clearfix
-
+    / .btn.btn-primary Đăng Ký mới
+    img
 #preview-chap-modal.cm-modal
   .cm-modal-header.no-p
     .cm-modal-title.f-left Đến Chương Tiếp Theo
@@ -113,3 +114,6 @@ javascript:
   function goToWatchingChap(){
     window.location.replace("/chapter/"+userSS.baseData().chapID+"/"+userSS.baseData().postID);
   }
+  $(document).ready(function() {
+    modalUI.show("#user-modal")
+  });

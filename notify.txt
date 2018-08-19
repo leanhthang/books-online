@@ -1,0 +1,5 @@
+Thông báo trách nhiệm xây dựng nội dung.
+- Tôi xây dựng ứng dụng đọc truyện nhằm đưa đến cho bạn đọc trải nghiệm tốt nhất khi đọc truyện chữ mà không cần phải cài ứng dụng nào khác ngaoif trình duyệt web. Rất mong sự góp ý của tất cả bạn đọc.
+- Về bản quyền.
++ Giai đoạn hiện tại ứng dụng là miễn phí nên chúng tôi sẽ chia sẽ 9coffees trang như 1 trang đọc tự do và nếu tác giả có yêu cầu về bản quyền chúng tôi sẽ nghiêm túc tiếp thu và sửa đổi theo yêu cầu của tác giả.
++ Nếu 9coffees có thực hiện các phương án tạo doanh thu 9coffees sẽ thực hiện trả tiền tác quyền theo rating thực của tác phẩm từ lúc có doanh thu. Tiền thanh toán cho tác giả bất kể thời điểm nào tác giả yêu cầu theo tỉ lệ doanh thu là 50/50. Thời gian thanh toán sẽ khoản 30 ngày kể từ ngày có yêu cầu chi trả.

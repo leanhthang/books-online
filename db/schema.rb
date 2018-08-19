@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_07_21_184129) do
+ActiveRecord::Schema.define(version: 2018_08_17_121002) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -52,6 +52,7 @@ ActiveRecord::Schema.define(version: 2018_07_21_184129) do
 
   create_table "chapters", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.citext "title", null: false
+    t.citext "title_vn"
     t.string "origin_content"
     t.string "content"
     t.boolean "public", default: false
@@ -69,6 +70,7 @@ ActiveRecord::Schema.define(version: 2018_07_21_184129) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "url_alias"
+    t.string "slug"
   end
 
   create_table "comments", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -79,6 +81,18 @@ ActiveRecord::Schema.define(version: 2018_07_21_184129) do
     t.string "parent_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "friendly_id_slugs", id: :serial, force: :cascade do |t|
+    t.string "slug", null: false
+    t.integer "sluggable_id", null: false
+    t.string "sluggable_type", limit: 50
+    t.string "scope"
+    t.datetime "created_at"
+    t.index ["slug", "sluggable_type", "scope"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type_and_scope", unique: true
+    t.index ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type"
+    t.index ["sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_id"
+    t.index ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type"
   end
 
   create_table "pg_search_documents", force: :cascade do |t|
@@ -117,6 +131,7 @@ ActiveRecord::Schema.define(version: 2018_07_21_184129) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "url_alias"
+    t.string "slug"
     t.index ["author_name_vn"], name: "index_posts_on_author_name_vn"
     t.index ["title"], name: "index_posts_on_title"
     t.index ["title_vn"], name: "index_posts_on_title_vn"
@@ -164,9 +179,9 @@ ActiveRecord::Schema.define(version: 2018_07_21_184129) do
     t.citext "full_name"
     t.string "role", limit: 10, default: "user"
     t.boolean "enable", default: false
-    t.string "provider"
     t.string "avatar"
     t.jsonb "setting", default: {}, null: false
+    t.string "provider"
     t.jsonb "detail", default: {}, null: false
     t.citext "visited"
     t.citext "country"

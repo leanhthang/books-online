@@ -2,4 +2,5 @@
 //= require utility.js
 //= require icheck.min.js
 //= require ui.js
+//= require client/selection_text.js
 

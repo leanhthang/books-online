@@ -1,7 +1,9 @@
 .book-detail{
-  opacity: .9;
+  opacity: .8;
   display: flex;
   display: -webkit-flex;
+  background: #333;
+  margin-top: 55px;
   .post-show-img{
     float: left;
     img{
@@ -18,7 +20,7 @@
   color: #002f72;
 }
 .bg-chap {
-  background-image:url('/assets/standin_bg_book.jpg');
+  background-image:url('/assets/bg-11.jpg');
   background-repeat:no-repeat;
   background-size:cover;
 }

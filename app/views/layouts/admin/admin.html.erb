@@ -8,18 +8,24 @@
   <%= stylesheet_link_tag    'admin', media: 'all' %>
   <%= javascript_include_tag 'admin' %>
 </head>
-<body class="no-p">
+<body class="no-p" id="admin-container">
   <div class="container-fluid no-p">
-    <%= render partial: "/layouts/admin/navbar.html.erb" %>
+    <%= render partial: "/layouts/admin/navbar" %>
   </div>
-  <div class="container">
-    <% if notice %>
-      <div class="alert alert-success" role="alert" >
-        <%= notice %>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-5 col-sm-3">
+        <%= render partial: "/layouts/admin/left_side" %>
       </div>
-    <% end %>
-    <%= yield %>
+      <div class="col">
+        <% if notice %>
+          <div class="alert alert-success" role="alert" >
+            <%= notice %>
+          </div>
+        <% end %>
+        <%= yield %>
+      </div>
+      </div>
   </div>
-  <%= render partial: "/layouts/admin/footer" %>
 </body>
 </html>

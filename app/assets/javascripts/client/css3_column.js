@@ -24,10 +24,6 @@ cmUI = new function(){
         'column-gap': cmUI.margin + 'px',
       });
 
-      // $(".comic-box").css({
-      //   'padding': "0 "+ cmUI.margin + "px"
-      // });
-
       $("#comicContent").css({
         'padding': cmUI.margin + "px",
       });
@@ -101,7 +97,7 @@ cmUI = new function(){
 
   this.detectChangeDefaultOrientation = function(){
     cmUI.hideToolBox()
-    cmUI.auto.checkComicFooter(20)
+    cmUI.initWhenResize()
     console.log("resize")
     cmUI.boxWidthState = $(window).width()
     cmUI.boxHeightState = $(cmUI.contentBox).innerHeight()
@@ -210,7 +206,7 @@ cmUI = new function(){
       $(cmUI.contentBox+" #chapter-footer").html(cmUI.chapterFooter)
       modalUI.hide()
       utilityLib.buildCenterBox.hide(".loading")
-      userSS.setPostChapID()
+      // userSS.setPostChapID()
     })
     .fail(function() {
       utilityLib.buildCenterBox.hide(".loading")
@@ -237,8 +233,9 @@ cmUI = new function(){
     $(".comic-box").height($(window).height())
     cmUI.contentBox = "#comicContent";
     if(cmUI.originalText.length > 0) {
-      $(cmUI.contentBox+" #chapter-header").html(cmUI.chapterHeader)
-      $(cmUI.contentBox+" #comicData").html(cmUI.originalText)
+      $("#chapter-header").html(cmUI.chapterHeader)
+      $("#chapter-footer").html(cmUI.chapterFooter)
+      $("#comicData").html(cmUI.originalText)
     }
     $(cmUI.contentBox).append('<div class="ads-box"></div>')
     $(cmUI.contentBox).append('<div class="end-of-col"></div>')
@@ -257,28 +254,6 @@ cmUI = new function(){
     }
   }
 
-  this.auto = {
-    checkComicFooter: function(duration){
-      duration = duration || 500
-      clearTimeout(cmUI.autoCheckCF);
-      cmUI.autoCheckCF = setTimeout(function(){
-        _topCF = $('#comic-footer').offset().top
-        console.log(cmUI.boxWidthState +" lat => "+$(window).width())
-        cmUI.initWhenResize()
-        clearTimeout(cmUI.autoCheckCF);
-      },300);
-    },
-    checkCurrentChap: function(){
-      if(userSS.baseData().postID == $("#post-id").val() && userSS.baseData().postID == $("#post-id").val()){
-
-      }
-    },
-    init: function() {
-      cmUI.auto.checkCurrentChap()
-      cmUI.auto.checkComicFooter()
-    }
-  }
-
   this.init = function(){
     cmUI.hideToolBox()
     cmUI.destroy()
@@ -288,24 +263,28 @@ cmUI = new function(){
     cmUI.addComicBody()
     userSS.limitAccessPerDay()
     if(cmUI.is_mobile == false){ cmUI.transformClick() }
-    cmUI.auto.init()
   }
 
   this.initWhenResize = function(){
+    $("#comicData").html("")
     modalUI.hide()
-    oldTotalPage = cmUI.countTotalPage()
-    oldPageIndex = cmUI.currentPage
+    cmUI.oldTotalPage = cmUI.countTotalPage()
+    cmUI.oldPageIndex = cmUI.currentPage
     cmUI.init()
-    cmUI.currentPage = Math.round((cmUI.countTotalPage() * oldPageIndex)/oldTotalPage)
-    if(cmUI.currentPage > cmUI.countTotalPage()){
-      cmUI.currentPage = cmUI.countTotalPage() - 1
-    }
-    if(oldPageIndex < cmUI.currentPage){
-      cmUI.leftClick(0, cmUI.currentPage)
-    }else{
-      cmUI.rightClick(0, cmUI.currentPage)
-    }
-    cmUI.drawFooter()
+    $("#comicContent").css('right', 0);
+    // cmUI.currentPage = Math.round((cmUI.countTotalPage() * cmUI.oldPageIndex)/cmUI.oldTotalPage)
+    // if(cmUI.currentPage > cmUI.countTotalPage()){
+    //   cmUI.currentPage = cmUI.countTotalPage() - 1
+    // }else{
+
+    //   $("#comicContent").css('right', 0);
+    // }
+    // if(cmUI.oldPageIndex < cmUI.currentPage){
+    //   cmUI.leftClick(100, cmUI.currentPage)
+    // }else{
+    //   cmUI.rightClick(100, cmUI.currentPage)
+    // }
+    // cmUI.drawFooter()
   }
 
   this.loadAds = function(){
@@ -342,10 +321,10 @@ cmUI = new function(){
   }
 
   this.test = function(){
-    setInterval(function(){
-      html = cmUI.endOfColFirst+" => "+cmUI.scrollPosition+" => "+(cmUI.scrollPosition/(cmUI.comicBoxWidth - 20)).toFixed(4)+" => "+cmUI.comicBoxWidth+" => "+$(".comic-box").innerWidth()+" => "+(cmUI.endOfCol.left)
+    // setInterval(function(){
+    //   html = cmUI.endOfColFirst+" => "+cmUI.scrollPosition+" => "+(cmUI.scrollPosition/(cmUI.comicBoxWidth - 20)).toFixed(4)+" => "+cmUI.comicBoxWidth+" => "+$(".comic-box").innerWidth()+" => "+(cmUI.endOfCol.left)
 
-      $("#comic-footer .f-right").html(html)
-    }, 200)
+    //   $("#comic-footer .f-right").html(html)
+    // }, 200)
   }
 }

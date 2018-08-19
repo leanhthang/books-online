@@ -1,35 +1,35 @@
 .container-fluid.bg-chap.p-0
-    nav.navbar.bg-nav.p-0
-      #navbarNav.container.p-0
-        ul.navbar-nav
+  nav.navbar.bg-nav.p-0.fixed-top
+    #navbarNav.container.p-0
+      ul.navbar-nav
+        li.nav-item.active
+          span.icon-left
+      ul.navbar-nav
           li.nav-item.active
-            span.icon-left
-        ul.navbar-nav
-            li.nav-item.active
-              span.icon-setting
-    .book-detail.container.mb-3.p-2
-      .post-show-img
-        img.card-img-top.img-thumbnail src="#{@post.origin_img}"  alt="Card image cap"
-      .post-show-detail.pl-2
-        p.m-0.text-light
-          b = @post.title
-        p.m-0.text-light
-          small
-            b Tác Giả:
-            - author = @post.author
-            span = author.name
-        p.m-0.text-light
-          small
-            b Thể Loại:
-            span = @post.types.map(&:name).join(", ")
-        p.m-0.text-light
-          small
-            b 3006 chương
-        p.m-0.text-light.pb-3
-          small
-            b Trạng Thái: Hoàn Thành
-        .btn.btn-primary.mr-1 Đọc ngay
-        .btn.btn-info Mục Lục
+            span.icon-setting
+  .book-detail.container.mb-3.p-2
+    .post-show-img
+      img.card-img-top.img-thumbnail src="#{@post.origin_img}"  alt="Card image cap"
+    .post-show-detail.pl-2
+      p.m-0.text-light
+        b = @post.title
+      p.m-0.text-light
+        small
+          b Tác Giả:
+          - author = @post.author
+          span = author.name
+      p.m-0.text-light
+        small
+          b Thể Loại:
+          span = @post.types.map(&:name).join(", ")
+      p.m-0.text-light
+        small
+          b 3006 chương
+      p.m-0.text-light.pb-3
+        small
+          b Trạng Thái: Hoàn Thành
+      .btn.btn-primary.mr-1 Đọc ngay
+      .btn.btn-info Mục Lục
 .container
   .col-12.p-2.mb-3.book-desc
     p.text-info
@@ -48,34 +48,13 @@
           .card-body.p-1
             .card-subtitle = Utility.add3dots(a_post.title, 30)
 
-  .col-12.book-desc.p-2.mb-3
-    p.text-info.mb-2
-      b
-        u  Truyện đề cử
-    .row.px-3
-      - author.posts.each do |a_post|
-        .card.col-6.col-md-3.col-lg-2.p-0.b-r-0
-          img.card-img-top src="#{a_post.origin_img}" width="100px"
-          .card-body.p-1
-            .card-subtitle = Utility.add3dots(a_post.title, 30)
-    / table.table
-    /   thead
-    /     tr
-    /       td Name
-    /   tbody
-    /     - @chapters.each do |ct|
-    /       tr
-    /         td
-    /           = link_to ct.title, post_chapter_path(ct.id, @post)
-    / = will_paginate @chapters
-
-  / .row
-
-
-
-
-
-javascript:
-  $(document).ready(function() {
-    UI.LO.init()
-  });
+    table.table
+      thead
+        tr
+          td Name
+      tbody
+        - @chapters.each do |ct|
+          tr
+            td
+              = link_to ct.title, post_chapter_path(@post, ct.slug)
+    = will_paginate @chapters

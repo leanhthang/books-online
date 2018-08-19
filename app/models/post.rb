@@ -1,4 +1,7 @@
 class Post < ApplicationRecord
+  extend FriendlyId
+  friendly_id :title_vn, use: :slugged
+
   include PgSearch
   include Utility
   pg_search_scope :search, against: [:title_vn, :title], using: {
@@ -39,7 +42,6 @@ class Post < ApplicationRecord
           origin_link: params[:origin_link],
           description: params[:description],
           origin_rs:   params[:origin_rs],
-          url_alias: gen_url_alias(title_vn),
           author: author # author_id
         )
       Category.add_cat(params[:categories], post)
@@ -51,12 +53,5 @@ class Post < ApplicationRecord
     post.chapter_count += increment_num
     post.save
   end
-
-
-  private
-    def gen_url_alias(title_vn)
-      title_vn.map{|x| x[0]}.join() + "-#{title_vn.split(' ').join('-')}"
-    end
-
 end
 

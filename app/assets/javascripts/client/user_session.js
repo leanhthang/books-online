@@ -27,7 +27,7 @@ userSS = new function(){
     font_size = parseFloat(userSS.baseData().fontSize)
     if(font_size > 0.7 && font_size < 2.7){
       font_size += increase_or_decrease*0.1
-    }else if (font_size <= 0.7 ) {
+    }else if (font_size <= 0.7) {
       font_size = 0.8
     }else if (font_size >= 2.7) {
       font_size = 2.6
@@ -36,7 +36,8 @@ userSS = new function(){
     localStorage.setItem("fontSize", font_size);
     $(cmUI.contentBox+", .setting-site-label").css("font-size", font_size +"em");
     if (userSS.baseData().displayOption == "page"){
-      cmUI.init()
+      cmUI.initWhenResize()
+      $('[data-target="#setting-modal"]').trigger('click')
     }
   }
 

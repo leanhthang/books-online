@@ -1,5 +1,5 @@
 module Utility
-  def self.utf8_to_ascii(string = "")
+  def self.utf8_to_ascii(string = "", limit = 100)
     utf8_mapping = {
       "a"=>"áàảãạăắặằẳẵâấầẩẫậ",
       "d"=>"đ",
@@ -17,7 +17,7 @@ module Utility
       end
       str
     end
-    return_str.join(" ")
+    return add3dots(return_str.join(" "), limit)
   end
 
   def self.float?(string)

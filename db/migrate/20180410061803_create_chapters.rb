@@ -5,6 +5,7 @@ class CreateChapters < ActiveRecord::Migration[5.1]
     enable_extension 'citext'
     create_table :chapters, id: :uuid do |t|
       t.citext  :title, null: false
+      t.citext  :title_vn
       t.string  :origin_content
       t.string  :content
       t.boolean :public, default: false

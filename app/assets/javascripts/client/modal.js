@@ -1,19 +1,18 @@
 var modalUI = new function(){
   this.cssCstm = function(modal_id){
-    modal = $(modal_id)
-    modal.show()
-    if(modal.attr('data-screen-width') == "full"){
-      modal.width(cmUI.comicBoxWidth)
-    }
-    if(modal.attr('data-screen') == "modal-full"){
+    _modal = $(modal_id)
+    _modal.show()
+
+    if(_modal.attr('data-screen') == "modal-full"){
       utilityLib.buildModalBox(modal_id, true)
 
-      footerH = modal.find('.cm-modal-footer').height() || 0
-      modal_body_height = window.innerHeight - modal.find(".cm-modal-header").height() - footerH + 20
-      modal.find(".cm-modal-body").css("height", modal_body_height)
+      footerH = _modal.find('.cm-modal-footer').height() || 0
+      modal_body_height = window.innerHeight - _modal.find(".cm-modal-header").height() - footerH + 20
+      _modal.find(".cm-modal-body").css("height", modal_body_height)
     }else{
       utilityLib.buildModalBox(modal_id)
     }
+
   }
   this.hide = function(){
     $(".cm-modal").hide()

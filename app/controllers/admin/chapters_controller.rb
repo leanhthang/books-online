@@ -17,6 +17,6 @@ class Admin::ChaptersController < AdminController
 
   private
     def set_chapter
-      @chapter = Chapter.find(params[:id])
+      @chapter = Chapter.friendly.find(params[:id])
     end
 end

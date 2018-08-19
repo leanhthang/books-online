@@ -1,3 +1,51 @@
+// Base customize UI
+* {
+  font: Georgia, Times, "Times New Roman", serif;
+  box-sizing: border-box;
+  padding: 0; margin: 0; box-sizing: border-box; border: 0;
+}
+li{ list-style: none }
+.clearfix {  clear: both; }
+[class^="icon-"], [class*=" icon-"] {
+  font-family: 'icomoon' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 50px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  height: 50px;
+  width: 50px;
+  line-height: 55px;
+  font-size: 22px;
+}
+.f-left { float: left;}
+.f-right { float: right;}
+.txt-center { text-align: center }
+.txt-right { text-align: right }
+.hide { display: none !important }
+.text-full{ text-align: justify; }
+.b-r-0{ border-radius: 0;}
+.b-0 { border: 0 !important; border-radius: 0 !important  ;}
+.text-sub{ vertical-align: sub;}
+.p-first::first-letter{ padding-left: 1em;}
+a:hover { text-decoration: none; }
+.centerbox { margin: 0 auto !important; }
+.border-shadow-b{
+  box-shadow: 0 1px 10px #999;
+}
+.border-shadow-t{
+  box-shadow: 0 -1px 8px #999;
+}
+.middle-box {
+  margin: 0 auto;
+  display: flex !important;
+  justify-content: center;
+  align-items: center;
+}
+// Layout
 .test { border: 1px solid red; }
 .ui-content{ padding: .75rem .75rem 1rem .75rem; }
 .lo-wrapper{

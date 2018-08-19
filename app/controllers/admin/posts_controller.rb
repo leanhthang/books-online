@@ -12,7 +12,7 @@ class Admin::PostsController < AdminController
   end
 
   def show
-    @chapters = @post.chapters.select(:id, :title, :public)
+    @chapters = @post.chapters.select(:id, :title, :public, :slug)
                      .order(:order_c)
                      .paginate(:page => params[:page], :per_page => PAGINATE)
   end
@@ -58,7 +58,7 @@ class Admin::PostsController < AdminController
 
   private
     def set_post
-      @post = Post.find(params[:id])
+      @post = Post.friendly.find(params[:id])
     end
 
     def post_params
